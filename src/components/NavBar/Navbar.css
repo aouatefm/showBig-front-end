@@ -6,23 +6,18 @@
     padding-left: 2cm;
     padding-right: 2cm;
 }
-
 .navbar-color {
     background-color: black;
 }
-
 .navbar-brand {
     width: 200px;
     margin-right: 0;
 }
-
 .mx-auto {
     font-family: 'Sarabun', sans-serif;
     font-size: 140%;
     align-items: center;
 }
-
-
 @media (max-width: 1213px) {
     .mx-auto {
         font-size: 130%;
