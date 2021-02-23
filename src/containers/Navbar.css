@@ -1,0 +1,27 @@
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-color {
+    background-color: black;
+}
+
+.navbar-brand {
+    width: 200px;
+    margin-right: 0;
+}
+
+.nav-item {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+#dropdown{
+    color: white;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 110%;
+    padding-left: 0.5cm;
+    padding-right: 0.5cm;
+}
