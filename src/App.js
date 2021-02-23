@@ -1,21 +1,23 @@
-import NavbarC from "./components/NavBar/Navbar";
-import Carousel from "./containers/carousel/Carousel";
-import ProductGrid from './containers/ProductGrid/ProductGrid';
-import NewReleases from "./containers/NewReleases/NewReleases";
+import React from 'react';
+
+import './App.css';
+import Routes from './containers/Routes';
+import Footer from './components/Footer/Footer';
+import Navbar from "./components/NavBar/Navbar";
 
 function App() {
     return (
         <div className="App">
-          <NavbarC/>
-            <main role="main">
-                <Carousel />
-            </main>
-            <section>
-                <NewReleases />
-                <ProductGrid />
-            </section>
+            <header>
+                <Navbar />
+            </header>
+            <body>
+            <Routes />
+            </body>
+            <footer className="footer-distributed">
+                <Footer />
+            </footer>
         </div>
-
     );
 }
 
