@@ -1,0 +1,33 @@
+.owl-carousel {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 !important;
+}
+
+.owl-carousel .owl-stage-outer {
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+}
+
+.owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next, .owl-carousel button.owl-dot {
+    padding-left: 0.5cm !important;
+    padding-right: 0.5cm !important;
+}
+
+.owl-nav {
+    display: block !important;
+    font-size: 30px;
+    background-color: transparent;
+}
+
+.owl-carousel .owl-nav button.owl-prev:hover,
+.owl-carousel .owl-nav button.owl-next:hover{
+    background-color: rgb(154, 145, 145);
+}
+
+.cover {
+    object-fit: cover;
+}

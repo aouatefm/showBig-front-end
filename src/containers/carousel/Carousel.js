@@ -2,8 +2,6 @@ import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import "./Carousel.css";
 
-
-
 const carouselSlider = (props) => (
     <Carousel>
         <Carousel.Item>
