@@ -6,25 +6,38 @@
     padding-left: 2cm;
     padding-right: 2cm;
 }
+
 .navbar-color {
     background-color: black;
 }
+
 .navbar-brand {
     width: 200px;
     margin-right: 0;
 }
+
 .mx-auto {
     font-family: 'Sarabun', sans-serif;
     font-size: 140%;
     align-items: center;
+    justify-content: center;
 }
-@media (max-width: 1213px) {
+
+.nav-profile {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 140%;
+}
+
+
+@media (max-width: 1305px) {
+    .nav-profile,
     .mx-auto {
         font-size: 130%;
     }
 }
 
-@media (max-width: 1178px) {
+@media (max-width: 1260px) {
+    .nav-profile,
     .mx-auto {
         font-size: 120%;
     }
@@ -34,7 +47,8 @@
     }
 }
 
-@media (max-width: 1143px) {
+@media (max-width: 1150px) {
+    .nav-profile,
     .mx-auto {
         font-size: 120%;
     }
@@ -44,9 +58,10 @@
     }
 }
 
-@media (max-width: 1002px) {
+@media (max-width: 1080px) {
+    .nav-profile,
     .mx-auto {
-        font-size: 110%;
+        font-size: 100%;
     }
     .navbar-expand-lg {
         padding-left: 5px;
@@ -65,7 +80,7 @@
 }
 
 .nav-text:hover {
-    background-color: rgb(154, 145, 145);
+    /* background-color: rgb(154, 145, 145); */
     font-weight: 700;
 }
 
@@ -86,14 +101,14 @@
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    /*color: white;*/
-   background-color: rgb(154, 145, 145);
+    color: white;
+    /* background-color: rgb(154, 145, 145); */
     font-weight: 700;
 }
 
 .navbar-light .navbar-nav .nav-link:focus {
     color: white;
-    background-color: rgb(154, 145, 145);
+    /* background-color: rgb(154, 145, 145); */
     font-weight: 700;
 }
 
@@ -115,9 +130,26 @@
     justify-content: center;
 }
 
+@media (max-width: 992px) {
+    .nav-icons {
+        flex-direction: column-reverse;
+    }
+}
+
 .nav-icon:hover,
 .nav-icon:active,
 .nav-icon.active {
     cursor: pointer;
     background-color: rgb(154, 145, 145);
+}
+
+.dropdown-menu.show{
+    border-radius: 0cm;
+}
+
+@media (max-width: 992px) {
+    .dropdown-menu.show{
+        min-width: 10rem;
+        text-align: center;
+    }
 }
