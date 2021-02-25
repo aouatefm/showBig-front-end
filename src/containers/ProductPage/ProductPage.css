@@ -1,0 +1,41 @@
+.productpage {
+    margin-top: 3cm;
+}
+
+.productpage .products {
+    padding-right: 2cm;
+}
+
+.sidebar {
+    width: 10cm;
+    margin-left: 1cm;
+    padding-left: 1cm;
+}
+
+.card-body {
+    padding: 0.5rem;
+}
+
+.sidebar .catbar .card-body,
+.sidebar .conditionbar .card-body {
+    padding: 0.5rem;
+    margin-left: 30px;
+}
+
+.sidebar .accordion {
+    font-family: 'Sarabun', sans-serif;
+    width: 120%;
+}
+
+.sidebar .accordion .card-header{
+    font-weight: 700;
+}
+
+.sidebar .pricebar .MuiSlider-root {
+    padding-top: 30px;
+}
+
+.sidebar .sizebar .MuiSlider-root {
+    padding-top: 30px;
+    color: #3fb553;
+}

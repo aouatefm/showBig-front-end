@@ -1,3 +1,6 @@
-.row {
+.grid {
     justify-content: center;
+}
+.grid .card {
+    margin: 7px;
 }

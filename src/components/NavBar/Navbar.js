@@ -11,7 +11,7 @@ const NavBarC = () => {
         <Navbar fluid="true" collapseOnSelect fixed="top" className="navbar-color" expand='lg'>
             <Navbar.Brand>
                 <a href="/">
-                    <img alt="Vigg Icon" src="https://i.pinimg.com/originals/a2/a7/77/a2a777b7831b713df3c3a5a72246ae66.jpg" className="navbar-brand"/>
+                    <img alt="Vigg Icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU2ryar18Z2H8QkCy6nsm7-i-q_-mJkD5ElQ&usqp=CAU" className="navbar-brand"/>
                 </a>
             </Navbar.Brand>
             <Navbar.Toggle>
@@ -24,7 +24,7 @@ const NavBarC = () => {
                     <NavItem className="nav-text">
                         <Link to="/about-us" style={{color: 'white', textDecoration: 'none'}}> ABOUT US </Link>
                     </NavItem>
-                    <NavDropdown title="BROWSE">
+                    <NavDropdown title="BROWSE"  id="ff" >
                         <LinkContainer to="/shop/male">
                             <NavDropdown.Item>Male</NavDropdown.Item>
                         </LinkContainer>
@@ -35,7 +35,7 @@ const NavBarC = () => {
                             <NavDropdown.Item>Kid</NavDropdown.Item>
                         </LinkContainer>
                     </NavDropdown>
-                    <NavDropdown title="SELL WITH US">
+                    <NavDropdown title="SELL WITH US" >
                         <LinkContainer to="/how-to-sell">
                             <NavDropdown.Item>How to sell</NavDropdown.Item>
                         </LinkContainer>

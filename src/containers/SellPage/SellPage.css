@@ -1,0 +1,38 @@
+.sell-page .container {
+    padding-top: 2cm;
+    width: 60%;
+    background-color: white;
+    padding-bottom: 1cm;
+}
+
+.sell-page .container h1 {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 400%;
+    text-align: center;
+}
+
+.sell-page .container .row {
+    justify-content: center;
+    align-items: center;
+}
+
+.sell-page .container h2 {
+    font-weight: 700;
+    font-size: 200%;
+    text-align: center;
+    color: gray;
+    margin-top: 1cm;
+    margin-bottom: 1cm;
+}
+
+.sell-page .container a h6 {
+    font-style: italic;
+    text-align: left;
+    margin-top: 3cm;
+    color: black;
+}
+
+.sell-page .container a h6:hover {
+    color: blue;
+}

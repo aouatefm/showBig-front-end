@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from "./carousel/Carousel";
+import Carousel from "./Carousel/Carousel";
 import NewReleases from "./NewReleases/NewReleases";
 import ProductGrid from "./ProductGrid/ProductGrid";
 
