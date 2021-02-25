@@ -1,0 +1,61 @@
+.card {
+    background-color: white;
+    border-color: rgb(202, 195, 195);
+    transition: all 500ms linear;
+    object-fit: cover;
+    justify-content: center;
+}
+
+.card-footer {
+    background: transparent;
+    border-top: transparent;
+    transition: all 500ms linear;
+}
+.card-footer:hover {
+    background: rgb(186, 185, 185);
+}
+
+.img-container {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+}
+
+.card-img-top {
+    transition: all 500ms linear;
+}
+
+.card-img-top:hover{
+    transform: scale(1.3);
+}
+
+.cart-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    border: none;
+    transition: all 500ms linear;
+    transform: translate(100%, 100%);
+}
+
+.row {
+    justify-content: center;
+    align-items: center;
+}
+
+/* .card-container {
+    margin: 15px!important;
+    justify-content: center;
+    align-items: center;
+} */
+
+.img-container:hover .cart-btn{
+    transform: translate(0, 0);
+}
+
+.cart-btn:hover {
+    background-color: black;
+    fill: white;
+    cursor: pointer;
+}
