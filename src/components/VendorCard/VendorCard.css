@@ -1,0 +1,71 @@
+.card{
+    width: 300px;
+    height: 280px;
+    background: #ffe5d9;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 1px black;
+}
+.header-card{
+    height: 83%;
+    background: white;
+}
+.body-card{
+    height: 2%;
+    background: linear-gradient(to right, yellow, red,purple);
+}
+.footer-card{
+    height: 15%;
+    background: white;
+}
+.banner-image{
+    width: 100%;
+    height: 100%;
+}
+.rounded-circle{
+    max-width: 90px;
+    position: absolute;
+    background: linear-gradient(to right, yellow, red,purple);
+    padding: 3px;
+    margin-top: -16%;
+    right: 5%;
+}
+.block{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius:0px;
+    margin-bottom: 0px;
+}
+
+.vendor-info{
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+.col-1{
+    color: white;
+    font-weight: bold;
+}
+.col-12{
+    color: white;
+    font-weight: bold;
+}
+.col-7{
+    color: white;
+    font-weight: bold;
+}
+.addr:first-letter {
+    text-transform: uppercase;
+}
+.col-5{
+    color: white;
+    font-weight: normal;
+}
+
+.vendor-name {
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+.vendor-name:first-letter {
+    text-transform: uppercase;
+}
