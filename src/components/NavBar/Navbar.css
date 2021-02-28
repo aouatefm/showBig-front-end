@@ -6,7 +6,6 @@
     padding-right: 1.5cm;
     z-index: 1200;
 }
-
 .navbar.active {
     background: rgb(240, 240, 240);
     box-shadow: 0 2px 4px rgba(0,0,0,.15);
