@@ -1,53 +1,74 @@
-import React from 'react';
-import Card from '../Card/Card';
-import { Row, Col, Pagination, InputGroup, FormControl, Button } from 'react-bootstrap';
-
+import React, {useEffect, useState} from 'react';
+import { Row, Col } from 'react-bootstrap';
 import './ProductGrid.css';
+import ProductCard from "../ProductCard/ProductCard";
+import {Link} from "react-router-dom";
+import {createStructuredSelector} from "reselect";
+import {connect} from "react-redux";
+import {selectSearchBarKeywords, selectSideBarFilters, selectSortBar, selectViewBar} from "../../redux/filters/filters-selectors";
 
+const  useProducts = (productss) =>{
+    const [products, setProducts] = useState([]);
+    useEffect(async() => {
+       // const newProducts = await ProductService.getProductList()
+        const newProducts = await productss
+        setProducts(newProducts);
+    }, [productss])
+    return products
+}
+const Grid =  ({ Keywords,products ,filters,sortbar}) => {
+    const productsCollection = useProducts(products)
+    const keywordsMatched = (item) => {
+        const formattedKeywords = Keywords.trim().replace(/\s/g, '').toLowerCase();
+        if (formattedKeywords.length === 0) return true;
+        const { name, store_id } = item;
+        const formattedName = name.toLowerCase();
+        const formattedStore = store_id.toLowerCase();
+        return formattedName.includes(formattedKeywords) || formattedStore.includes(formattedKeywords);
+    }
+    const applyFilters = (items) => {
+        let itemsToDisplay = items.filter(
+            item =>
+                 parseFloat(filters.minPrice) < parseFloat(item.price) && parseFloat(item.price) <= parseFloat(filters.maxPrice) &&
+                 //parseInt(filters.minSize) <= parseInt(item.size) && parseInt(item.size) <= parseInt(filters.maxSize) &&
+                (filters.brands.includes(item.store_id) || filters.brands.length === 0) &&
+                (filters.conditions.includes(item.condition) || filters.conditions.length === 0) && keywordsMatched(item)
+        );
 
-const Grid = (props) => (
+        if(sortbar === 'low-to-high'){
+            itemsToDisplay = itemsToDisplay.sort((a, b) => (parseFloat(a.price) >= parseFloat(b.price)) ? 1 : -1);
+        }
+        else if(sortbar === 'high-to-low'){
+            itemsToDisplay = itemsToDisplay.sort((a, b) => (parseFloat(a.price) <= parseFloat(b.price)) ? 1 : -1);
+        }
+
+        return itemsToDisplay;
+    }
+
+    return (
+
+        <>
+            { productsCollection &&
     <div className="container">
-            <Row>
-                    <InputGroup className="search-bar">
-                            <FormControl
-                                placeholder="Search"
-                                aria-label="Search"
-                                aria-describedby="basic-addon2"
-                            />
-                            <InputGroup.Append>
-                                    <Button variant="outline-secondary">Search</Button>
-                            </InputGroup.Append>
-                    </InputGroup>
-            </Row>
     <Row className="grid">
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-        <Col lg={3.5} ><Card img="https://target.scene7.com/is/image/Target/GUEST_acf7e487-009f-4c9f-afc0-b62da7261c92?wid=488&hei=488&fmt=pjpeg"/></Col>
-    </Row>
-            <Row>
-                    <Pagination>
-                            <Pagination.First />
-                            <Pagination.Prev />
-                            <Pagination.Item>{1}</Pagination.Item>
-                            <Pagination.Ellipsis />
 
-                            <Pagination.Item>{10}</Pagination.Item>
-                            <Pagination.Item>{11}</Pagination.Item>
-                            <Pagination.Item active>{12}</Pagination.Item>
-                            <Pagination.Item>{13}</Pagination.Item>
-                            <Pagination.Item disabled>{14}</Pagination.Item>
+        {
+            applyFilters(productsCollection).map(product => (
+                <Link to={{ pathname: `/products/${product.id}`}} style={{textDecoration : "none"}}>
+                    <Row lg={3.5}><ProductCard key={product.id} product={product} /></Row>
+                </Link>
+            ))
+        }
+         </Row>
 
-                            <Pagination.Ellipsis />
-                            <Pagination.Item>{20}</Pagination.Item>
-                            <Pagination.Next />
-                            <Pagination.Last />
-                    </Pagination>
-            </Row>
-    </div>
-);
+    </div> }</>
+    )
+}
+const mapStatetoProps = createStructuredSelector({
+    Keywords:  selectSearchBarKeywords,
+    viewbar: selectViewBar,
+    filters: selectSideBarFilters,
+    sortbar: selectSortBar,
+});
 
-export default Grid;
+export default connect(mapStatetoProps)(Grid);

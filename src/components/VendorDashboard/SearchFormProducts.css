@@ -1,0 +1,20 @@
+.clear:hover{
+   background-color: #eeee23;
+    /*border: transparent;*/
+    /*color: black;*/
+    /*font-weight: bold;*/
+}
+.add:hover{
+    background-color: #eeee23;
+    /*border: transparent;*/
+    /*color: black;*/
+    /*font-weight: bold;*/
+}
+.storeLink:hover{
+    text-decoration: none;
+    color: #E0C879;
+    font-weight: bold;
+}
+.storeLink{
+    color: #E0C879;
+}
