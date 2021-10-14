@@ -1,0 +1,43 @@
+.authentication-page {
+    width: 80%;
+    display: flex;
+    margin-top: 3cm;
+    margin-bottom: 3cm;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.authentication-page .form-container {
+    width: 90%;
+    margin: auto;
+}
+
+.authentication-page .form-content {
+    justify-content: center;
+    padding-top: 1cm;
+}
+
+.authentication-page h6 {
+    text-align: center;
+}
+
+.authentication-page .form-button {
+    width: 100%;
+}
+
+.authentication-page .form-title {
+    font-size: 1cm;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    text-align: center;
+}
+
+.authentication-page button:disabled{
+    cursor: no-drop;
+}
+
+.authentication-page .small-page {
+    display: inline;
+    width: 100%;
+}
