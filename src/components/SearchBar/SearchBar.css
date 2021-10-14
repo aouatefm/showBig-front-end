@@ -1,0 +1,56 @@
+.ps-shopping__header {
+    height: 56px;
+    width: 820px;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-color: rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    font-size: 14px;
+    gap: normal;
+    justify-content: space-between;
+    line-height: 22px;
+    margin: 0px 0px 40px;
+    padding: 8px 15px;
+    text-align: left
+}
+.form-control{
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(221, 221, 221);
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    color: rgb(73, 80, 87);
+    font-size: 14px;
+    gap: normal;
+    padding: 0px 20px;
+}
+.ps-shopping__view{
+    align-items: center;
+    border-color: rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    font-size: 14px;
+    gap: normal;
+    line-height: 22.001px;
+    padding: 0px 0px 0px 40px;
+    text-align: left;
+}
+.ps-shopping__actions{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.ps-shopping .ps-shopping__view{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.view{
+    position: relative;
+    left: -7px;
+    top: 7px;
+    transition: none 0s ease 0s;
+    /*cursor: move;*/
+}
