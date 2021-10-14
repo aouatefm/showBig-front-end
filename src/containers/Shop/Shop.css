@@ -1,0 +1,19 @@
+.section-name{
+    color: black;
+    font-weight: bolder;
+}
+.section-name:hover{
+    text-decoration: none;
+    color: #eeee23;
+}
+.inp { margin : 10px; }
+
+
+.inp:after {
+    content:" *";
+    color: red;
+}
+
+.required:after {
+    content:" *";
+    color: red;}
