@@ -1,0 +1,89 @@
+@media (min-width: 992px) {
+    .sidebar {
+        margin-top: 5cm;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        border-right: 1px solid rgb(155, 155, 155);
+    }
+
+    .sidebar .sidebar-header {
+        margin-bottom: 0.5cm;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70%;
+        margin-top: 2cm;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1cm;
+        padding-bottom: 1cm;
+        border-bottom: 1px solid rgb(155, 155, 155);
+    }
+
+    .sidebar .sidebar-header {
+        margin-bottom: 0.5cm;
+        font-weight: 700;
+    }
+}
+
+.sidebar.dropped .sidebar-header {
+    font-weight: 700;
+}
+
+.items-icon {
+    margin-right: 0.5cm;
+}
+
+.sidebar-header:hover {
+    cursor: pointer;
+}
+
+.sidebar-header {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.sidebar-header .sidebar-header-title {
+    width: 80%;
+    display: block;
+}
+
+.sidebar-header .dropdown-icon {
+    width: 20%;
+    display: block;
+    text-align: right;
+}
+
+.sidebar.dropped .items {
+    padding-left: 1cm;
+}
+
+.sidebar-cell {
+    margin: 0.5cm;
+    padding: 0.25cm;
+    border-bottom: 1px solid gray;
+}
+
+.sidebar-cell .sidebar-slider{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.sidebar-cell-2 {
+    margin: 0.5cm;
+    padding: 0.25cm;
+    overflow: hidden;
+}
+
+.sidebar-cell-2 .sidebar-button {
+    display: block;
+    right: 0;
+    float: right;
+}
