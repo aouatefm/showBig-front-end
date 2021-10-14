@@ -1,71 +1,60 @@
-.card{
-    width: 300px;
-    height: 280px;
-    background: #ffe5d9;
-    border-radius: 10px;
-    box-shadow: 0px 1px 10px 1px black;
+.main-card{
+    /*height : 275px ;*/
+    /*width : 379px;*/
+    box-shadow: 0 0 25px 0 #ddd;
+    margin: 20px;
 }
 .header-card{
-    height: 83%;
-    background: white;
-}
-.body-card{
-    height: 2%;
-    background: linear-gradient(to right, yellow, red,purple);
+    background-position:50% 50%;
+    background-size:cover;
+    border-color:#eeeeee;
+    border-width:0px 0px 1px;
+    color: #000000;
+    font-size: 14px;
+    gap:normal;
+    line-height: 22px;
+    padding:30px 20px 50px;
+    text-align: left;
 }
 .footer-card{
-    height: 15%;
-    background: white;
+    height : 24% ;
+    width : 379px;
+    border-top: #e2dee1 solid 1px;
 }
-.banner-image{
-    width: 100%;
-    height: 100%;
-}
-.rounded-circle{
-    max-width: 90px;
-    position: absolute;
-    background: linear-gradient(to right, yellow, red,purple);
-    padding: 3px;
-    margin-top: -16%;
-    right: 5%;
-}
-.block{
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius:0px;
-    margin-bottom: 0px;
-}
+.store-btn{
+    align-items: center;
+    background-color: rgb(240, 80, 37);
+    border-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 20px;
+    padding: 0px 16px;
+    position: relative;
+    left: 5px;
+    top: -9px;
+    transition: none 0s ease 0s;
+    cursor: move;
 
-.vendor-info{
-    position: absolute;
-    top: 8px;
-    left: 16px;
 }
-.col-1{
-    color: white;
-    font-weight: bold;
-}
-.col-12{
-    color: white;
-    font-weight: bold;
-}
-.col-7{
-    color: white;
-    font-weight: bold;
-}
-.addr:first-letter {
-    text-transform: uppercase;
-}
-.col-5{
-    color: white;
-    font-weight: normal;
-}
-
-.vendor-name {
-    font-size: 30px;
-    letter-spacing: 2px;
-}
-.vendor-name:first-letter {
-    text-transform: uppercase;
+.store-img{
+    /*border-color: rgba(0, 0, 0, 0.85);*/
+    border: 3px solid #fff;
+    box-shadow: 0 0 30px -6px #afafaf;
+    border-radius: 50%;
+    color: rgba(0, 0, 0, 0.85);
+    display: inline;
+    font-size: 14px;
+    gap: normal;
+    line-height: 22px;
+    text-align: left;
+    width: 75px;
+    height: 75px;
+    transform: translateY(-50%);
+    transition: none 0s ease 0s;
+    cursor: move;
+    position: relative;
+    left: 158px; top: 0px;
 }

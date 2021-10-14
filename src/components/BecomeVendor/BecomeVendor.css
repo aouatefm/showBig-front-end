@@ -1,0 +1,9 @@
+.btn-add-store{
+    color: #000000;
+    background-color: #eeee23;
+    border-radius: 0;
+}
+.btn-add-store:hover {
+    color: #eeee23;
+    background-color: black;
+}

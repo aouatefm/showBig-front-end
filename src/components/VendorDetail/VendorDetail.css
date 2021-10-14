@@ -1,0 +1,72 @@
+.banner-image{
+    width: 250px;
+    height: 250px;
+    display: inline;
+    font-size: 14px;
+    margin: 0px  0px 0px 0px;
+    gap: normal;
+    line-height: 22px;
+
+}
+
+.ps-shopping__header{
+    width: 850px;
+    height: 50px;
+    align-items: center;
+    background-color: #F1F1F1;
+    border-color: #000000;
+    color: #000000;
+    display: flex;
+    font-size: 14px;
+    gap: normal;
+    justify-content: space-between;
+    line-height: 22.001px;
+    margin: 0px 0px 40px;
+    padding: 8px 15px;
+    text-align: left;
+    position: relative;
+    left: -14px;
+    top: 1px;
+    transition: none 0s ease 0s;
+    cursor: move;
+}
+.left-side{
+    width: 300px;
+    height: 771px;
+}
+.right-side{
+    width: 900px;
+    height: 771px;
+}
+.btn-contact{
+    background-color: rgb(252, 184, 0);
+    border-color: rgba(0, 0, 0, 0.85);
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.85);
+    display: inline-block;
+    font-family: Work Sans;
+    font-weight: 600;
+    gap: normal;
+    line-height: 20px;
+    padding: 15px 45px;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+}
+.val-rating{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.shelf-item {
+    width: 200px;
+    height: 317px;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 30px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background-color: #ffffff;}
