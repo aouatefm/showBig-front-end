@@ -4,13 +4,14 @@ import './Footer.css';
 import fb from '../../img/fb-icon.png';
 import insta from '../../img/insta-icon.png';
 import lkn from '../../img/linkedin-icon.png';
+import LogoFooter from "../../assets/logo-footer.png"
 
 const Footer = (props) => (
     <div>
         <div className="footer-left">
             <h3>
                 <img alt="Vigg Icon"
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTBXASQBA5XMRIwPbUaXAcC0x0Iw34lzr44g&usqp=CAU" width="250px"/>
+                     src={LogoFooter} width="250px"/>
             </h3>
             <p className="footer-links">
                 <a href="/">Home</a>{' '}
