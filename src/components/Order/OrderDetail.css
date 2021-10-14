@@ -1,0 +1,4 @@
+.edit-status:hover{
+text-decoration: underline lightcoral;
+    cursor: pointer;
+}
