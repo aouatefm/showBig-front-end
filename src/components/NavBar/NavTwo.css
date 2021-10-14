@@ -1,0 +1,18 @@
+.nav {
+    color: #070707;
+    font-size: large;
+    font-weight: 600;
+    padding: 1px 5px;
+}
+
+.nav:hover {
+  color: #3c3c39;
+    /*padding: 1px 5px;*/
+
+}
+.nav-item:hover {
+    /*color: black;*/
+    transform: scale(1.1);
+    /*border: #1b1a20 solid 3px;*/
+    text-decoration: solid underline purple
+}
