@@ -10,6 +10,14 @@ export default {
             throw error
         }
     },
+    getUserStoreById: async function (id) {
+        try {
+            const response = await axios.get(BASE_URL + `/users/${id}/store`);
+            return response.data;
+        } catch (error) {
+            throw error
+        }
+    },
     getUserList: async function () {
         try {
             const response = await axios.get(BASE_URL + '/users');

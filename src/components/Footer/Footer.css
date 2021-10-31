@@ -4,10 +4,7 @@
     width: 100%;
     text-align: left;
     font: bold 15px sans-serif;
-    padding-top: 30px;
-    padding-bottom: 60px;
-    padding-left: 70px;
-    padding-right: 70px;
+    padding: 30px 70px 60px;
     margin-top: 80px;
     justify-content: center;
 }
@@ -98,6 +95,7 @@
         width: 100%;
         margin-bottom: 40px;
         text-align: center;
+        height: 266px;
     }
 
     .footer-distributed .footer-center i{

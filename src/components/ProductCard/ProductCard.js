@@ -10,8 +10,9 @@ const card = ({ product }) => {
 return (
     <div className="shelf-item"
         // onClick={() => addProduct(product)}
-    >
-        <div className="shelf-stopper">Free shipping</div>
+         >
+        {! product.shipping_price &&
+        <div className="shelf-stopper">Free shipping</div>}
         <img classes="shelf-item__thumb" src={product.images} alt={product.name} style={{maxWidth :"180px",maxHeight :"110px"}}/>
         <p className="shelf-item__title">{product.name}</p>
         <a href="#">{product.store_id}</a>

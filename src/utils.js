@@ -1,3 +1,6 @@
+import {toast} from "react-toastify";
+import {auth} from "./firebase/firebase";
+
 export const formatPrice = (x, currency) => {
     switch (currency) {
         case '$':
@@ -45,10 +48,10 @@ export const orderStatus = (status) =>{
 
 }
 
-export const ReduceOrderId = async (id) => {
-    const substring1 = id. substring(0,4);
-    const substring2 = id.substr(id.length - 4);
-    const res = substring1.concat(substring2);
-    return res
+
+export const isAuthenticated = async () => {
+    const isAuthed = await auth.currentUser
+        return isAuthed
 
 };
+

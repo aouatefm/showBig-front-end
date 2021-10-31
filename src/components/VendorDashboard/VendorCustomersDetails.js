@@ -96,7 +96,7 @@ const VendorCustomersDetails = ({props}) => {
                                             </Modal.Body>
                                             <Modal.Footer>
                                                 <Button variant="secondary" onClick={handleClose}>
-                                                    Cancel
+                                                    Close
                                                 </Button>
                                             </Modal.Footer>
                                         </Modal>

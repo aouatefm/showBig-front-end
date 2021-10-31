@@ -6,6 +6,7 @@ import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 import VendorCustomersContainer from "./VendorCustomersContainer";
+import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 
 
 const VendorCustomers = ({currentUser}) => {
@@ -50,16 +51,16 @@ const VendorCustomers = ({currentUser}) => {
                             <NavThree/>
                         </div>
                         <div className="col" >
-                            <h1>Loading ...</h1>
+                            <SpinnerPage/>
                         </div>
                     </div>}
 
         </>
 
     );
-}
+};
 
 const mapStateToProps = createStructuredSelector(
-    {currentUser: selectCurrentUser,}
+    {currentUser: selectCurrentUser}
 );
 export default connect(mapStateToProps)(VendorCustomers);

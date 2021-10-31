@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
  import './NavOne.css'
@@ -7,17 +7,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import Dropdown from "react-bootstrap/Dropdown";
 import Col from "react-bootstrap/Col";
 import {CartIcon, HeartIcon, ProfileIcon, SearchIcon, SignOutIcon} from "../../assets/icons";
 
-import Logo from "../../assets/show-big.png"
+import Logo from "../../assets/blck.png"
 import {auth} from "../../firebase/firebase";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {setLoading} from "../../redux/spinner/spinner-actions";
 import {selectCartItems, selectCartItemsCount} from "../../redux/cart/cart-selectors";
 import CategoriesService from "../../services/CategoriesService";
-import {getTokenId} from "../../firebase/auth";
 import {SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from 'use-react-router';
 
@@ -54,16 +52,19 @@ const NavOne = ({currentUser, cartLength}) => {
             <Navbar expand="lg" style={{backgroundColor: "#EEEE23"}}>
                 <Col style={{width: "100%", height: "100%", alignContent: "center"}}>
                     <Navbar.Brand href="/">
-                        <img src={Logo} className="logo" width="250px" height="85px"/>
+                        <h1>
+                        <img src={Logo} className="logo" width="100px" height="85px"/>
+                            <strong>SHO BIG </strong>
+                        </h1>
                     </Navbar.Brand>
                 </Col>
                 <Col xs={7}>
-                    <Button onClick={() => {
-                        console.log(getTokenId())
-                    }}>Token</Button>
-                    <Button onClick={() => {
-                        console.log(currentUser)
-                    }}>User</Button>
+                    {/*<Button onClick={() => {*/}
+                    {/*    console.log(getTokenId())*/}
+                    {/*}}>Token</Button>*/}
+                    {/*<Button onClick={() => {*/}
+                    {/*    console.log(currentUser)*/}
+                    {/*}}>User</Button>*/}
                     <Form inline>
 
                             <select onChange={(e) => setCat(e.target.value)}

@@ -11,6 +11,7 @@ import {TimesIcon} from "../../assets/icons";
 import React from "react";
 import { clearItem} from "../../redux/cart/cart-action";
 import StripeCheckoutButton from "../../components/StripeButton/StripeButton";
+import {Link} from "react-router-dom";
 
 const CartPage = ({cartItems,cartLength,clearItem }) => {
     let totalPrice = 0;
@@ -19,8 +20,8 @@ const CartPage = ({cartItems,cartLength,clearItem }) => {
         <div className="container">
             <div>
                 {cartLength === 0?(
-                    <h1>
-                        YOUR CART IS EMPTY
+                    <h1 style={{textAlign :"center"}}>
+                        YOUR CART IS EMPTY <Link to="product-listing">Shop Page</Link>
                     </h1>
                 ):(
                     <div className="cart-table">
@@ -69,22 +70,22 @@ const CartPage = ({cartItems,cartLength,clearItem }) => {
                         <div>
                             <h3>Total: ${totalPrice.toFixed(2)}</h3>
                         </div>
+
+                    <LinkContainer to="product-listing" style={{margin:'20px'}}>
+                    <Button variant="outline-info" >
+                    Continue Shopping
+                    </Button>
+                    </LinkContainer>
+                    <LinkContainer to="/shop" >
+                    <Button variant="outline-warning" >
+                    Check Out
+                    </Button>
+                    </LinkContainer>
+                {/*{cartLength > 0 ? <StripeCheckoutButton price={totalPrice}/> : ''}*/}
                     </div>
                 )}
             </div>
-            <div>
-                <LinkContainer to="#">
-                    <Button variant="outline-info">
-                        Continue Shopping
-                    </Button>
-                </LinkContainer>
-                <LinkContainer to="/shop">
-                    <Button variant="outline-warning">
-                        Check Out
-                    </Button>
-                </LinkContainer>
-                {cartLength > 0 ? <StripeCheckoutButton price={totalPrice}/> : ''}
-            </div>
+
             {/*<div className="test-warning">*/}
             {/*    *Please use the following test credit card for payments**/}
             {/*    <br />*/}

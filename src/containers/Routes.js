@@ -22,32 +22,39 @@ import OrderDetail from "../components/Order/OrderDetail";
 import CustomerOrders from "../components/Order/CustomerOrders";
 import CustomerOrderDetail from "../components/Order/CustomerOrderDetail";
 import VendorCustomersDetails from "../components/VendorDashboard/VendorCustomersDetails";
+import EditCoupon from "../components/VendorDashboard/EditCoupon";
+import StoreSettings from "../components/VendorDashboard/StoreSettings";
+import AuthenticatedRoute from "../components/RouteComponents/AuthenticatedRoute";
 
 const Routes = (props) => (
 
     <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/admin" component={Test}/>
+        <AuthenticatedRoute  exact path="/admin" component={Test}/>
         <Route exact path="/register" component={AuthenticationPage}/>
         <Route exact path="/cart" component={CartPage}/>
         <Route exact path="/shop" component={Shop}/>
-        <Route exact path="/vendor-products" component={VendorProductsPage}/>
-        <Route exact path="/vendor-orders" component={VendorOrders}/>
-        <Route exact path="/vendor-orders/:id" component={OrderDetail}/>
-        <Route exact path="/vendor-customers" component={VendorCustomers}/>
-        <Route exact path="/vendor-customers/VendorCustomersDetails" component={VendorCustomersDetails}/>
-        <Route exact path="/vendor-coupons" component={VendorCoupons}/>
-        <Route exact path="/dashboard" component={VendorDashboard}/>
-        <Route exact path="/sell-now" component={SellPage}/>
+        <AuthenticatedRoute exact path="/vendor-products" component={VendorProductsPage}/>
+        <AuthenticatedRoute exact path="/vendor-orders" component={VendorOrders}/>
+        <AuthenticatedRoute exact path="/vendor-orders/:id" component={OrderDetail}/>
+        <AuthenticatedRoute exact path="/vendor-customers" component={VendorCustomers}/>
+        <AuthenticatedRoute exact path="/vendor-customers/VendorCustomersDetails" component={VendorCustomersDetails}/>
+        <AuthenticatedRoute exact path="/vendor-coupons" component={VendorCoupons}/>
+        <AuthenticatedRoute exact path="/vendor-settings" component={StoreSettings}/>
+
+        <AuthenticatedRoute exact path="/dashboard" component={VendorDashboard}/>
+
+        <AuthenticatedRoute exact path="/sell-now" component={SellPage}/>
         <Route exact path="/vendor-listing" component={VendorGrid}/>
         <Route exact path="/product-listing/:name" component={ProductPage}/>
         <Route exact path="/product-listing" component={ProductPage}/>
-        <Route exact path="/become-vendor" component={BecomeVendor}/>
+        <AuthenticatedRoute exact path="/become-vendor" component={BecomeVendor}/>
         <Route exact path="/vendors/:id" component={VendorDetail}/>
         <Route exact path="/products/:id" component={ProductDetail}/>
-        <Route exact path="/add" component={AddProduct}/>
-        <Route exact path="/customer-orders" component={CustomerOrders}/>
-        <Route exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
+        <AuthenticatedRoute exact path="/edit-coupon/:id" component={EditCoupon}/>
+        <AuthenticatedRoute exact path="/add" component={AddProduct}/>
+        <AuthenticatedRoute exact path="/customer-orders" component={CustomerOrders}/>
+        <AuthenticatedRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
         <Route component={NotFound}/>
     </Switch>
 );

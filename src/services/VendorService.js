@@ -57,6 +57,25 @@ export default {
             return error
         }
     },
-
+    editVendor: async function (name, description, address, phone, logoURL, coverURL, facebook, instagram, youtube, lat, lng,store_id) {
+        try {
+            const response = await axios.put(BASE_URL + `/stores/${store_id}`,
+                {
+                    name: name,
+                    description: description,
+                    address: address,
+                    phone_number: phone,
+                    logo: logoURL,
+                    cover_image: coverURL,
+                    lat: lat,
+                    lng: lng,
+                    socials: {facebook: facebook, instagram: instagram, youtube: youtube}
+                },
+                {headers: {'Authorization': await getTokenId()}});
+            return response.data;
+        } catch (error) {
+            return error
+        }
+    },
 
 }

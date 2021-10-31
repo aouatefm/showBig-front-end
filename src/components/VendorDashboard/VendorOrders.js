@@ -6,6 +6,7 @@ import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 import {selectOrders} from "../../redux/orders/order-selectors";
+import Spinner from "../Spinner/Spinner";
 
 
 
@@ -23,7 +24,7 @@ const VendorOrders = ({orders}) => {
                 <div className="col">
                     <h1>Orders</h1>
                     <SearchFormOrders/>
-                    {orders ? <OrderPresentation orders={orders}/> : <h1>Loading ...</h1>}
+                    {orders ? <OrderPresentation orders={orders}/> : <div style={{marginLeft:"500px"}}><Spinner/></div>}
                 </div>
             </div>
         </div>

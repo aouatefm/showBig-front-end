@@ -1,17 +1,18 @@
 import React from 'react';
 import './Footer.css';
-import './Footer.css';
 import fb from '../../img/fb-icon.png';
 import insta from '../../img/insta-icon.png';
 import lkn from '../../img/linkedin-icon.png';
 import LogoFooter from "../../assets/logo-footer.png"
+import LogoWhite from "../../assets/logo-white.png"
 
 const Footer = (props) => (
-    <div>
+    <div className="footer" style={{marginBottom :'0px'}}>
         <div className="footer-left">
             <h3>
                 <img alt="Vigg Icon"
-                     src={LogoFooter} width="250px"/>
+                     src={LogoWhite} width="100px"/>
+                     SHO BIG
             </h3>
             <p className="footer-links">
                 <a href="/">Home</a>{' '}
@@ -19,7 +20,7 @@ const Footer = (props) => (
                 <a href="/contact-us">Contact Us</a>{' '}
                 <a href="/register">Register</a>
             </p>
-            <p className="footer-company-name">@2020 Copyright: vie-com.com. All rights reserved.</p>
+            <p className="footer-company-name">@2020 Copyright: sho-big.com All rights reserved.</p>
         </div>
         <div className="footer-center">
             <div>
@@ -41,7 +42,7 @@ const Footer = (props) => (
                     <path d="M.05 3.555C.017 3.698 0 3.847 0 4v.697l5.803 3.546L0 11.801V12c0 .306.069.596.192.856l6.57-4.027L8 9.586l1.239-.757 6.57 4.027c.122-.26.191-.55.191-.856v-.2l-5.803-3.557L16 4.697V4c0-.153-.017-.302-.05-.445L8 8.414.05 3.555z"/>
                 </svg>
                 <p>
-                    <a href="mailto:viecom@gmail.com">viecom@gmail.com</a>
+                    <a href="no.reply.shobig@hotmail.com">no.reply.shobig@hotmail.com</a>
                 </p>
             </div>
             </div>

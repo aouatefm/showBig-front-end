@@ -5,6 +5,7 @@ import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 import {select_v_products_filters, selectSearchBarKeywords} from "../../redux/filters/filters-selectors";
 import NavThree from "../NavBar/NavThree";
+import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 
 
 const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
@@ -70,7 +71,7 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                                             <NavThree/>
                                         </div>
                                         <div className="col" >
-                                            <h1>Loading ..</h1>
+                                            <SpinnerPage/>
                                         </div>
                                     </div>
 

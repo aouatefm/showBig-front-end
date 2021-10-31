@@ -1,0 +1,23 @@
+.quantity-cell {
+    text-align: center;
+}
+
+.quantity-cell .btn-primary {
+    margin-right: 0!important;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.quantity-cell .btn-outline-dark {
+    margin-right: 0!important;
+    width: 1cm;
+    height: 1cm;
+}
+
+.quantity-cell .minus-btn {
+    margin-right: 0.5cm!important;
+}
+
+.quantity-cell .plus-btn {
+    margin-left: 0.5cm!important;
+}

@@ -10,7 +10,6 @@ import {signInWithGoogle} from "../../firebase/firebase";
 
 
 class LoginForm extends Component {
-
     constructor(props) {
         super(props);
 
@@ -38,10 +37,15 @@ class LoginForm extends Component {
             try {
                 await login(email, password);
                 this.setState({ email: '', password: '' });
+                this.props.history.push("/product-listing");
                 setLoading(false);
             } catch (error) {
                 console.log(error);
             }
+        }
+        const handleSignInWithGoogle =  async () => {
+            const result = await signInWithGoogle()
+            this.props.history.push("/product-listing");
         }
 
         return (
@@ -81,7 +85,7 @@ class LoginForm extends Component {
                             block
                             variant="outline-primary"
                             bssize="large"
-                            onClick={signInWithGoogle}>
+                            onClick={handleSignInWithGoogle}>
                             Login with Google
                         </Button>
                     </Col>

@@ -20,7 +20,6 @@ import VendorService from "./services/VendorService";
 import {setAllOrders, setCustomerOrders} from "./redux/orders/order-action";
 import OrderService from "./services/OrderService";
 
-
 class App extends Component {
     unsubscribeFromAuth = null;
     constructor(props) {
@@ -60,7 +59,9 @@ class App extends Component {
                     <NavTwo /> {/*{this.props.role==='vendor' && <NavThree/>}*/}
                    {/*<NavThree/>*/}
                 </header>
-                <Routes />
+                <body style={{paddingBottom: "266px"}}>
+                <div style={{marginTop : "50px"}}> <Routes/></div>
+                </body>
                 <footer className="footer-distributed">
                     <Footer/>
                 </footer>

@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import UserService from "../../services/UserService";
 import ProductService from "../../services/ProductService";
 import NavThree from "../../components/NavBar/NavThree";
+import SpinnerPage from "../Spinner/SpinnerPage";
 
 const VendorProductsPage = ({currentUser}) => {
     const [store, setStore] = useState(null);
@@ -53,7 +54,7 @@ const VendorProductsPage = ({currentUser}) => {
                         <NavThree/>
                     </div>
                     <div className="col" >
-                        <h1>Loading ...</h1>
+                        <SpinnerPage/>
                     </div>
                 </div>}
 
@@ -64,5 +65,5 @@ const VendorProductsPage = ({currentUser}) => {
 
 const mapStateToProps = createStructuredSelector(
 {currentUser: selectCurrentUser,}
-);
+)
 export default connect(mapStateToProps)(VendorProductsPage);

@@ -1,33 +1,91 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Shop.css'
 import {Button} from "react-bootstrap";
 import {createStructuredSelector} from "reselect";
 import {selectCartItems, selectCartItemsCount} from "../../redux/cart/cart-selectors";
 import {connect} from "react-redux";
 import {CashIcon, StripeIcon} from "../../assets/icons";
-import OrderService from "../../services/OrderService";
-
-
 import {Link} from "react-router-dom";
+import {selectCurrentUser} from "../../redux/user/user-selectors";
+import UserService from "../../services/UserService";
+import {setLoading} from "../../redux/spinner/spinner-actions";
+import {selectLoading} from "../../redux/spinner/spinner-selectors";
+import {useHistory} from "react-router";
+import 'react-toastify/dist/ReactToastify.css';
+import OrderService from "../../services/OrderService";
+import {addItem, clearCart, removeItem, updateItems} from "../../redux/cart/cart-action";
+import CouponService from "../../services/CouponService";
 
-const Shop = ({cartItems, cartLength}) => {
+
+const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCart, updateItems}) => {
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
     const [billingAdr, setBillingAdr] = useState("");
     const [shippingAdr, setShippingAdr] = useState("");
     const [phone, setPhone] = useState(null);
     const [secondPhone, setSecondPhone] = useState("");
-    const [delivery, setDelivery] = useState("");
+    const [delivery, setDelivery] = useState(0);
     const [notes, setNotes] = useState("");
+    const [coupon, setCoupon] = useState("");
     const [payment, setPayment] = useState("");
-    // const [products, setProducts] = useState([]);
-    // const [totPrice, setTotalPrice] = useState(0);
+    const [userProfile, setUserProfile] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+    const history = useHistory();
 
-    let totalPrice = 0;
-    cartItems.map(item => totalPrice += (item.price * item.quantity));
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userProfile = await UserService.getUser(currentUser.uid)
+                setUserProfile(userProfile);
+                if (userProfile) {
+                    setName(userProfile.first_name)
+                    setLastName(userProfile.last_name)
+                    setBillingAdr(userProfile.billing_address)
+                    setShippingAdr(userProfile.shipping_address)
+                    setPhone(userProfile.phone_number)
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        };
+        fetchData();
+    }, [currentUser]);
 
-    const handleSubmit = async ()  => {
-     const res = await OrderService.createOrder(name,lastName,billingAdr,shippingAdr,phone,secondPhone,delivery,payment,cartItems, totalPrice,notes)
+    let totalPrice = delivery;
+    cartItems.map(item => totalPrice += (item.discounted_price ? item.discounted_price * item.quantity : item.price * item.quantity));
+
+
+    const handleCoupon = async () => {
+        let resp = await CouponService.applyCoupon(coupon, cartItems)
+        if (resp) {
+            updateItems(resp)
+
+        } else {
+            setShowAlert(true)
+            setCoupon("")
+        }
+
+    }
+
+    const handleSubmit = async () => {
+        setLoading(true)
+        if (delivery === "" || payment === "") {
+            alert("Please make sure to choose the delivery and payment method ");
+            setLoading(false)
+
+        } else {
+            try {
+                const res = await OrderService.createOrder(name, lastName, billingAdr, shippingAdr, phone, secondPhone, delivery, payment, cartItems, totalPrice, notes)
+
+            } catch (e) {
+                console.log(e)
+            }
+            clearCart()
+            history.push({pathname: "/product-listing"});
+            setLoading(false)
+        }
+
+
     }
 
     return (
@@ -56,6 +114,7 @@ const Shop = ({cartItems, cartLength}) => {
                                             <label className="form-label required">First name</label>
                                             <input type="text" className="form-control inp" placeholder="First name"
                                                    required
+                                                   value={name}
                                                    onChange={(e) => {
                                                        setName(e.target.value)
                                                    }}/>
@@ -64,6 +123,7 @@ const Shop = ({cartItems, cartLength}) => {
                                             <label className="form-label required">Last name</label>
                                             <input type="text" className="form-control inp" placeholder="Last name"
                                                    required
+                                                   value={lastName}
                                                    onChange={(e) => {
                                                        setLastName(e.target.value)
                                                    }}/>
@@ -73,14 +133,21 @@ const Shop = ({cartItems, cartLength}) => {
                                         <div className="col">
                                             <label className="form-label required">Billing Address</label>
                                             <input type="text" className="form-control inp"
-                                                   placeholder="Billing Address" required
-                                                   onChange={(e) => {setBillingAdr(e.target.value)}}/>
+                                                   placeholder="Billing Address"
+                                                   value={billingAdr}
+                                                   required
+                                                   onChange={(e) => {
+                                                       setBillingAdr(e.target.value)
+                                                   }}/>
                                         </div>
                                         <div className="col">
                                             <label className="form-label required">Shipping Address</label>
                                             <input type="text" className="form-control inp"
                                                    placeholder="Shipping Address" required
-                                                   onChange={(e) => {setShippingAdr(e.target.value)}}/>
+                                                   value={shippingAdr}
+                                                   onChange={(e) => {
+                                                       setShippingAdr(e.target.value)
+                                                   }}/>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -88,6 +155,7 @@ const Shop = ({cartItems, cartLength}) => {
                                             <label className="form-label required">Contact Number</label>
                                             <input type="text" className="form-control inp" placeholder="Contact Number"
                                                    required
+                                                   value={phone}
                                                    onChange={(e) => {
                                                        setPhone(e.target.value)
                                                    }}/>
@@ -116,15 +184,16 @@ const Shop = ({cartItems, cartLength}) => {
                                  data-bs-parent="#accordionExample">
                                 <div className="accordion-body">
                                     <h5>How do you want your order to be delivered ? </h5>
-                                    <div className="form-check" onChange={(e) => setDelivery(e.target.value)}>
-                                        <input className="form-check-input" type="radio" name="delivery" value="5"/>
-                                            <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                                Regular Shipping (5$)
-                                            </label><br/>
+                                    <div className="form-check" onChange={(e) => setDelivery(parseInt(e.target.value))}>
+                                        <input className="form-check-input" type="radio" name="delivery" value="5"
+                                               required/>
+                                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                            Regular Shipping (5$)
+                                        </label><br/>
                                         <input className="form-check-input" type="radio" name="delivery" value="0"/>
-                                            <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                                Local pickup (Free)
-                                            </label>
+                                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                            Local pickup (Free)
+                                        </label>
                                     </div>
 
                                     <br/>
@@ -149,9 +218,10 @@ const Shop = ({cartItems, cartLength}) => {
                                 <div className="form-check">
                                     <div onChange={(e) => setPayment(e.target.value)}>
                                         <input className="form-check-input" type="radio" value="cash"
-                                               name="payment"/><label className="form-check-label"
-                                                                      htmlFor="flexRadioDefault1"><CashIcon
-                                        width={30}/> Cash on delivery</label><br/>
+                                               name="payment" required/>
+                                        <label className="form-check-label"
+                                               htmlFor="flexRadioDefault1"><CashIcon
+                                            width={30}/> Cash on delivery</label><br/>
                                         <input className="form-check-input" type="radio" value="stripe" name="payment"/><label
                                         className="form-check-label" htmlFor="flexRadioDefault2"><StripeIcon
                                         width={40}/> Pay With Stripe</label>
@@ -171,14 +241,19 @@ const Shop = ({cartItems, cartLength}) => {
                                  data-bs-parent="#accordionExample">
                                 <div className="accordion-body">
                                     <label>Order notes (optional)</label>
-                                     <textarea className="form-control" aria-label="With textarea"
-                                               placeholder="Notes about your order, e.g. special notes for delivery."
-                                               onChange={(e) => {setNotes(e.target.value)}}/>
+                                    <textarea className="form-control" aria-label="With textarea"
+                                              placeholder="Notes about your order, e.g. special notes for delivery."
+                                              onChange={(e) => {
+                                                  setNotes(e.target.value)
+                                              }}/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <Button style={{width: "400px", margin: "50px"}} className="btn btn-dark" onClick={handleSubmit}>Submit Order</Button>
+                    <Button style={{width: "400px", margin: "50px"}} className="btn btn-dark" onClick={handleSubmit}
+                            disabled={spinner}>
+                        Submit Order
+                    </Button>
                 </div>
                 <div className="col" style={{backgroundColor: ""}}>
                     <div className="card" style={{
@@ -205,9 +280,20 @@ const Shop = ({cartItems, cartLength}) => {
                                                     </div>
                                                     <div className="col-8">
                                                         <h5 style={{fontWeight: 'bold'}}>{item.name}</h5>
-                                                        <span style={{fontWeight: 'bold', color: "#ff6d00"}}>
-                                                                        Price : $ {item.price}
-                                                                    </span>
+                                                        {item.discounted_price ?
+                                                            <>
+                                                                <span style={{
+                                                                    fontWeight: 'bold',
+                                                                    color: "#ff6d00",
+                                                                    textDecoration: "line-through"
+                                                                }}>Price : $ {item.price}</span><br/>
+                                                                <span style={{fontWeight: 'bold', color: "#ff6d00",}}>Price : $ {item.discounted_price}</span>
+                                                            </> :
+                                                            <span style={{
+                                                                fontWeight: 'bold',
+                                                                color: "#ff6d00"
+                                                            }}>Price : $ {item.price}</span>
+                                                        }
                                                         <h6>
                                                             Qty : {item.quantity}
                                                         </h6>
@@ -221,30 +307,57 @@ const Shop = ({cartItems, cartLength}) => {
                         </ul>
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item"><h5>Subtotal : <span
-                                style={{fontWeight: 'bold', color: "#06d6a0"}}>$ {totalPrice.toFixed(0)}</span></h5>
+                                style={{fontWeight: 'bold', color: "#06d6a0"}}>$ {totalPrice - delivery}</span></h5>
                             </li>
                             <li className="list-group-item"><h5>Delivery Cost : <span
-                                style={{fontWeight: 'bold', color: "#06d6a0"}}>$ {5}</span></h5></li>
+                                style={{fontWeight: 'bold', color: "#06d6a0"}}> $ {delivery}</span></h5></li>
                             <li className="list-group-item" style={{backgroundColor: "gainsboro", color: "#577590"}}>
-                                <h3 style={{fontWeight: "bold"}}>TOTAL $ {totalPrice.toFixed(1)}</h3>
+                                <h3 style={{fontWeight: "bold"}}>TOTAL $ {totalPrice}</h3>
                             </li>
                             <li className="list-group-item" style={{textAlign: "center"}}>
                                         <span style={{textAlign: "center"}}>
                                         <Link to='/cart'>Back To Cart</Link>
                                         </span>
                             </li>
+                            <li className="list-group-item" style={{textAlign: "center"}}>
+                                <div className="input-group mb-3">
+                                    <input type="text" className="form-control" placeholder="Enter your coupon here"
+                                           aria-label="Recipient's username" aria-describedby="button-addon2"
+                                           value={coupon}
+                                           onChange={(e) => {
+                                               setCoupon(e.target.value)
+                                           }}/>
+                                    <button className="btn btn-outline-success" type="button" id="button-addon2"
+                                            onClick={handleCoupon}>
+                                        Add Coupon
+                                    </button>
+                                    {showAlert &&
+                                    <div className="alert alert-danger" role="alert" style={{marginTop: "10px"}}>
+                                       Coupon Not Found ! Please Try another One
+                                    </div>}
+                                </div>
+                            </li>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>
     );
 }
 
-
 const mapStateToProps = createStructuredSelector({
     cartItems: selectCartItems,
     cartLength: selectCartItemsCount,
+    currentUser: selectCurrentUser,
+    spinner: selectLoading
+
 });
 
-export default connect(mapStateToProps)(Shop);
+const mapDispatchToProps = dispatch => ({
+    setLoading: loadingState => dispatch(setLoading(loadingState)),
+    clearCart: cart => dispatch(clearCart()),
+    updateItems: items => dispatch(updateItems(items)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);

@@ -1,0 +1,24 @@
+.image-standard .first-line {
+    text-align: center;
+    padding-top: 3cm;
+}
+
+.image-standard h1 {
+    font-size: 300%;
+    font-weight: 700;
+}
+
+.image-standard .row {
+    align-items: center;
+    justify-content: center;
+}
+
+.image-standard .standard-card {
+    margin-top: 0.5cm;
+    margin-bottom: 1cm;
+}
+
+.image-standard .standard-card h2 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+}

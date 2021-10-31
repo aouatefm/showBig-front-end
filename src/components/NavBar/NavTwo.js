@@ -7,7 +7,6 @@ import {NavLink} from "react-bootstrap";
 
 function NavTwo({role}) {
     const activeStyle = {color: 'white'};
-    console.log(role)
     return (
         <div className="App">
             <Nav style={{

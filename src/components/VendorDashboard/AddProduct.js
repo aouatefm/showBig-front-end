@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {auth, storage} from "../../firebase/firebase";
 import ProductService from "../../services/ProductService";
-import Dropdown from "react-bootstrap/Dropdown";
 import CategoriesService from "../../services/CategoriesService";
 import NavThree from "../NavBar/NavThree";
+import { useHistory } from "react-router";
 
 const  useCategories= () =>{
     const [categories, setCategories] = useState([]);
@@ -16,14 +16,15 @@ const  useCategories= () =>{
 }
 const AddProduct = () => {
     const categories = useCategories()
+    const history = useHistory();
 
     const file = useRef(null);
     const [ fileAdded, setFileAdded ] = useState(file.current != null);
     const [ name, setName ] = useState("");
-    const [ price, setPrice ]= useState("");
+    const [ price, setPrice ]= useState(null);
     const [ shipping, setShipping ]= useState("");
     const [ category, setCategory ]= useState("");
-    const [ stock, setStock ]= useState("");
+    const [ stock, setStock ]= useState(null);
     const [ ptype, setPtype ]= useState("");
     const [ description, setDescription ]= useState("");
     const [ video, setVideo ]= useState("");
@@ -48,9 +49,11 @@ const AddProduct = () => {
                 const jwtToken = await auth.currentUser.getIdToken();
                 setLoading(true);
                 const res =  await ProductService.addProduct(name,price,shipping,category,stock,ptype,imageUrl,description)
+                history.push("/vendor-listing");
                 setLoading(false)
             }).catch(error => {
             console.log(error);
+            setLoading(false)
             alert('An error happened!')
         });
         setLoading(false);
@@ -60,9 +63,9 @@ const AddProduct = () => {
             <div className="col col-lg-2" >
                 <NavThree/>
             </div>
-            <div className="col" >
-                <div className="container">
-                    <form onSubmit={onSubmit}>
+            <div className="col ">
+                <div style={{marginLeft: "200px"}} className="container">
+                    <form onSubmit={onSubmit} style={{width:"60%"}}>
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
                             <input type="text" className="form-control" placeholder="Name"
@@ -97,7 +100,7 @@ const AddProduct = () => {
                         </div>
                         <div className="form-group">
                             <label>Category</label>
-                            <select onChange={e => setCategory(e.currentTarget.value)} className="form-control" required>
+                            <select onChange={e => setCategory(e.currentTarget.value)} className="form-control" required >
                                 {categories.map((option) => (
                                     <option value={option.name}>{option.name}</option>
                                 ))}
@@ -139,7 +142,7 @@ const AddProduct = () => {
                             <small className="form-text text-muted">Optional</small>
 
                         </div>
-                        <button type="submit" className="btn btn-primary">Add Product</button>
+                        <button type="submit" className="btn btn-primary" disabled={loading}>Add Product</button>
                     </form>
                 </div>
             </div>

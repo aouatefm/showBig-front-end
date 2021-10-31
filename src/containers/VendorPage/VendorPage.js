@@ -1,16 +1,19 @@
 import React from 'react';
 import "./VendorPage.css";
-import VendorDetail from "../../components/VendorDetail/VendorDetail";
+import {Row} from "react-bootstrap";
+import VendorCard from "../../components/VendorCard/VendorCard";
 
-const VendorPage = () => {
+const VendorPage = ({vendors}) => {
 
     return (
-        <>
+        <Row className="row-vendor">
+            {
+                vendors.map(vendor => (
+                    <div key={vendor.id}><VendorCard vendor={vendor}/></div>
+                ))
+            }
 
-            <div><VendorDetail/></div>
-
-        </>
-
+        </Row>
     );
 }
 export default VendorPage;

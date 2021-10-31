@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './ProductDetail.css'
-import {Breadcrumb, Col, ProgressBar, Row, Tab, Table, Tabs} from "react-bootstrap";
+import {Breadcrumb, Col, ProgressBar, Row, Tab, Tabs} from "react-bootstrap";
 import ProductService from "../../services/ProductService";
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {connect} from "react-redux";
 import {setLoading} from "../../redux/spinner/spinner-actions";
 import {addItem} from "../../redux/cart/cart-action";
@@ -10,6 +10,9 @@ import {selectCartItems} from "../../redux/cart/cart-selectors";
 import {createStructuredSelector} from "reselect";
 import ReactStars from "react-rating-stars-component";
 import RatingService from "../../services/RatingService";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
@@ -23,30 +26,42 @@ function useProductId(id) {
     return [product, ratings]
 }
 
-const ProductDetail = (props) => {
+const ProductDetail = ({cartItems, addItem}) => {
     let {id} = useParams();
     const [product, product_ratings] = useProductId(id);
     const ratingAVG = product_ratings.avg
+    const [show, setShow] = useState(false);
+
+
+    const isInCart = product => {
+        return !!cartItems.find(item => item.id === product.id);
+    }
+
+    console.log(cartItems)
+    const notify = (msg) => toast.success(msg, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        toastId: '569'
+    });
+
     // const ratingChanged = (newRating) => {
     //     setEdit(false)
     // };
+
+    const handleAddItem = (productItem) => {
+        addItem(productItem)
+        notify('Product Added to the Cart!')
+    }
     const now = 60
     return ratingAVG != undefined ?
+
         <div className="container">
             <div className="row">
-                <div>
-                    <Breadcrumb>
-                        <Breadcrumb.Item href="#">
-                            Dashboard
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item href="#">
-                            Profile
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item active>
-                            Details
-                        </Breadcrumb.Item>
-                    </Breadcrumb>
-                </div>
                 <div className="col">
                     <img src={product.images} alt={product.name} style={{maxHeight: "550px", maxWidth: "300px"}}/>
                 </div>
@@ -80,15 +95,30 @@ const ProductDetail = (props) => {
                         </div>
                     </div>
                     <div className="product-meta" style={{display: "flex", padding: "15px"}}>
-                        <input type="number" className="form-control-product mr-1 w-25 form-control"
-                               defaultValue={1}
-                               min={1} w-25/>
-                        <button type="submit" className="btn btn-dark btn-product"
-                                onClick={() => props.addItem(product)}>Add To Cart
-                        </button>
-                        <button type="submit" className="btn btn-product" style={{backgroundColor: "#eeee23"}}> Buy
-                            Now
-                        </button>
+
+                        {
+                            isInCart(product) &&
+                            <button
+                                onClick={() => handleAddItem(product)}
+                                className="btn btn-success btn-product">Add more</button>
+                        }
+                        {
+                            !isInCart(product) &&
+                            <button
+                                onClick={() => handleAddItem(product)}
+                                className="btn btn-product" style={{backgroundColor: "black", color: "white"}}>Add to
+                                cart</button>
+                        }
+
+                        {/*<button type="submit" className="btn-product"*/}
+                        {/*        onClick={() => handleAddItem(product)}>Add To Cart*/}
+                        {/*</button>*/}
+
+                        <Link to="/shop">
+                            <button type="submit" className="btn btn-product" style={{backgroundColor: "#eeee23"}}>
+                                Buy Now
+                            </button>
+                        </Link>
                     </div>
                     <div className="">
                         <span><strong>SKU :</strong>SF1133569600-1</span><br/>
@@ -96,7 +126,6 @@ const ProductDetail = (props) => {
                     </div>
                 </div>
             </div>
-
             <div className="">
                 <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
                     <Tab eventKey="Description" title="Description">
@@ -106,7 +135,7 @@ const ProductDetail = (props) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                        {product.description}</div>
+                            {product.description}</div>
                     </Tab>
                     <Tab eventKey="Specification" title="Specification">
                         <div style={{
@@ -115,7 +144,7 @@ const ProductDetail = (props) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                        <p> belly. XOXO direct trade locavore hammock kogi cronut occupy 3 wolf</p></div>
+                            <p> belly. XOXO direct trade locavore hammock kogi cronut occupy 3 wolf</p></div>
                     </Tab>
                     <Tab eventKey="Vendor" title="Vendor">
                         <div style={{
@@ -124,7 +153,8 @@ const ProductDetail = (props) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                        <p> braid. sssssssssssssXOXO direct trade locavore hammock kogi cronut occupy 3 wolf</p></div>
+                            <p> braid. sssssssssssssXOXO direct trade locavore hammock kogi cronut occupy 3 wolf</p>
+                        </div>
                     </Tab>
                     <Tab eventKey="Reviews" title={`Review (${product_ratings.count})`}>
                         <p>
@@ -136,7 +166,8 @@ const ProductDetail = (props) => {
                                     padding: "20px"
                                 }}>
                                     <h1 style={{color: "#669900", justifyItems: "center"}}><span
-                                        style={{fontWeight: "bold"}}>{product_ratings.avg.toFixed(1)}</span> out of 5</h1>
+                                        style={{fontWeight: "bold"}}>{product_ratings.avg.toFixed(1)}</span> out of 5
+                                    </h1>
                                     <h6>{product_ratings.count} global ratings</h6>
 
                                     <ReactStars
@@ -150,42 +181,43 @@ const ProductDetail = (props) => {
 
                                     <div style={{
                                         width: "500px",
-                                        height: "200px",}}>
+                                        height: "200px",
+                                    }}>
                                         <div>
                                             <Row className="progress-r">
                                                 <h6> 5 star </h6>
-                                                <Col >
+                                                <Col>
                                                     <ProgressBar variant="warning" className="progress-b"
-                                                                 // label={`${(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%`}
-                                                                  now={(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}/>
+                                                        // label={`${(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%`}
+                                                                 now={(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}/>
                                                 </Col>
                                                 <h6>{(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%</h6>
-                                            </Row >
+                                            </Row>
                                             <Row className="progress-r">
                                                 <h6>4 star </h6>
                                                 <Col>
                                                     <ProgressBar variant="warning" className="progress-b"
-                                                                 //label={`${(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%`}
+                                                        //label={`${(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%`}
                                                                  now={(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}
                                                     />
                                                 </Col>
                                                 <h6>{(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%</h6>
                                             </Row>
                                             <Row className="progress-r">
-                                                <h6 >3 star </h6>
-                                                <Col >
+                                                <h6>3 star </h6>
+                                                <Col>
                                                     <ProgressBar variant="warning" className="progress-b"
-                                                                // label={`${(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%`}
+                                                        // label={`${(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%`}
                                                                  now={(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}
                                                     />
                                                 </Col>
                                                 <h6>{(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%</h6>
                                             </Row>
                                             <Row className="progress-r">
-                                                <h6 >2 star </h6>
+                                                <h6>2 star </h6>
                                                 <Col>
                                                     <ProgressBar variant="warning" className="progress-b"
-                                                                // label={`${(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}%`}
+                                                        // label={`${(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}%`}
                                                                  now={(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}
                                                     />
                                                 </Col>
@@ -195,7 +227,7 @@ const ProductDetail = (props) => {
                                                 <h6>1 star </h6>
                                                 <Col>
                                                     <ProgressBar variant="warning" className="progress-b"
-                                                                // label={`${(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}%`}
+                                                        // label={`${(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}%`}
                                                                  now={(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}
                                                     />
                                                 </Col>
@@ -219,9 +251,10 @@ const ProductDetail = (props) => {
                     </Tab>
                 </Tabs>
             </div>
+
         </div>
 
-        : <h4>Loading ...</h4>
+        : <SpinnerPage/>
 }
 const mapStatetoProps = createStructuredSelector({
     cartItems: selectCartItems,

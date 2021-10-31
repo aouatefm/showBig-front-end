@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ReactTable from "react-table";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {select_v_products_filters, selectSearchBarKeywords} from "../../redux/filters/filters-selectors";
@@ -51,21 +50,21 @@ class VendorProducts2 extends Component {
                 <button onClick={this._clearAllFilters}>
                     Clear All filters using setState
                 </button>
-                <ReactTable
-                    data={data}
-                    filtered={this.state.filtered}
-                    columns={[
-                        {
-                            Header: "Name",
-                            id: "name",
-                            accessor: (data) => data.name,
-                            filterMethod: this._nameFilter
-                        },
+                {/*<ReactTable*/}
+                {/*    data={data}*/}
+                {/*    filtered={this.state.filtered}*/}
+                {/*    columns={[*/}
+                {/*        {*/}
+                {/*            Header: "Name",*/}
+                {/*            id: "name",*/}
+                {/*            accessor: (data) => data.name,*/}
+                {/*            filterMethod: this._nameFilter*/}
+                {/*        },*/}
 
-                    ]}
-                    defaultPageSize={10}
-                    className="-striped -highlight"
-                />
+                {/*    ]}*/}
+                {/*    defaultPageSize={10}*/}
+                {/*    className="-striped -highlight"*/}
+                {/*/>*/}
                 <br />
 
             </div>

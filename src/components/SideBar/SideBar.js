@@ -94,7 +94,7 @@ const SideBar = (props) => {
                 onChange={ handlePriceChange }
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"/>
-            <h6 style={{textAlign:"center",}}>{priceVal[0]} &lt; Price (USD) &lt; {priceVal[1]}</h6>
+            <h6 style={{textAlign:"center",}}>{priceVal[0]} &lt; Price ($) &lt; {priceVal[1]}</h6>
         </div>
     );
 
@@ -103,10 +103,12 @@ const SideBar = (props) => {
             <Slider
                 value={sizeVal}
                 min={0}
-                max={20}
+                max={5}
                 onChange={ handleSizeChange }
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"/>
+            <h6 style={{textAlign:"center",}}>{sizeVal[0]} &lt; Ratings (&#9733;) &lt; {sizeVal[1]}</h6>
+
         </div>
     );
 
@@ -127,10 +129,10 @@ const SideBar = (props) => {
                     className='items-icon'
                     type='checkbox'
                     id='catagories'
-                    value='old'
-                    defaultChecked={ selectedConditions.includes('old') }
-                    onClick={ () => handleConditionsCheckboxClicked('old') }/>
-                <span>OLD</span>
+                    value='free shipping'
+                    defaultChecked={ selectedConditions.includes('free-shipping') }
+                    onClick={ () => handleConditionsCheckboxClicked('free-shipping') }/>
+                <span>FREE SHIPPING</span>
             </p>
         </div>
     );
@@ -153,7 +155,7 @@ const SideBar = (props) => {
             </div>
             <div className='sidebar-cell'>
                 <div className='sidebar-header' onClick={toggleSideBarDropped}>
-                    <span className='sidebar-header-title'>Size</span>
+                    <span className='sidebar-header-title'>Ratings</span>
                     {dropdownToggle}
                 </div>
                 { dropped ? size : "" }

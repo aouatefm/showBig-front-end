@@ -14,9 +14,11 @@ import SideBar from "../../components/SideBar/SideBar";
 import {useParams} from "react-router-dom";
 import {SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from "use-react-router";
+import SpinnerPage from "../Spinner/SpinnerPage";
 
 const ProductPage = ({products, viewbar, v_products_filters}) => {
     let {name} = useParams();
+    const ff =0
     const {location} = useReactRouter();
     const params = new URLSearchParams(location.search);
     const SearchTerm = params.get('find_desc');
@@ -94,9 +96,7 @@ return (
                 )
                 :
                 (
-                    <>
-
-                    </>
+                    <SpinnerPage/>
                 )
         }
 
