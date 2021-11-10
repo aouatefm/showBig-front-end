@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-
 import './App.css';
 import Routes from './containers/Routes';
 import Footer from './components/Footer/Footer';
@@ -19,6 +18,8 @@ import {setSideBarFilters} from "./redux/filters/filters-actions";
 import VendorService from "./services/VendorService";
 import {setAllOrders, setCustomerOrders} from "./redux/orders/order-action";
 import OrderService from "./services/OrderService";
+import {UserProvider} from "./firebase/UserProvider";
+
 
 class App extends Component {
     unsubscribeFromAuth = null;
@@ -54,7 +55,8 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header>
+                <UserProvider>
+                    <header>
                     <NavOne />
                     <NavTwo /> {/*{this.props.role==='vendor' && <NavThree/>}*/}
                    {/*<NavThree/>*/}
@@ -65,6 +67,7 @@ class App extends Component {
                 <footer className="footer-distributed">
                     <Footer/>
                 </footer>
+                </UserProvider>
             </div>
         );
     }

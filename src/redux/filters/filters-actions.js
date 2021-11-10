@@ -8,7 +8,10 @@ export const SetVProductsFilters = (filters) => ({
     type: FiltersActionTypes.SET_V_PRODUCTS_FILTERS,
     payload: filters,
 });
-
+export const SetVendorsFilters = (filters) => ({
+    type: FiltersActionTypes.SET_VENDOR_FILTERS,
+    payload: filters,
+});
 export const SetOrderFilters = (filters) => ({
     type: FiltersActionTypes.SET_ORDER_FILTERS,
     payload: filters,

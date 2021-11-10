@@ -11,20 +11,24 @@ import "./SideBar.css";
 
 const SideBar = (props) => {
     const {dropped, toggleSideBarDropped, filters, setSideBarFilters,} = props;
-    const {brands, staticBrands, minPrice, maxPrice, minSize, maxSize, conditions,} = filters;
+    const {brands, staticBrands, minPrice, maxPrice, minRate, maxRate, conditions,} = filters;
 
     const [ priceVal, setPrice ] = useState([minPrice, maxPrice]);
-    const [ sizeVal, setSize ] = useState([minSize, maxSize]);
+    const [ RateVal, setRate ] = useState([minRate, maxRate]);
     const [ selectedConditions, setSelectedConditions ] = useState([...conditions]);
     const [ selectedBrands, setSelectedBrands ] = useState([...brands]);
 
 
     const handlePriceChange = (event, newPrice) => {
+        console.log("newPrice")
+        console.log(newPrice)
         setPrice(newPrice);
     }
 
-    const handleSizeChange = (event, newSize) => {
-        setSize(newSize);
+    const handleRateChange = (event, newRate) => {
+        console.log("newRate")
+        console.log(newRate)
+        setRate(newRate);
     };
 
     const handleBrandCheckboxClicked = (brand) => {
@@ -53,8 +57,8 @@ const SideBar = (props) => {
                 brands: selectedBrands,
                 minPrice: priceVal[0],
                 maxPrice: priceVal[1],
-                minSize: sizeVal[0],
-                maxSize: sizeVal[1],
+                minRate: RateVal[0],
+                maxRate: RateVal[1],
                 conditions: selectedConditions,
             }
         );
@@ -98,16 +102,16 @@ const SideBar = (props) => {
         </div>
     );
 
-    const size = (
+    const rate = (
         <div className='sidebar-slider'>
             <Slider
-                value={sizeVal}
+                value={RateVal}
                 min={0}
                 max={5}
-                onChange={ handleSizeChange }
+                onChange={ handleRateChange }
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"/>
-            <h6 style={{textAlign:"center",}}>{sizeVal[0]} &lt; Ratings (&#9733;) &lt; {sizeVal[1]}</h6>
+            <h6 style={{textAlign:"center",}}>{RateVal[0]} &lt; Ratings (&#9733;) &lt; {RateVal[1]}</h6>
 
         </div>
     );
@@ -129,7 +133,7 @@ const SideBar = (props) => {
                     className='items-icon'
                     type='checkbox'
                     id='catagories'
-                    value='free shipping'
+                    value='free-shipping'
                     defaultChecked={ selectedConditions.includes('free-shipping') }
                     onClick={ () => handleConditionsCheckboxClicked('free-shipping') }/>
                 <span>FREE SHIPPING</span>
@@ -141,7 +145,7 @@ const SideBar = (props) => {
         <div className={dropped ? 'sidebar dropped' : 'sidebar'} style={{marginTop : "150px"}}>
             <div className='sidebar-cell'>
                 <div className='sidebar-header' onClick={toggleSideBarDropped}>
-                    <span className='sidebar-header-title'>Brands</span>
+                    <span className='sidebar-header-title'>Stores</span>
                     {dropdownToggle}
                 </div>
                 { dropped ? catagories : "" }
@@ -158,7 +162,7 @@ const SideBar = (props) => {
                     <span className='sidebar-header-title'>Ratings</span>
                     {dropdownToggle}
                 </div>
-                { dropped ? size : "" }
+                { dropped ? rate : "" }
             </div>
             <div className='sidebar-cell-2'>
                 <div className='sidebar-header' onClick={toggleSideBarDropped}>

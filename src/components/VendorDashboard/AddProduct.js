@@ -101,6 +101,7 @@ const AddProduct = () => {
                         <div className="form-group">
                             <label>Category</label>
                             <select onChange={e => setCategory(e.currentTarget.value)} className="form-control" required >
+                                <option value="" selected>Choose a category</option>
                                 {categories.map((option) => (
                                     <option value={option.name}>{option.name}</option>
                                 ))}

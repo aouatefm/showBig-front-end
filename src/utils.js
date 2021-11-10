@@ -1,5 +1,8 @@
 import {toast} from "react-toastify";
 import {auth} from "./firebase/firebase";
+import {useEffect, useState} from "react";
+import UserService from "./services/UserService";
+import Moment from "moment";
 
 export const formatPrice = (x, currency) => {
     switch (currency) {
@@ -49,9 +52,18 @@ export const orderStatus = (status) =>{
 }
 
 
-export const isAuthenticated = async () => {
-    const isAuthed = await auth.currentUser
-        return isAuthed
-
+export const UserProfile = async (uid) => {
+        const profile = await UserService.getUser(uid)
+    console.log(profile)
+    return profile
 };
 
+
+
+export function dateDiffInDays(date) {
+    const now = Moment(new Date());
+    const end = Moment(date);
+    const duration = Moment.duration(now.diff(end));
+    const days = duration.asDays();
+    return days;
+}

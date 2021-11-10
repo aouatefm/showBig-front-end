@@ -23,8 +23,6 @@ const ProductPage = ({products, viewbar, v_products_filters}) => {
     const params = new URLSearchParams(location.search);
     const SearchTerm = params.get('find_desc');
     const categoryParam = params.get('find_cat');
-    console.log("term,categoryParam")
-    console.log(SearchTerm,categoryParam)
     SetVProductsFilters({category :name})
 const [pageValue, setPageValue] = useState(1);
 

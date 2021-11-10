@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import OrderService from "../../services/OrderService";
 import {addItem, clearCart, removeItem, updateItems} from "../../redux/cart/cart-action";
 import CouponService from "../../services/CouponService";
+import {useSession} from "../../firebase/UserProvider";
 
 
 const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCart, updateItems}) => {
@@ -31,6 +32,7 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
     const [userProfile, setUserProfile] = useState("");
     const [showAlert, setShowAlert] = useState(false);
     const history = useHistory();
+    const { user } = useSession()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,7 +56,6 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
     let totalPrice = delivery;
     cartItems.map(item => totalPrice += (item.discounted_price ? item.discounted_price * item.quantity : item.price * item.quantity));
 
-
     const handleCoupon = async () => {
         let resp = await CouponService.applyCoupon(coupon, cartItems)
         if (resp) {
@@ -66,28 +67,30 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
         }
 
     }
-
     const handleSubmit = async () => {
         setLoading(true)
-        if (delivery === "" || payment === "") {
-            alert("Please make sure to choose the delivery and payment method ");
-            setLoading(false)
 
-        } else {
-            try {
-                const res = await OrderService.createOrder(name, lastName, billingAdr, shippingAdr, phone, secondPhone, delivery, payment, cartItems, totalPrice, notes)
+        if (user)
+        {
+            if (delivery === "" || payment === "") {
+                alert("Please make sure to choose the delivery and payment method ");
+                setLoading(false)
+            } else {
+                try {
+                    const res = await OrderService.createOrder(name, lastName, billingAdr, shippingAdr, phone, secondPhone, delivery, payment, cartItems, totalPrice, notes)
 
-            } catch (e) {
-                console.log(e)
+                } catch (e) {
+                    console.log(e)
+                }
+                clearCart()
+                history.push({pathname: "/product-listing"});
+                setLoading(false)
             }
-            clearCart()
-            history.push({pathname: "/product-listing"});
-            setLoading(false)
         }
-
-
+        else {
+            history.push({pathname: "/register"});
+        }
     }
-
     return (
         <div className="container">
             <div className="row">

@@ -4,8 +4,7 @@ import {Row} from "react-bootstrap";
 import VendorCard from "../../components/VendorCard/VendorCard";
 
 const VendorPage = ({vendors}) => {
-
-    return (
+         return (
         <Row className="row-vendor">
             {
                 vendors.map(vendor => (

@@ -10,7 +10,7 @@ function NavTwo({role}) {
     return (
         <div className="App">
             <Nav style={{
-                backgroundColor: "#EEEE23",
+                backgroundColor: "#FFFD38",
                 borderTop: "1px solid gray",
                 height: "50px",
                 justifyContent: "center",
@@ -26,7 +26,7 @@ function NavTwo({role}) {
                     <Nav.Link href="#" className="nav">Contact</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="#" className="nav">About us</Nav.Link>
+                    <Nav.Link href="/about" className="nav">About us</Nav.Link>
                 </Nav.Item>
 
 
@@ -38,26 +38,11 @@ function NavTwo({role}) {
                     <Nav.Link href="/become-vendor" className="nav">Become a Vendor</Nav.Link>
                 </Nav.Item>
                 {/*TODO: `remove the comment to switch between vendor and user*/}
-                {/*{*/}
-                {/*role === 'vendor' ?*/}
-                {/*<Nav.Item>*/}
-                {/*    <Nav.Link href="/dashboard" className="nav">Vendor Dashboard</Nav.Link>*/}
-                {/*</Nav.Item>*/}
-                {/*:*/}
-                {/*<Nav.Item>*/}
-                {/*    <Nav.Link href="/become-vendor" className="nav">Become a Vendor</Nav.Link>*/}
-                {/*</Nav.Item>*/}
-                {/*}*/}
 
                 <Nav.Item>
-                    <Nav.Link href="/vendor-orders" className="nav">Vendor Orders</Nav.Link>
+                    <Nav.Link href="#" className="nav">{role}</Nav.Link>
                 </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link href="/customer-orders" className="nav">Customer Orders</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link href="#" disabled>FAQ</Nav.Link>
-                </Nav.Item>
+
             </Nav>
         </div>
     );

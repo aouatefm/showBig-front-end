@@ -5,3 +5,5 @@
 .cat-link{
     color: black;
 }
+.li_pointer { cursor: pointer; }
+.li_pointer:hover{color: #fad643}

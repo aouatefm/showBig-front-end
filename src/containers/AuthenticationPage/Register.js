@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Button} from "react-bootstrap";
 import { connect } from "react-redux";
-
 import FormInput from '../../components/FormInput/FormInput';
 import UserService from "../../services/UserService";
 import {login} from "../../firebase/auth";
@@ -9,6 +8,7 @@ import {setLoading} from "../../redux/spinner/spinner-actions";
 import {setCurrentUser} from "../../redux/user/user-action";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
+import {withRouter} from "react-router-dom";
 
 
 class RegisterForm extends Component {
@@ -41,6 +41,8 @@ class RegisterForm extends Component {
                 console.log("USER CREATED!")
                 await login(this.state.email,this.state.password)
                 this.setState({ email: '', password: '',displayName :'',confirmPassword :'' });
+                this.props.history.push("/product-listing");
+
 
             } else {
                 console.log(errorMsg)
@@ -82,7 +84,6 @@ class RegisterForm extends Component {
                     value={this.state.password}
                     required
                     handleChange={handleChange}
-
                 />
                 <FormInput
                     label='Confirm Password'
@@ -101,10 +102,10 @@ class RegisterForm extends Component {
                     disabled={!validateForm()}>
                     Register
                 </Button>
-                {/*{this.state.showAlert &&*/}
-                {/*<div className="alert alert-danger" role="alert" style={{marginTop: "10px"}}>*/}
-                {/*    Password does not match ! Please try again*/}
-                {/*</div>}*/}
+                {this.state.showAlert &&
+                <div className="alert alert-danger" role="alert" style={{marginTop: "10px"}}>
+                    Password does not match ! Please try again
+                </div>}
             </form>
         );
     }
@@ -118,4 +119,4 @@ const mapDispatchtoProps = dispatch => ({
     setCurrentUser: userAuth => dispatch(setCurrentUser(userAuth)),
 })
 
-export default connect(null, mapDispatchtoProps)(RegisterForm);
+export default withRouter(connect(mapStatetoProps, mapDispatchtoProps)(RegisterForm));

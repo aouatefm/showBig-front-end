@@ -6,17 +6,21 @@ import {Link} from "react-router-dom";
 import {createStructuredSelector} from "reselect";
 import {connect} from "react-redux";
 import {selectSearchBarKeywords, selectSideBarFilters, selectSortBar, selectViewBar} from "../../redux/filters/filters-selectors";
+import {dateDiffInDays} from "../../utils";
 
-const  useProducts = (productss) =>{
+const  useProducts = (p) =>{
     const [products, setProducts] = useState([]);
     useEffect(async() => {
        // const newProducts = await ProductService.getProductList()
-        const newProducts = await productss
+        const newProducts = await p
         setProducts(newProducts);
-    }, [productss])
+    }, [p])
     return products
 }
 const Grid =  ({ Keywords,products ,filters,sortbar}) => {
+    console.log(dateDiffInDays(products[1].created_at))
+    console.log(filters.conditions.includes("new"))
+    console.log(filters)
     const productsCollection = useProducts(products)
     const keywordsMatched = (item) => {
         const formattedKeywords = Keywords.trim().replace(/\s/g, '').toLowerCase();
@@ -26,13 +30,16 @@ const Grid =  ({ Keywords,products ,filters,sortbar}) => {
         const formattedStore = store_id.toLowerCase();
         return formattedName.includes(formattedKeywords) || formattedStore.includes(formattedKeywords);
     }
+
     const applyFilters = (items) => {
         let itemsToDisplay = items.filter(
             item =>
-                 parseFloat(filters.minPrice) < parseFloat(item.price) && parseFloat(item.price) <= parseFloat(filters.maxPrice) &&
-                 //parseInt(filters.minSize) <= parseInt(item.size) && parseInt(item.size) <= parseInt(filters.maxSize) &&
+                parseFloat(filters.minPrice) < parseFloat(item.price) && parseFloat(item.price) <= parseFloat(filters.maxPrice) &&
+                 parseInt(filters.minRate) <= parseInt(item.ratings_avg) && parseInt(item.ratings_avg) <= parseInt(filters.maxRate) &&
                 (filters.brands.includes(item.store_id) || filters.brands.length === 0) &&
-                (filters.conditions.includes(item.condition) || filters.conditions.length === 0) && keywordsMatched(item)
+                (filters.conditions.includes("free-shipping") && item.shipping_price === null) || (filters.conditions.length === 0) ||
+                (filters.conditions.includes('new') && dateDiffInDays(item.created_at) <= 31) || (filters.conditions.length === 0) &&
+                 keywordsMatched(item)
         );
 
         if(sortbar === 'low-to-high'){

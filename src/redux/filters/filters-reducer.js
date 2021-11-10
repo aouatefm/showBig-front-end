@@ -1,11 +1,12 @@
 import { FiltersActionTypes } from './filters-types';
 const INITIAL_STATE = {
     searchbar: {keywords: '',},
-    sidebar: {filters: {brands: [], staticBrands: [], minPrice: 0, maxPrice: 1000, minSize: 0, maxSize: 20, conditions: [],}, dropped: false,},
+    sidebar: {filters: {brands: [], staticBrands: [], minPrice: 0, maxPrice: 1000, minRate: 0, maxRate: 5, conditions: [],}, dropped: false,},
     sortbar: 'none',
     viewbar: 5,
     viewbargrid : true,
     v_products_search : {date : "", category :"", status :""},
+    vendor_search : {name : "", address :""},
     order_status : 'all',
     order_filters :{date : "", customer :"", orderId:"", status:'all'},
 }
@@ -30,6 +31,15 @@ const filtersReducer = (state = INITIAL_STATE, action) => {
                         ...action.payload,
 
                     }
+            }
+        case FiltersActionTypes.SET_VENDOR_FILTERS:
+            return {
+                ...state,
+                vendor_search: {
+                    ...state.vendor_search,
+                    ...action.payload,
+
+                }
             }
         case FiltersActionTypes.SET_ORDER_FILTERS:
             return {

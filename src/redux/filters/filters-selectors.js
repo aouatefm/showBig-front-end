@@ -11,7 +11,10 @@ export const select_v_products_filters = createSelector(
     [selectFilters],
     (filters) => filters.v_products_search
 );
-
+export const select_vendors_filters = createSelector(
+    [selectFilters],
+    (filters) => filters.vendor_search
+);
 export const select_order_filters = createSelector(
     [selectFilters],
     (filters) => filters.order_filters

@@ -15,16 +15,16 @@ export const AddressIcon =({width,height}) =>  <svg xmlns="http://www.w3.org/200
     <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
 </svg>
 
-export const ProfileIcon = () => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-alt"
+export const ProfileIcon = ({width}) => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-alt"
                                       className="svg-inline--fa fa-user-alt fa-w-16" role="img"
-                                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
+                                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={width}>
     <path fill="currentColor"
           d="M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"/>
 </svg>
 
-export const CartIcon = () => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart"
+export const CartIcon = ({width}) => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart"
                                    className="svg-inline--fa fa-shopping-cart fa-w-18" role="img"
-                                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="30">
+                                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width={width}>
     <path fill="currentColor"
           d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"/>
 </svg>
@@ -75,7 +75,7 @@ export const ListIcon = () => <svg aria-hidden="true" focusable="false" data-pre
     <path fill="currentColor"
           d="M149.333 216v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-80c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zM125.333 32H24C10.745 32 0 42.745 0 56v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24zm80 448H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm-24-424v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24zm24 264H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24z"/>
 </svg>
-export const SignOutIcon = ({width=30}) => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-out-alt"
+export const SignOutIcon = ({width}) => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-out-alt"
                                       className="svg-inline--fa fa-sign-out-alt fa-w-16" role="img"
                                       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={width}>
     <path fill="currentColor"
@@ -163,4 +163,11 @@ export const EyeSlash = ({width}) => <svg aria-hidden="true" focusable="false" d
                                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="20">
     <path fill="currentColor"
           d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z"/>
+</svg>
+
+export const InvoicesIcon = ({width}) => <svg aria-hidden="true" focusable="false" data-prefix="fas"
+                                          data-icon="file-invoice" className="svg-inline--fa fa-file-invoice fa-w-12"
+                                          role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width={width}>
+    <path fill="currentColor"
+          d="M288 256H96v64h192v-64zm89-151L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-153 31V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm256 304c0 4.42-3.58 8-8 8h-80c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16zm0-200v96c0 8.84-7.16 16-16 16H80c-8.84 0-16-7.16-16-16v-96c0-8.84 7.16-16 16-16h224c8.84 0 16 7.16 16 16z"/>
 </svg>
