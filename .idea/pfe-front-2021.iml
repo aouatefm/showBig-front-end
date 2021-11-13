@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="b99e675b6e" level="application" />
+    <orderEntry type="library" name="@types/react" level="application" />
   </component>
 </module>

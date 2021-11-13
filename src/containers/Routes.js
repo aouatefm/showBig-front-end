@@ -12,7 +12,7 @@ import VendorOrders from "../components/VendorDashboard/VendorOrders";
 import VendorCustomers from "../components/VendorDashboard/VendorCustomers";
 import VendorCoupons from "../components/VendorDashboard/VendorCoupons";
 import BecomeVendor from "../components/BecomeVendor/BecomeVendor";
-import Test from "./AdminDashboard/Test";
+import {ToastDemo} from "./AdminDashboard/Test";
 import AddProduct from "../components/VendorDashboard/AddProduct";
 import VendorGrid from "../components/VendorGrid/VendorGrid";
 import VendorProductsPage from "./VendorDashboard/VendorProductsPage";
@@ -23,23 +23,23 @@ import CustomerOrderDetail from "../components/Order/CustomerOrderDetail";
 import VendorCustomersDetails from "../components/VendorDashboard/VendorCustomersDetails";
 import EditCoupon from "../components/VendorDashboard/EditCoupon";
 import StoreSettings from "../components/VendorDashboard/StoreSettings";
-import ProfileRedirect from "../components/RouteComponents/PrivateRoute";
 import Unauthorized from "./Unauthorized/Unauthorized";
 import ProtectedRoute from "../components/RouteComponents/ProtectedRoute";
 import PrivateRoute from "../components/RouteComponents/PrivateRoute";
 import CartPage from "./CartPage/CartPage";
 import AboutUs from "./AboutUs/AboutUs";
-
+import AdminDashboard from "./AdminDashboard/AdminDashboard";
+import StoreManagement from "../components/DashboardComponent/StoreManagement";
+import AdminKpIs from "../components/DashboardComponent/AdminKPIs";
 
 const Routes = () => (
-
     <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/register" component={AuthenticationPage}/>
         <Route exact path="/cart" component={CartPage}/>
-        <Route exact path="/admin" component={Test}/>
         <Route exact path="/shop" component={Shop}/>
-        <Route exact path="/about" component={AboutUs}/>
+         <Route exact path="/admin" component={AdminDashboard}/>
+         <Route exact path="/about" component={AboutUs}/>
         <PrivateRoute exact path="/vendor-products" component={VendorProductsPage}/>
         <PrivateRoute exact path="/vendor-orders" component={VendorOrders}/>
         <PrivateRoute exact path="/vendor-orders/:id" component={OrderDetail}/>
@@ -57,6 +57,8 @@ const Routes = () => (
         <Route exact path="/products/:id" component={ProductDetail}/>
         <PrivateRoute exact path="/edit-coupon/:id" component={EditCoupon}/>
         <PrivateRoute exact path="/add" component={AddProduct}/>
+        <PrivateRoute exact path="/kpis" component={AdminKpIs}/>
+        <PrivateRoute exact path="/store-management" component={StoreManagement}/>
         <PrivateRoute exact path="/customer-orders" component={CustomerOrders}/>
         <PrivateRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
         <Route exact path="/unauthorized" component={Unauthorized}/>

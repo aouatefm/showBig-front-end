@@ -19,6 +19,7 @@ import VendorService from "./services/VendorService";
 import {setAllOrders, setCustomerOrders} from "./redux/orders/order-action";
 import OrderService from "./services/OrderService";
 import {UserProvider} from "./firebase/UserProvider";
+import alanBtn from "@alan-ai/alan-sdk-web";
 
 
 class App extends Component {
@@ -47,6 +48,10 @@ class App extends Component {
             setAllOrders(orders)
             setCustomerOrders(customer_orders)
             setSideBarFilters({staticBrands: [...vendors]});
+            // alanBtn({
+            //     key:
+            //         "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
+            // });
         });
     }
     componentWillUnmount() {
@@ -55,7 +60,9 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+
                 <UserProvider>
+
                     <header>
                     <NavOne />
                     <NavTwo /> {/*{this.props.role==='vendor' && <NavThree/>}*/}

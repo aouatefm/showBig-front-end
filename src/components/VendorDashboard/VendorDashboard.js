@@ -11,7 +11,7 @@ class VendorDashboard extends Component {
                 <div className="col col-lg-2">
                     <NavThree/>
                 </div>
-                <div className="col">
+                <div className="col" >
                     <ComboChart />
 
                 </div>

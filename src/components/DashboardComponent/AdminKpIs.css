@@ -1,0 +1,19 @@
+.kpi_values{
+    width: 220px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    font-size: 20px;
+    margin-top: 3px;
+}
+
+.kpi_labels {
+    color: gray;
+    font-family: monospace;
+    font-size: 13px
+}
+.kpi_title{
+    text-align:center;
+    font-family: fantasy;
+    padding: 12px;
+}

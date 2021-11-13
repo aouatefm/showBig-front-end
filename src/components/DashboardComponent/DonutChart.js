@@ -6,7 +6,7 @@ class DonutChart extends Component {
         super(props);
         this.state = {
             options: {
-                labels: ["Apple", "Mango", "Orange", "Watermelon"],
+                labels: Object.keys(props.stores),
                 theme: {
                     monochrome: {
                         enabled: false
@@ -17,7 +17,7 @@ class DonutChart extends Component {
                         breakpoint: 480,
                         options: {
                             chart: {width: "100%"},
-                            legend: {show: false}
+                            legend: {show: true}
                         }
                     }
                 ],
@@ -27,9 +27,14 @@ class DonutChart extends Component {
                             console.log(config.w.config.labels[config.dataPointIndex]);
                         }
                     }
-                }
+                },
+
+                // generate random color code for each store
+                colors:  new Array(6).fill().map(val => '#'+Math.floor(Math.random()*16777215).toString(16)),
+
+
             },
-            series: [44, 55, 13, 43, 22]
+            series: Object.values(props.stores)
         };
     }
     render() {
@@ -38,10 +43,13 @@ class DonutChart extends Component {
                     options={this.state.options}
                     series={this.state.series}
                     type="donut"
-                    width="400"
+                    width="500"
                 />
         );
     }
 }
 
 export default DonutChart;
+
+
+
