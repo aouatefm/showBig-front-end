@@ -13,6 +13,7 @@ import RatingService from "../../services/RatingService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
+import { useToasts } from "react-toast-notifications";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
@@ -27,6 +28,7 @@ function useProductId(id) {
 }
 
 const ProductDetail = ({cartItems, addItem}) => {
+    const { addToast } = useToasts();
     let {id} = useParams();
     const [product, product_ratings] = useProductId(id);
     const ratingAVG = product_ratings.avg
@@ -37,17 +39,6 @@ const ProductDetail = ({cartItems, addItem}) => {
         return !!cartItems.find(item => item.id === product.id);
     }
 
-    console.log(cartItems)
-    const notify = (msg) => toast.success(msg, {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        toastId: '569'
-    });
 
     // const ratingChanged = (newRating) => {
     //     setEdit(false)
@@ -55,9 +46,13 @@ const ProductDetail = ({cartItems, addItem}) => {
 
     const handleAddItem = (productItem) => {
         addItem(productItem)
-        notify('Product Added to the Cart!')
+        addToast("Product successfully added to cart", {
+            appearance: "success",
+            autoDismiss: true,
+            autoDismissTimeout: 2000,
+            TransitionState: "exiting",
+        });
     }
-    const now = 60
     return ratingAVG != undefined ?
 
         <div className="container">

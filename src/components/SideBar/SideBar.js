@@ -103,7 +103,7 @@ const SideBar = (props) => {
     );
 
     const rate = (
-        <div className='sidebar-slider'>
+        <div className='sidebar-slider' >
             <Slider
                 value={RateVal}
                 min={0}

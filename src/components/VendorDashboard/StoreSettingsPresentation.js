@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import AutoComplete from "react-google-autocomplete";
-import { storage} from "../../firebase/firebase";
+import {storage} from "../../firebase/firebase";
 import VendorService from "../../services/VendorService";
 import {useHistory} from "react-router";
+import {useToasts} from "react-toast-notifications";
 
 const StoreSettingsPresentation = ({store}) => {
 
-    const history = useHistory ();
+    const history = useHistory();
+    const {addToast} = useToasts();
 
     const logo = useRef(null);
     const cover = useRef(null);
@@ -60,101 +62,106 @@ const StoreSettingsPresentation = ({store}) => {
         event.preventDefault();
 
         setLoading(true);
-        if(logoAdded | coverAdded)
-        {
-        const storageLogoRef = storage.ref(`vendors/logo/${logo.current.name}`);
-        const storageCoverRef = storage.ref(`vendors/cover/${cover.current.name}`);
-        storageCoverRef.put(cover.current)
-        storageLogoRef.put(logo.current)
-            .then(async () => {
-                const imageLogoUrl = await storageLogoRef.getDownloadURL();
-                const imageCoverUrl = await storageCoverRef.getDownloadURL();
-                await setLogoURL(imageLogoUrl)
-                await setCoverURL(imageCoverUrl)
-                console.log("logoURL")
-                console.log(logoURL)
-                //console.log(imageLogoUrl)
-            })
+        if (logoAdded | coverAdded) {
+            const storageLogoRef = storage.ref(`vendors/logo/${logo.current.name}`);
+            const storageCoverRef = storage.ref(`vendors/cover/${cover.current.name}`);
+            storageCoverRef.put(cover.current)
+            storageLogoRef.put(logo.current)
+                .then(async () => {
+                    const imageLogoUrl = await storageLogoRef.getDownloadURL();
+                    const imageCoverUrl = await storageCoverRef.getDownloadURL();
+                    await setLogoURL(imageLogoUrl)
+                    await setCoverURL(imageCoverUrl)
+                    console.log("logoURL")
+                    console.log(logoURL)
+                    //console.log(imageLogoUrl)
+                })
         }
-                const res = await VendorService.editVendor(name, description, address, phone, logoURL, coverURL, facebook, instagram, youtube, lat, lng,store.store_id)
-                setLoading(false);
-                history.push (`/vendors/${store.store_id}`);
+        const res = await VendorService.editVendor(name, description, address, phone, logoURL, coverURL, facebook, instagram, youtube, lat, lng, store.store_id)
+        addToast("Store Settings successfully edited", {
+            appearance: "success",
+            autoDismiss: true,
+            autoDismissTimeout: 2000,
+            TransitionState: "exiting",
+        });
+        setLoading(false);
+        history.push(`/vendors/${store.store_id}`);
 
     }
-        return (
-            <div>
-                {store &&
-                <form onSubmit={onSubmit}>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Name"
-                               name="name"
-                               value={name}
-                               required
-                               disabled
-                               onChange={e => setName(e.currentTarget.value)}/>
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Description"
-                               name="description"
-                               value={description}
-                               onChange={e => setDescription(e.currentTarget.value)}
-                               required/>
-                    </div>
-                    <div className="form-group">
-                        <AutoComplete
-                            type="text"
-                            className="form-control" placeholder="Address"
-                            value={address}
-                            onChange={e => setAddress(e.currentTarget.value)}
-                            apiKey={"AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA"}
-                            required
+    return (
+        <div>
+            {store &&
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Name"
+                           name="name"
+                           value={name}
+                           required
+                           disabled
+                           onChange={e => setName(e.currentTarget.value)}/>
+                </div>
+                <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Description"
+                           name="description"
+                           value={description}
+                           onChange={e => setDescription(e.currentTarget.value)}
+                           required/>
+                </div>
+                <div className="form-group">
+                    <AutoComplete
+                        type="text"
+                        className="form-control" placeholder="Address"
+                        value={address}
+                        onChange={e => setAddress(e.currentTarget.value)}
+                        apiKey={"AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA"}
+                        required
 
-                            onPlaceSelected={handlePlaceSelected}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input type="number" className="form-control" placeholder="Phone Number"
-                               name="phone"
-                               value={phone}
-                               onChange={e => setPhone(e.currentTarget.value)}
-                               required/>
-                    </div>
-                    <div className="form-group">
-                        <label>Store Logo</label>
-                        <input type="file" className="form-control" placeholder="logo"
-                               name="logo"
-                               id="logoFile"
-                               accept='image/*'
-                               onChange={handleLogoChange}/>
+                        onPlaceSelected={handlePlaceSelected}
+                    />
+                </div>
+                <div className="form-group">
+                    <input type="number" className="form-control" placeholder="Phone Number"
+                           name="phone"
+                           value={phone}
+                           onChange={e => setPhone(e.currentTarget.value)}
+                           required/>
+                </div>
+                <div className="form-group">
+                    <label>Store Logo</label>
+                    <input type="file" className="form-control" placeholder="logo"
+                           name="logo"
+                           id="logoFile"
+                           accept='image/*'
+                           onChange={handleLogoChange}/>
 
-                    </div>
-                    <div className="form-group">
-                        <label>Store Cover Image</label>
-                        <input type="file" className="form-control" placeholder="cover"
-                               name="cover"
-                               id="coverFile"
-                               accept='image/*'
-                               onChange={handleCoverChange}/>
-                    </div>
-                    {socials &&
-                    <div className="form-group">
-                        <label>Socials</label>
-                        <input className="form-control form-control-sm" type="url" placeholder="Facebook Link"
-                               name="facebook" onChange={e => setFacebook(e.currentTarget.value)}
-                               value={socials.facebook}/>
-                        <input className="form-control form-control-sm" type="url" placeholder="Instagram Link"
-                               name="instagram" onChange={e => setInstagram(e.currentTarget.value)}
-                               value={socials.instagram}/>
-                        <input className="form-control form-control-sm" type="url" placeholder="Youtube Link"
-                               name="youtube" onChange={e => setYoutube(e.currentTarget.value)}
-                               value={socials.youtube}/>
-                    </div>
-                    }
-                    <button type="submit" className="btn btn-success" disabled={loading}>Edit Store</button>
-                </form>
+                </div>
+                <div className="form-group">
+                    <label>Store Cover Image</label>
+                    <input type="file" className="form-control" placeholder="cover"
+                           name="cover"
+                           id="coverFile"
+                           accept='image/*'
+                           onChange={handleCoverChange}/>
+                </div>
+                {socials &&
+                <div className="form-group">
+                    <label>Socials</label>
+                    <input className="form-control form-control-sm" type="url" placeholder="Facebook Link"
+                           name="facebook" onChange={e => setFacebook(e.currentTarget.value)}
+                           value={socials.facebook}/>
+                    <input className="form-control form-control-sm" type="url" placeholder="Instagram Link"
+                           name="instagram" onChange={e => setInstagram(e.currentTarget.value)}
+                           value={socials.instagram}/>
+                    <input className="form-control form-control-sm" type="url" placeholder="Youtube Link"
+                           name="youtube" onChange={e => setYoutube(e.currentTarget.value)}
+                           value={socials.youtube}/>
+                </div>
                 }
-            </div>
-        );
+                <button type="submit" className="btn btn-success" disabled={loading}>Edit Store</button>
+            </form>
+            }
+        </div>
+    );
 }
 
 export default StoreSettingsPresentation;

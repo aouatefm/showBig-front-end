@@ -30,6 +30,8 @@
     font-size: 0.6em;
     background-color: #1fbc38;
     cursor: default;
+  border-radius: 8px;
+
 }
   .new-tag{
     position: absolute;
@@ -40,6 +42,8 @@
     font-size: 0.8em;
     background-color: red;
     cursor: default;
+    border-radius: 8px;
+
   }
 
 &__thumb {

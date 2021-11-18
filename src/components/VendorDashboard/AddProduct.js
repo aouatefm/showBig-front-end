@@ -4,6 +4,7 @@ import ProductService from "../../services/ProductService";
 import CategoriesService from "../../services/CategoriesService";
 import NavThree from "../NavBar/NavThree";
 import { useHistory } from "react-router";
+import {useToasts} from "react-toast-notifications";
 
 const  useCategories= () =>{
     const [categories, setCategories] = useState([]);
@@ -17,6 +18,7 @@ const  useCategories= () =>{
 const AddProduct = () => {
     const categories = useCategories()
     const history = useHistory();
+    const { addToast } = useToasts();
 
     const file = useRef(null);
     const [ fileAdded, setFileAdded ] = useState(file.current != null);
@@ -49,6 +51,12 @@ const AddProduct = () => {
                 const jwtToken = await auth.currentUser.getIdToken();
                 setLoading(true);
                 const res =  await ProductService.addProduct(name,price,shipping,category,stock,ptype,imageUrl,description)
+                addToast("Product successfully added to your store", {
+                    appearance: "success",
+                    autoDismiss: true,
+                    autoDismissTimeout: 2000,
+                    TransitionState: "exiting",
+                });
                 history.push("/vendor-listing");
                 setLoading(false)
             }).catch(error => {

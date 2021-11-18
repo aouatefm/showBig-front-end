@@ -13,8 +13,10 @@ import {MultiSelect} from "react-multi-select-component";
 import CouponService from "../../services/CouponService";
 import CouponPresentation from "./CouponPresentation";
 import Moment from "moment";
+import {useToasts} from "react-toast-notifications";
 
 const VendorCoupons = ({vendor, currentUser}) => {
+    const { addToast } = useToasts();
     const [show, setShow] = useState(false);
     const [store, setStore] = useState(null);
     const [products, setProducts] = useState([]);
@@ -32,7 +34,13 @@ const VendorCoupons = ({vendor, currentUser}) => {
 
     const onSubmit = async (e) =>    {
         e.preventDefault();
-    const res = await CouponService.createCoupon(name,description,type,amount,expireDays,selectedProducts,showOnStore)
+        const res = await CouponService.createCoupon(name,description,type,amount,expireDays,selectedProducts,showOnStore)
+        addToast("Coupon successfully added ", {
+            appearance: "success",
+            autoDismiss: true,
+            autoDismissTimeout: 2000,
+            TransitionState: "exiting",
+        })
         setShow(false);
         window.location.reload(false);
     }
@@ -100,10 +108,6 @@ const VendorCoupons = ({vendor, currentUser}) => {
                                               required
                                               onChange={(e)=>{setDescription(e.target.value)}}/>
                                 </div>
-
-
-
-
                                 <div className="form-group">
                                     <label> Discount Type</label>
                                     <select onChange={e => setType(e.target.value)} className="form-control" required>
@@ -154,15 +158,14 @@ const VendorCoupons = ({vendor, currentUser}) => {
                                                 onChange={handleToggle}/>
                                 </div>
                                 <button type="submit" className="btn btn-primary">Add Coupon</button>
-
-
+                                <Button variant="dark" onClick={handleClose} style={{marginLeft :"250px"}}>
+                                    Cancel
+                                </Button>
                             </form>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Cancel
-                            </Button>
-                        </Modal.Footer>
+                        {/*<Modal.Footer>*/}
+
+                        {/*</Modal.Footer>*/}
                     </Modal>
                    <CouponPresentation />
                 </div>
