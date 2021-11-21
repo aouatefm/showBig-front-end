@@ -78,7 +78,9 @@ return (
                             </Row>
                             <Row className="product-grid">
                                 {(categoryParam || SearchTerm) ?
-                                <ProductGrid products={paginateItems(applyFiltersCatsTerm(products))}/> : <ProductGrid products={paginateItems(products)}/>}
+                                // <ProductGrid products={paginateItems(applyFiltersCatsTerm(products))}/> :
+                                <ProductGrid products={applyFiltersCatsTerm(products)}/> :
+                                    <ProductGrid products={paginateItems(products)}/>}
                             </Row>
                             <Row className='pagination-row'>
                                 <Pagination

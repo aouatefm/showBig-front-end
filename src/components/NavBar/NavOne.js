@@ -104,7 +104,7 @@ const NavOne = ({currentUser, cartLength}) => {
 
                     <div className="row">
                         <div className="col iconDiv">
-                            <Link to='/cart' className="HeartIcon" >
+                            <Link to='#' className="HeartIcon" >
                             <HeartIcon width={40}/>
                             </Link>
                         </div>
