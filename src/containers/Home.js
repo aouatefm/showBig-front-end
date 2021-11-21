@@ -4,6 +4,7 @@ import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CategoriesService from "../services/CategoriesService"; // requires a loader
 import './Home.css'
+import SpinnerPage from "./Spinner/SpinnerPage";
 const useCategories = () => {
     const [categories, setCategories] = useState([]);
     useEffect(async () => {
@@ -17,6 +18,7 @@ const Home = (props) => {
     const categories = useCategories()
     return(
     <div role="main" style={{marginTop :"30px" }}>
+        {categories ?
         <div className="container" >
             <div className="row" style={{backgroundColor :"#f5f5f5"}} >
                 <div className="col-sm-4" style={{marginTop :"20px"}}>
@@ -60,6 +62,7 @@ const Home = (props) => {
             />
             {/*<OurPartners />*/}
         </div>
+            : <SpinnerPage/>}
     </div>
     );
 }

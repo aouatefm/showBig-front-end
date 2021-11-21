@@ -1,9 +1,49 @@
 
-.cat-link:hover{
+.li_pointer {
+    cursor: pointer;
+}
+
+.li_pointer:hover {
+    color: #fad643
+}
+
+.CartIcon {
     text-decoration: none;
+    color: black
 }
-.cat-link{
-    color: black;
+
+.CartIcon:hover {
+    color: #1fbc38;
 }
-.li_pointer { cursor: pointer; }
-.li_pointer:hover{color: #fad643}
+
+.ProfileIcon {
+    text-decoration: none;
+    color: black
+}
+
+.ProfileIcon:hover {
+    color: coral;
+}
+
+.HeartIcon {
+    text-decoration: none;
+    color: black
+}
+
+.HeartIcon:hover {
+    color: red;
+}
+.iconDiv{
+    display: inline-block;
+    font-size: 40px;
+    line-height: 50px;
+    color: white;
+    text-align: center;
+    vertical-align: bottom;
+}
+.cart-length{
+    position: absolute;
+    top: -12px;
+    font-size: 20px;
+    font-weight: bold;
+}

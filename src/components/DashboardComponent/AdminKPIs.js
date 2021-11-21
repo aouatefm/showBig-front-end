@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import ComboChart from "./ComboChart";
 import Spline from "./Spline";
 import DonutChart from "./DonutChart";
@@ -9,8 +9,8 @@ import './AdminKpIs.css'
 const useStats = () => {
     const [stats, setStats] = useState([]);
     useEffect(async () => {
-        const newStats = await DashboardService.get_general_stats()
-        setStats(newStats);
+        const newStats = await DashboardService.get_admin_stats()
+        await setStats(newStats);
     }, [])
     return stats
 }
@@ -42,7 +42,8 @@ const AdminKpIs = () => {
                     </div>
                 </div>
 
-            </> : <SpinnerPage/>}
+            </> :
+                <SpinnerPage/>}
 
         </div>
     );

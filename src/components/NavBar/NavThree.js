@@ -1,5 +1,5 @@
-import './NavThree.css'
 import {withRouter} from "react-router-dom";
+import './NavThree.css'
 
 function NavThree() {
     return (
@@ -16,11 +16,11 @@ function NavThree() {
                         <li><a href="/vendor-coupons"><i className="fas fa-address-book"/>Coupon</a></li>
                         <li><a href="/vendor-settings"><i className="fas fa-map-pin"/>Settings</a></li>
                     </ul>
-                    <div className="social_media">
-                        {/*<a href="#"><i className="fab fa-facebook-f"></i></a>*/}
-                        {/*<a href="#"><i className="fab fa-twitter"></i></a>*/}
-                        {/*<a href="#"><i className="fab fa-instagram"></i></a>*/}
-                    </div>
+                    {/*<div className="social_media">*/}
+                    {/*    <a href="#"><i className="fab fa-facebook-f"/></a>*/}
+                    {/*    <a href="#"><i className="fab fa-twitter"/></a>*/}
+                    {/*    <a href="#"><i className="fab fa-instagram"/></a>*/}
+                    {/*</div>*/}
                 </div>
 
         </div>

@@ -3,7 +3,9 @@ import ReactApexChart from "react-apexcharts";
 
 class DonutChart extends Component {
     constructor(props) {
+
         super(props);
+        const colors =   new Array(6).fill().map(val => '#'+Math.floor(Math.random()*16777215).toString(16))
         this.state = {
             options: {
                 labels: Object.keys(props.stores),
@@ -30,7 +32,7 @@ class DonutChart extends Component {
                 },
 
                 // generate random color code for each store
-                colors:  new Array(6).fill().map(val => '#'+Math.floor(Math.random()*16777215).toString(16)),
+                colors: colors,
 
 
             },
