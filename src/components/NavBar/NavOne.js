@@ -33,10 +33,8 @@ const useCategories = () => {
 const NavOne = ({currentUser, cartLength}) => {
     const categories = useCategories()
     const {history} = useReactRouter();
-
     const [term, setTerm] = useState('');
     const [cat, setCat] = useState('');
-
     function search() {
         const urlEncodedTerm = encodeURI(term);
         const urlEncodedCategory = encodeURI(cat);

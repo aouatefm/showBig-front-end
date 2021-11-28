@@ -5,7 +5,7 @@ import {getTokenId} from "../firebase/auth";
 export default {
     getVendorList: async function () {
         try {
-            const response = await axios.get(BASE_URL + '/stores');
+            const response = await axios.get(BASE_URL + '/stores?is_active=true');
             return response.data;
         } catch (error) {
             return error
