@@ -51,13 +51,13 @@ export default {
     getStoreCustomers: async function (store_id) {
         try {
             const response = await axios.get(BASE_URL + `/stores/${store_id}/customers`,
-            {headers: {'Authorization': await getTokenId()}});
+                {headers: {'Authorization': await getTokenId()}});
             return response.data;
         } catch (error) {
             return error
         }
     },
-    editVendor: async function (name, description, address, phone, logoURL, coverURL, facebook, instagram, youtube, lat, lng,store_id) {
+    editVendor: async function (name, description, address, phone, logoURL, coverURL, facebook, instagram, youtube, lat, lng, store_id) {
         try {
             const response = await axios.put(BASE_URL + `/stores/${store_id}`,
                 {
@@ -75,6 +75,19 @@ export default {
             return response.data;
         } catch (error) {
             return error
+        }
+    },
+    // TODO: RESPONSE REFERENCE HERE
+    editVendorStatus: async function (is_active, store_id) {
+        try {
+            return await axios.put(BASE_URL + `/stores/${store_id}`,
+                {
+                    is_active: is_active,
+                },
+                {headers: {'Authorization': await getTokenId()}});
+        } catch (error) {
+            console.log(error.response)
+            return error.response
         }
     },
 
