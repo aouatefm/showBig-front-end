@@ -18,6 +18,7 @@ import {selectCartItems, selectCartItemsCount} from "../../redux/cart/cart-selec
 import CategoriesService from "../../services/CategoriesService";
 import {SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from 'use-react-router';
+import {getTokenId} from "../../firebase/auth";
 
 const useCategories = () => {
     const [categories, setCategories] = useState([]);
@@ -58,12 +59,12 @@ const NavOne = ({currentUser, cartLength}) => {
                     </Navbar.Brand>
                 </Col>
                 <Col xs={7}>
-                    {/*<Button onClick={() => {*/}
-                    {/*    console.log(getTokenId())*/}
-                    {/*}}>Token</Button>*/}
-                    {/*<Button onClick={() => {*/}
-                    {/*    console.log(currentUser)*/}
-                    {/*}}>User</Button>*/}
+                    <Button onClick={() => {
+                        console.log(getTokenId())
+                    }}>Token</Button>
+                    <Button onClick={() => {
+                        console.log(currentUser)
+                    }}>User</Button>
                     <Form inline>
                         <select onChange={(e) => setCat(e.target.value)}
                                 style={{

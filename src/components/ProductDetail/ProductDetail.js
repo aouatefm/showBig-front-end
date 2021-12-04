@@ -10,7 +10,6 @@ import {selectCartItems} from "../../redux/cart/cart-selectors";
 import {createStructuredSelector} from "reselect";
 import ReactStars from "react-rating-stars-component";
 import RatingService from "../../services/RatingService";
-import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 import { useToasts } from "react-toast-notifications";
