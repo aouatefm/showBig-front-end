@@ -22,7 +22,9 @@ class AdminDashboard extends Component {
                     <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <AdminKpIs/>
                     </div>
-                    <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"><StoreManagement/></div>
+                    <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <StoreManagement/>
+                    </div>
                     <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                 </div>
 

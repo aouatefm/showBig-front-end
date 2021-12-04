@@ -1,5 +1,6 @@
-import axiosInstance from './config'
+import axiosInstance, {BASE_URL} from './config'
 import {getTokenId} from "../firebase/auth";
+import axios from "axios";
 
 
 export default {
@@ -25,6 +26,13 @@ export default {
         }
     },
 
-
+    getVendorList: async function () {
+        try {
+            const response = await axios.get(BASE_URL + '/stores');
+            return response.data;
+        } catch (error) {
+            return error
+        }
+    },
 
 }
