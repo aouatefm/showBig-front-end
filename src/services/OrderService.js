@@ -55,12 +55,12 @@ export default {
     UpdateOrder: async function (id,status) {
 
         try {
-            const response = await axios.put(BASE_URL + `/orders/${id}`,{status : status},
+            return await axios.put(BASE_URL + `/orders/${id}`,{status : status},
                 {headers: {'Authorization': await getTokenId()}});
-            return response.data;
+
         } catch (error) {
-            console.log(error)
-            return error
+            console.log(error.response)
+            return error.response
         }
     },
 

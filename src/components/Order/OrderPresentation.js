@@ -76,9 +76,12 @@ const OrderPresentation = ({orders,order_filters}) => {
                                     <td>{order.customer_id}</td>
                                     <td>{Moment(order.order_date).format('MM/DD/YYYY')}</td>
                                     <td>
-                                    <Link to={{ pathname: `/vendor-orders/${order.id}`}} style={{textDecoration : "none"}}>
-                                        Details
-                                    </Link>
+                                    {/*<Link to={{ pathname: `/vendor-orders/${order.id}`}} style={{textDecoration : "none"}}>*/}
+                                    {/*    Details*/}
+                                    {/*</Link>*/}
+                                        <Link to={{ pathname: `/vendor-orders/${order.id}`, state : {order: order}}} style={{textDecoration : "none"}}>
+                                            Details
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}

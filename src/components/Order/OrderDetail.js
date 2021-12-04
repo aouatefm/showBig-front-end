@@ -3,34 +3,48 @@ import NavThree from "../NavBar/NavThree";
 import {useParams} from "react-router-dom";
 import OrderService from "../../services/OrderService";
 import {ShippingIcon} from "../../assets/icons";
-import {orderStatus} from "../../utils";
 import StickyNotes from "./StickyNotes";
 import UserService from "../../services/UserService";
 import './OrderDetail.css'
+import {orderStatus} from "../../utils";
+import VendorService from "../../services/VendorService";
+import {useToasts} from "react-toast-notifications";
 
 
-const OrderDetail = ({props}) => {
+const OrderDetail = (props) => {
     let {id} = useParams();
+    const { addToast } = useToasts();
     const [order, setOrder] = useState(0);
     const [customer, setCustomer] = useState(0);
+    const [order_status, setOrder_status] = useState(props.location.state.order.status);
+    const [loading, setLoading] = useState(false)
+
     useEffect(async () => {
-        console.log("called ...")
-        const newOrder = await OrderService.getOrderById(id);
-        setOrder(newOrder);
-        const newUser = await UserService.getUser(newOrder.customer_id);
+        setOrder(props.location.state.order);
+        const newUser = await UserService.getUser(order.customer_id);
         setCustomer(newUser)
     }, [])
 
     const [editFormDisplayed, setEditFormDisplayed] = useState(false);
-    const [selectedStatus, setSelectedStatus] = useState(order.status);
-    const handleUpdate = async () => {
-        OrderService.UpdateOrder(id, selectedStatus).then(res =>{
-                console.log(res)
-            }
+    const [selectedStatus, setSelectedStatus] = useState(props.location.state.order.status);
 
-        )
-        console.log("res")
-        console.log("res")
+    const handleUpdate = async () => {
+        setLoading(true)
+       const response = await OrderService.UpdateOrder(id, selectedStatus)
+        if (response.status === 200)
+        {
+            setOrder_status(selectedStatus)
+            setLoading(false)
+        }
+        else {
+            addToast(response.data.message,
+                {
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout: 1500,
+                });
+            setLoading(false)
+        }
         setEditFormDisplayed(false)
     }
 
@@ -65,7 +79,7 @@ const OrderDetail = ({props}) => {
                                             products ?
                                                 <>
                                                     {products.map((product, index) => (
-                                                        <tr>
+                                                        <tr key={index}>
                                                             <th scope="row">{index + 1}</th>
                                                             <td>{product.name.toUpperCase()}</td>
                                                             <td><img src={product.images} alt={product.name}
@@ -123,11 +137,18 @@ const OrderDetail = ({props}) => {
                                     Details</strong></li>
                                 <li className="list-group-item">
                                     Order Status : <span
-                                    className={`badge badge-${orderStatus(order.status)}`}>{order.status}</span>
+                                   // className={`badge badge-${orderStatus(order.status)}`}>{order.status}</span>
+                                    className={`badge badge-${orderStatus(order_status)}`}>{order_status}</span>
                                     <span onClick={() => {
                                         setEditFormDisplayed(!editFormDisplayed)
-                                    }} className="edit-status"><small
-                                        style={{margin: '10px', color: 'orange'}}>Edit</small></span><br/>
+                                    }} className="edit-status">
+                                        <small style={{margin: '10px', color: 'orange'}}>Edit</small></span>
+                                    {loading &&
+                                    <div className="spinner-border text-primary" role="status" style={{width :"20px",height :'20px'}}>
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                        }
+                                    <br/>
                                     {editFormDisplayed &&
                                     <>
                                         <select className="form-select" aria-label="Default select example"

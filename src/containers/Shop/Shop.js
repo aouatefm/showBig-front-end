@@ -16,6 +16,7 @@ import OrderService from "../../services/OrderService";
 import {addItem, clearCart, removeItem, updateItems} from "../../redux/cart/cart-action";
 import CouponService from "../../services/CouponService";
 import {useSession} from "../../firebase/UserProvider";
+import {useToasts} from "react-toast-notifications";
 
 
 const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCart, updateItems}) => {
@@ -33,6 +34,7 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
     const [showAlert, setShowAlert] = useState(false);
     const history = useHistory();
     const { user } = useSession()
+    const { addToast } = useToasts();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -73,7 +75,14 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
         if (user)
         {
             if (delivery === "" || payment === "") {
-                alert("Please make sure to choose the delivery and payment method ");
+                //alert("Please make sure to choose the delivery and payment method ");
+                addToast("Please make sure to choose the delivery and payment method",
+                    {
+                        appearance: "error",
+                        autoDismiss: true,
+                        autoDismissTimeout: 1500,
+                        TransitionState: "exiting",
+                    });
                 setLoading(false)
             } else {
                 try {
@@ -83,6 +92,13 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
                     console.log(e)
                 }
                 clearCart()
+                addToast("You order successfully submitted",
+                    {
+                        appearance: "success",
+                        autoDismiss: true,
+                        autoDismissTimeout: 1500,
+                        TransitionState: "exiting",
+                    });
                 history.push({pathname: "/product-listing"});
                 setLoading(false)
             }
