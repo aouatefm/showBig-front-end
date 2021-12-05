@@ -60,9 +60,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-
                 <UserProvider>
-
                     <header>
                     <NavOne />
                     <NavTwo /> {/*{this.props.role==='vendor' && <NavThree/>}*/}

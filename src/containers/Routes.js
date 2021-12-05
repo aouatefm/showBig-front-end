@@ -12,7 +12,6 @@ import VendorOrders from "../components/VendorDashboard/VendorOrders";
 import VendorCustomers from "../components/VendorDashboard/VendorCustomers";
 import VendorCoupons from "../components/VendorDashboard/VendorCoupons";
 import BecomeVendor from "../components/BecomeVendor/BecomeVendor";
-import {ToastDemo} from "./AdminDashboard/Test";
 import AddProduct from "../components/VendorDashboard/AddProduct";
 import VendorGrid from "../components/VendorGrid/VendorGrid";
 import VendorProductsPage from "./VendorDashboard/VendorProductsPage";

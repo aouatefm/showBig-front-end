@@ -19,6 +19,7 @@ import CategoriesService from "../../services/CategoriesService";
 import {SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from 'use-react-router';
 import {getTokenId} from "../../firebase/auth";
+import {setRole} from "../../redux/user/user-action";
 
 const useCategories = () => {
     const [categories, setCategories] = useState([]);
@@ -31,7 +32,7 @@ const useCategories = () => {
     }, [])
     return categories
 }
-const NavOne = ({currentUser, cartLength}) => {
+const NavOne = ({currentUser, cartLength,setRole}) => {
     const categories = useCategories()
     const {history} = useReactRouter();
     const [term, setTerm] = useState('');
@@ -42,7 +43,10 @@ const NavOne = ({currentUser, cartLength}) => {
         history.push(`/product-listing?find_desc=${urlEncodedTerm}&find_cat=${urlEncodedCategory}`);
     }
 
-    console.log(currentUser)
+    const  signOut= async () =>{
+        await auth.signOut()
+        await setRole("")
+    }
 
     return (
         <div className="container-header">
@@ -146,7 +150,8 @@ const NavOne = ({currentUser, cartLength}) => {
                                                                                              tabIndex="-1"><InvoicesIcon
                                             width="15"/>  Order invoices</span></li>
                                         <li role="presentation" className="li_pointer "><a role="menuitem" tabIndex="-1"
-                                                                                           onClick={() => auth.signOut()}
+                                                                                           //onClick={() => auth.signOut()}
+                                                                                           onClick={signOut}
                                                                                            style={{}}><SignOutIcon
                                             width="15"/> Sign out</a></li>
                                     </ul>
@@ -175,6 +180,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchtoProps = (dispatch) => ({
     setLoading: loadingState => dispatch(setLoading(loadingState)),
     SetVProductsFilters: filter => dispatch(SetVProductsFilters(filter)),
+    setRole: role => dispatch(setRole(role)),
 
 });
 export default connect(mapStateToProps, mapDispatchtoProps)(NavOne);
