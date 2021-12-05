@@ -144,7 +144,7 @@ const OrderDetail = (props) => {
                                     }} className="edit-status">
                                         <small style={{margin: '10px', color: 'orange'}}>Edit</small></span>
                                     {loading &&
-                                    <div className="spinner-border text-primary" role="status" style={{width :"20px",height :'20px'}}>
+                                    <div className="spinner-border text-warning" role="status" style={{width :"20px",height :'20px'}}>
                                         <span className="sr-only">Loading...</span>
                                     </div>
                                         }

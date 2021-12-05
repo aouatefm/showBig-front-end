@@ -13,6 +13,7 @@ import RatingService from "../../services/RatingService";
 import 'react-toastify/dist/ReactToastify.css';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 import { useToasts } from "react-toast-notifications";
+import {Magnifier,SideBySideMagnifier} from "react-image-magnifiers";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
@@ -57,7 +58,36 @@ const ProductDetail = ({cartItems, addItem}) => {
         <div className="container">
             <div className="row">
                 <div className="col">
-                    <img src={product.images} alt={product.name} style={{maxHeight: "550px", maxWidth: "300px"}}/>
+                    {/*//<img src={product.images} alt={product.name} style={{maxHeight: "550px", maxWidth: "300px"}}/>*/}
+
+                    {/*<Magnifier*/}
+                    {/*    imageSrc={product.images}*/}
+                    {/*    imageAlt={product.name}*/}
+                    {/*    //largeImageSrc="./large-image.jpg" // Optional*/}
+                    {/*    // mouseActivation={MOUSE_ACTIVATION.DOUBLE_CLICK} // Optional*/}
+                    {/*    // touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP} // Optional*/}
+                    {/*/>*/}
+                    <SideBySideMagnifier
+                        className="input-position"
+                        //style={{ order: switchSides ? "1" : "0" }}
+                        imageSrc={product.images}
+                        largeImageSrc={product.images}
+                        alwaysInPlace={false}
+                        overlayOpacity={.5}
+                        switchSides={false}
+                        zoomPosition="right"
+                        inPlaceMinBreakpoint={641}
+                        fillAvailableSpace={true}
+                        fillAlignTop={false}
+                        fillGapTop={0}
+                        fillGapRight={10}
+                        fillGapBottom={10}
+                        fillGapLeft={10}
+                        zoomContainerBorder="1px solid #ccc"
+                        zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
+                    />
+
+
                 </div>
                 <div className="col right-section">
                     <h1>{product.name}</h1>
@@ -103,10 +133,6 @@ const ProductDetail = ({cartItems, addItem}) => {
                                 className="btn btn-product" style={{backgroundColor: "black", color: "white"}}>Add to
                                 cart</button>
                         }
-
-                        {/*<button type="submit" className="btn-product"*/}
-                        {/*        onClick={() => handleAddItem(product)}>Add To Cart*/}
-                        {/*</button>*/}
 
                         <Link to="/shop">
                             <button type="submit" className="btn btn-product" style={{backgroundColor: "#eeee23"}}>
