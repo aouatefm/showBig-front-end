@@ -9,7 +9,7 @@ import {setCurrentUser} from "../../redux/user/user-action";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {withRouter} from "react-router-dom";
-
+import withToast from "../../components/ui/withToast";
 
 class RegisterForm extends Component {
     state = {
@@ -19,6 +19,7 @@ class RegisterForm extends Component {
         confirmPassword: "",
         showAlert :false,
     }
+
     render() {
         const validateForm = () => {
             return (
@@ -33,19 +34,22 @@ class RegisterForm extends Component {
         const handleSubmit = async (event) => {
             event.preventDefault();
             if (this.state.password !== this.state.confirmPassword) {
-                alert('The password confirmation does not match!');
+                this.setState({showAlert: ! this.state.showAlert})
             }
             setLoading(true);
             const {isUserCreated, errorMsg} = await UserService.register(this.state)
             if (isUserCreated) {
-                console.log("USER CREATED!")
                 await login(this.state.email,this.state.password)
                 this.setState({ email: '', password: '',displayName :'',confirmPassword :'' });
                 this.props.history.push("/product-listing");
-
-
             } else {
                 console.log(errorMsg)
+                this.props.addToast("User already exists", {
+                    appearance: "error",
+                    autoDismiss: true,
+                    autoDismissTimeout: 2000,
+                    TransitionState: "exiting",
+                });
             }
             setLoading(false);
 
@@ -102,9 +106,10 @@ class RegisterForm extends Component {
                     disabled={!validateForm()}>
                     Register
                 </Button>
+
                 {this.state.showAlert &&
-                <div className="alert alert-danger" role="alert" style={{marginTop: "10px"}}>
-                    Password does not match ! Please try again
+                <div className="alert alert-danger" role="alert">
+                    The password confirmation does not match !!
                 </div>}
             </form>
         );
@@ -119,4 +124,5 @@ const mapDispatchtoProps = dispatch => ({
     setCurrentUser: userAuth => dispatch(setCurrentUser(userAuth)),
 })
 
-export default withRouter(connect(mapStatetoProps, mapDispatchtoProps)(RegisterForm));
+export default withRouter(connect(mapStatetoProps, mapDispatchtoProps)(withToast(RegisterForm)));
+

@@ -58,7 +58,7 @@ const Routes = () => (
         <PrivateRoute exact path="/add" component={AddProduct}/>
         <PrivateRoute exact path="/kpis" component={AdminKpIs}/>
         <PrivateRoute exact path="/store-management" component={StoreManagement}/>
-        <PrivateRoute exact path="/customer-orders" component={CustomerOrders}/>
+        <ProtectedRoute exact path="/customer-orders" component={CustomerOrders}/>
         <PrivateRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
         <Route exact path="/unauthorized" component={Unauthorized}/>
         <Route component={NotFound}/>
