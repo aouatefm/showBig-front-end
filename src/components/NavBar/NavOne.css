@@ -47,3 +47,10 @@
     font-size: 20px;
     font-weight: bold;
 }
+.customer-orders:hover{
+    text-decoration: none;
+    color: #fad643
+}
+.customer-orders{
+   color: black;
+}

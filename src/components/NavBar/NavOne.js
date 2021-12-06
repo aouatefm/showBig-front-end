@@ -32,18 +32,19 @@ const useCategories = () => {
     }, [])
     return categories
 }
-const NavOne = ({currentUser, cartLength,setRole}) => {
+const NavOne = ({currentUser, cartLength, setRole}) => {
     const categories = useCategories()
     const {history} = useReactRouter();
     const [term, setTerm] = useState('');
     const [cat, setCat] = useState('');
+
     function search() {
         const urlEncodedTerm = encodeURI(term);
         const urlEncodedCategory = encodeURI(cat);
         history.push(`/product-listing?find_desc=${urlEncodedTerm}&find_cat=${urlEncodedCategory}`);
     }
 
-    const  signOut= async () =>{
+    const signOut = async () => {
         await auth.signOut()
         await setRole("")
     }
@@ -96,7 +97,6 @@ const NavOne = ({currentUser, cartLength,setRole}) => {
                                      onChange={(e) => setTerm(e.target.value)}
                         />
 
-
                         <Button variant="dark" className="rounded-0" onClick={search}>
                             <SearchIcon width="22"/>
                         </Button>
@@ -107,23 +107,28 @@ const NavOne = ({currentUser, cartLength,setRole}) => {
 
                     <div className="row">
                         <div className="col iconDiv">
-                            <Link to='#' className="HeartIcon" >
-                            <HeartIcon width={40}/>
+                            <Link to='#' className="HeartIcon">
+                                <HeartIcon width={40}/>
                             </Link>
                         </div>
                         <div className="col iconDiv">
-                           <Link to='/cart' className="CartIcon">
-                               <CartIcon width={40} />
+                            <Link to='/cart' className="CartIcon">
+                                <CartIcon width={40}/>
                                 {/*<span style={{fontWeight: "bold", textAlign: "center", position: "absolute", top: "-12px", background: "black", padding: "2px", borderRadius: "50%", color: "#EEEE23"}}>{cartLength}</span>*/}
                                 <span className="cart-length">({cartLength})</span>
-                           </Link>
+                            </Link>
                         </div>
                         <div className="col">
                             {currentUser ?
                                 <div className="dropdown">
                                     <span className="btn btn-default dropdown-toggle" type="button" id="menu1"
                                           data-toggle="dropdown">
-                                        <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" style={{verticalAlign: "middle", width: "40px", height: "40px", borderRadius: "50%"}}/>
+                                        <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" style={{
+                                            verticalAlign: "middle",
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%"
+                                        }}/>
                                     </span>
                                     <ul className="dropdown-menu" role="menu" aria-labelledby="menu1"
                                         style={{right: "0", left: "auto", padding: "13px"}}>
@@ -146,11 +151,13 @@ const NavOne = ({currentUser, cartLength,setRole}) => {
                                         <li role="presentation" className="li_pointer"><span role="menuitem"
                                                                                              tabIndex="-1"><ProfileIcon
                                             width="15"/>  Profile page</span></li>
-                                        <li role="presentation" className="li_pointer"><span role="menuitem"
-                                                                                             tabIndex="-1"><InvoicesIcon
-                                            width="15"/>  Order invoices</span></li>
+                                        <li role="presentation" className="li_pointer">
+                                            <a role="menuitem" tabIndex="-1" href='/customer-orders' className="customer-orders">
+                                            <InvoicesIcon width="15"/>  Order invoices
+                                            </a>
+                                        </li>
                                         <li role="presentation" className="li_pointer "><a role="menuitem" tabIndex="-1"
-                                                                                           //onClick={() => auth.signOut()}
+                                            //onClick={() => auth.signOut()}
                                                                                            onClick={signOut}
                                                                                            style={{}}><SignOutIcon
                                             width="15"/> Sign out</a></li>
@@ -159,11 +166,11 @@ const NavOne = ({currentUser, cartLength,setRole}) => {
                                 :
 
                                 <div className="col iconDiv">
-                                    <Link to='/register' className="ProfileIcon" >
+                                    <Link to='/register' className="ProfileIcon">
                                         <ProfileIcon width={40}/>
                                     </Link>
                                 </div>
-                                                            }
+                            }
                         </div>
 
                     </div>
