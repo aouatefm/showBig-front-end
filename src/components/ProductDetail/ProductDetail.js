@@ -13,7 +13,7 @@ import RatingService from "../../services/RatingService";
 import 'react-toastify/dist/ReactToastify.css';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 import { useToasts } from "react-toast-notifications";
-import {Magnifier,SideBySideMagnifier} from "react-image-magnifiers";
+import {SideBySideMagnifier} from "react-image-magnifiers";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
@@ -28,6 +28,7 @@ function useProductId(id) {
 }
 
 const ProductDetail = ({cartItems, addItem}) => {
+    console.log(cartItems)
     const { addToast } = useToasts();
     let {id} = useParams();
     const [product, product_ratings] = useProductId(id);
@@ -36,7 +37,8 @@ const ProductDetail = ({cartItems, addItem}) => {
 
 
     const isInCart = product => {
-        return !!cartItems.find(item => item.id === product.id);
+        console.log(product)
+        return !!cartItems.find(item => item.product_id === product.product_id);
     }
 
 
@@ -58,15 +60,6 @@ const ProductDetail = ({cartItems, addItem}) => {
         <div className="container">
             <div className="row">
                 <div className="col">
-                    {/*//<img src={product.images} alt={product.name} style={{maxHeight: "550px", maxWidth: "300px"}}/>*/}
-
-                    {/*<Magnifier*/}
-                    {/*    imageSrc={product.images}*/}
-                    {/*    imageAlt={product.name}*/}
-                    {/*    //largeImageSrc="./large-image.jpg" // Optional*/}
-                    {/*    // mouseActivation={MOUSE_ACTIVATION.DOUBLE_CLICK} // Optional*/}
-                    {/*    // touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP} // Optional*/}
-                    {/*/>*/}
                     <SideBySideMagnifier
                         className="input-position"
                         //style={{ order: switchSides ? "1" : "0" }}
@@ -148,7 +141,7 @@ const ProductDetail = ({cartItems, addItem}) => {
             </div>
             <div className="">
                 <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-                    <Tab eventKey="Description" title="Description">
+                    <Tab eventKey="Description" title="Description" >
                         <div style={{
                             backgroundColor: "#F1F1F1",
                             width: "1110px",
