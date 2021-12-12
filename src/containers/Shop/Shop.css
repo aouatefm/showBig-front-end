@@ -17,3 +17,9 @@
 .required:after {
     content:" *";
     color: red;}
+.test-warning {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 21px;
+    color: red;
+}

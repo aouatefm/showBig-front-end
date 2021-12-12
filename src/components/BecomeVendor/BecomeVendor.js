@@ -51,7 +51,7 @@ const BecomeVendor = () => {
                    const imageCoverUrl = await storageCoverRef.getDownloadURL();
                    await setLogoURL(logoURL)
                    await setCoverURL(coverURL)
-                   const res=  VendorService.addVendor(name,description,address,phone,imageLogoUrl,imageCoverUrl,facebook,instagram,youtube,lat,lng)
+                   const res =  VendorService.addVendor(name,description,address,phone,imageLogoUrl,imageCoverUrl,facebook,instagram,youtube,lat,lng)
 
                    setLoading(false);
            }).catch(error => {

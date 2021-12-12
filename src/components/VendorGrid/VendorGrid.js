@@ -26,7 +26,7 @@ const VendorGrid =  () => {
 
                             {
                                 vendors.map(vendor => (
-                                    <div key={vendor.id}><VendorCard vendor={vendor}/></div>
+                                    <div key={vendor.store_id}><VendorCard vendor={vendor} /></div>
                                 ))
                             }
 

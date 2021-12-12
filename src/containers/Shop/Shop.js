@@ -13,10 +13,14 @@ import {selectLoading} from "../../redux/spinner/spinner-selectors";
 import {useHistory} from "react-router";
 import 'react-toastify/dist/ReactToastify.css';
 import OrderService from "../../services/OrderService";
-import {addItem, clearCart, removeItem, updateItems} from "../../redux/cart/cart-action";
+import { clearCart,  updateItems} from "../../redux/cart/cart-action";
 import CouponService from "../../services/CouponService";
 import {useSession} from "../../firebase/UserProvider";
 import {useToasts} from "react-toast-notifications";
+import StripeCheckout from "react-stripe-checkout";
+import {stripeKey} from "../../config";
+import axios from "axios";
+import Logo from "../../assets/blck.png"
 
 
 const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCart, updateItems}) => {
@@ -57,6 +61,7 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
 
     let totalPrice = delivery;
     cartItems.map(item => totalPrice += (item.discounted_price ? item.discounted_price * item.quantity : item.price * item.quantity));
+    const priceForStripe = totalPrice * 100;
 
     const handleCoupon = async () => {
         let resp = await CouponService.applyCoupon(coupon, cartItems)
@@ -71,7 +76,45 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
     }
     const handleSubmit = async () => {
         setLoading(true)
+        if (user)
+        {
+            if (delivery === "" || payment === "") {
+                //alert("Please make sure to choose the delivery and payment method ");
+                addToast("Please make sure to choose the delivery and payment method",
+                    {
+                        appearance: "error",
+                        autoDismiss: true,
+                        autoDismissTimeout: 1500,
+                        TransitionState: "exiting",
+                    });
+                setLoading(false)
+            } else {
+                try {
+                    const res = await OrderService.createOrder(name, lastName, billingAdr, shippingAdr, phone, secondPhone, delivery, payment, cartItems, totalPrice, notes)
 
+                } catch (e) {
+                    console.log(e)
+                }
+                clearCart()
+                addToast("You order successfully submitted",
+                    {
+                        appearance: "success",
+                        autoDismiss: true,
+                        autoDismissTimeout: 1500,
+                        TransitionState: "exiting",
+                    });
+                history.push({pathname: "/product-listing"});
+                setLoading(false)
+            }
+        }
+        else {
+            history.push({pathname: "/register"});
+        }
+    }
+
+    const onToken = async (token) => {
+        console.log(token)
+        setLoading(true)
         if (user)
         {
             if (delivery === "" || payment === "") {
@@ -269,11 +312,34 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
                             </div>
                         </div>
                     </div>
+                    {payment === '' | payment === 'cash' &&
                     <Button style={{width: "400px", margin: "50px"}} className="btn btn-dark" onClick={handleSubmit}
                             disabled={spinner}>
                         Submit Order
                     </Button>
+                    }
+
+                    {payment=== 'stripe' &&
+                    <>
+                    <StripeCheckout
+                     style={{width: "400px", margin: "50px"}}
+                     stripeKey={stripeKey}
+                     label='Pay Now'
+                     name='Sho Big'
+                     amount={priceForStripe}
+                     token={onToken}
+                     panelLabel='Pay Now'
+                    />
+                    <div className='test-warning'>
+                        *Please use the following test credit card for payments*
+                        <br />
+                        4242 4242 4242 4242 - Exp: 04/24 - CVV: 123
+                    </div>
+                        </>
+                    }
                 </div>
+
+
                 <div className="col" style={{backgroundColor: ""}}>
                     <div className="card" style={{
                         width: "20rem",

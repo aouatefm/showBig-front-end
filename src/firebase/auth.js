@@ -6,6 +6,7 @@ export const logout = () => {
 };
 export const login = async (email, password) => {
     const resp = await auth.signInWithEmailAndPassword(email, password);
+    console.log(resp)
     return resp.user;
 };
 

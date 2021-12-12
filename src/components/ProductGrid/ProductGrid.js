@@ -34,8 +34,8 @@ const Grid =  ({ Keywords,products ,filters,sortbar}) => {
                 parseFloat(filters.minPrice) < parseFloat(item.price) && parseFloat(item.price) <= parseFloat(filters.maxPrice) &&
                  parseInt(filters.minRate) <= parseInt(item.ratings_avg) && parseInt(item.ratings_avg) <= parseInt(filters.maxRate) &&
                 (filters.brands.includes(item.store_id) || filters.brands.length === 0) &&
-               (filters.conditions.includes("free-shipping") && item.shipping_price === null) || (filters.conditions.length === 0) ^
-                (filters.conditions.includes('new') && dateDiffInDays(item.created_at) <= 31) || (filters.conditions.length === 0) &&
+                ((filters.conditions.includes("free-shipping") && item.shipping_price === null) || (filters.conditions.length === 0) ^
+                (filters.conditions.includes('new') && dateDiffInDays(item.created_at) <= 31) || (filters.conditions.length === 0) )&&
                  keywordsMatched(item)
         );
 

@@ -13,7 +13,7 @@
 }
 
 .CartIcon:hover {
-    color: #1fbc38;
+    color:black;
 }
 
 .ProfileIcon {
@@ -22,7 +22,7 @@
 }
 
 .ProfileIcon:hover {
-    color: coral;
+    color:black;
 }
 
 .HeartIcon {
@@ -53,4 +53,11 @@
 }
 .customer-orders{
    color: black;
+}
+.profile_page:hover{
+    text-decoration: none;
+    color: #fad643
+}
+.profile_page{
+    color: black;
 }

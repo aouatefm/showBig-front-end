@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button} from "react-bootstrap";
+import {Button, Col} from "react-bootstrap";
 import { connect } from "react-redux";
 import FormInput from '../../components/FormInput/FormInput';
 import UserService from "../../services/UserService";
@@ -17,7 +17,8 @@ class RegisterForm extends Component {
         email: "",
         password: "",
         confirmPassword: "",
-        showAlert :false,
+        showAlert :"",
+        error :""
     }
 
     render() {
@@ -25,16 +26,28 @@ class RegisterForm extends Component {
             return (
                 this.state.displayName.length > 0 &&
                 this.state.email.length > 0 &&
-                this.state.password.length > 0
-                 &&
+                this.state.password.length > 0 &&
                  this.state.password.length === this.state.confirmPassword.length
             );
         }
+        const validatePassword = () => {
+                 return (this.state.displayName.length > 0 &&
+                this.state.email.length > 0 &&
+                 this.state.password.length > 0 &&
+                 this.state.confirmPassword.length > 0 &&
+                this.state.confirmPassword.length > this.state.password.length &&
+                this.state.password.length !== this.state.confirmPassword.length
+            )
+
+        }
+
         const {setLoading} = this.props;
         const handleSubmit = async (event) => {
+
             event.preventDefault();
+            this.setState({error :''})
             if (this.state.password !== this.state.confirmPassword) {
-                this.setState({showAlert: ! this.state.showAlert})
+                //this.setState({error: "password does not match "})
             }
             setLoading(true);
             const {isUserCreated, errorMsg} = await UserService.register(this.state)
@@ -43,13 +56,8 @@ class RegisterForm extends Component {
                 this.setState({ email: '', password: '',displayName :'',confirmPassword :'' });
                 this.props.history.push("/product-listing");
             } else {
-                console.log(errorMsg)
-                this.props.addToast("User already exists", {
-                    appearance: "error",
-                    autoDismiss: true,
-                    autoDismissTimeout: 2000,
-                    TransitionState: "exiting",
-                });
+                this.setState({error :errorMsg.message})
+
             }
             setLoading(false);
 
@@ -84,33 +92,47 @@ class RegisterForm extends Component {
                 <FormInput
                     label='Password'
                     name='password'
+                    id='password'
                     type='password'
                     value={this.state.password}
                     required
                     handleChange={handleChange}
                 />
+
                 <FormInput
                     label='Confirm Password'
                     name='confirmPassword'
+                    id='confirm_password'
                     type='password'
                     value={this.state.confirmPassword}
                     required
                     handleChange={handleChange}
                 />
+                {validatePassword() &&
+                <div style={{color :'red',marginTop :'0px'}}>
+                   Password doesn't match
+                </div>
+
+                }
+                <br/>
                 <Button
                     className="form-button mb-3"
                     block
                     type="submit"
                     variant="outline-dark"
                     bssize="large"
-                    disabled={!validateForm()}>
+                   disabled={!validateForm()}
+                >
                     Register
                 </Button>
 
-                {this.state.showAlert &&
-                <div className="alert alert-danger" role="alert">
-                    The password confirmation does not match !!
-                </div>}
+
+
+                    {this.state.error &&
+                    <div className="alert alert-danger" role="alert">
+                        {this.state.error}
+                    </div>
+                    }
             </form>
         );
     }

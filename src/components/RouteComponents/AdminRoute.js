@@ -5,24 +5,23 @@ import {createStructuredSelector} from "reselect";
 import {selectRole} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 
-const PrivateRoute = ({ component: Component,role, ...rest }) => {
+const AdminRoute = ({ component: Component,role, ...rest }) => {
     const { user } = useSession()
-
     return (
         <Route
             {...rest}
             render={(props) =>
-                role==='vendor' ? (
-                    <Component {...props} />
-                ) :
+                role==='admin' ? (
+                        <Component {...props} />
+                    ) :
                     user ?  (
-                <Redirect
-                        to={{
-                            pathname: `/unauthorized`,
-                            state: { from: props.location },
-                        }}
-                    />
-                ) :
+                            <Redirect
+                                to={{
+                                    pathname: `/unauthorized`,
+                                    state: { from: props.location },
+                                }}
+                            />
+                        ) :
                         <Redirect
                             to={{
                                 pathname: `/register`,
@@ -38,5 +37,4 @@ const PrivateRoute = ({ component: Component,role, ...rest }) => {
 const mapStateToProps = createStructuredSelector({
     role: selectRole,
 });
-export default connect(mapStateToProps)(PrivateRoute);
-
+export default connect(mapStateToProps)(AdminRoute);

@@ -27,7 +27,7 @@ const Home = (props) => {
                             categories &&
                             <>
                                 {categories.map(category => (
-                                    <li className="list-group-item cat-name">{category.name}</li>
+                                    <li className="list-group-item cat-name" key={category.id}>{category.name}</li>
                                 ))}
                             </>
                         }

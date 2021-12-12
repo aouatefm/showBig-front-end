@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {BASE_URL} from './config'
+import {getTokenId} from "../firebase/auth";
 
 export default {
     getUser: async function (id) {
@@ -37,6 +38,22 @@ export default {
                 errorMsg = error.response.data
             });
         return {isUserCreated, errorMsg}
-    }
+    },
+
+    updateUser: async function (email,firstName,lastName,phoneNumber,shippingAddress,billingAddress,imageLogoUrl,uid) {
+        try {
+            return await axios.put(BASE_URL + `/users/${uid}`,
+                {email :email,
+                    first_name:firstName,
+                    last_name:lastName,
+                    phone_number:phoneNumber,
+                    shipping_address:shippingAddress,
+                    billing_address:billingAddress,
+                    avatar : imageLogoUrl},
+                {headers: {'Authorization': await getTokenId()}});
+        } catch (error) {
+            return error.response
+        }
+    },
 
 }

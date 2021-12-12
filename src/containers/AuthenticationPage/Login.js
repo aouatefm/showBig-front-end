@@ -15,7 +15,8 @@ class LoginForm extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            error:''
         };
     }
     render() {
@@ -35,12 +36,14 @@ class LoginForm extends Component {
             setLoading(true);
             const { email, password } = this.state;
             try {
-                await login(email, password);
+                const res= await login(email, password);
+                console.log(res)
                 this.setState({ email: '', password: '' });
                 this.props.history.push("/product-listing");
                 setLoading(false);
             } catch (error) {
                 console.log(error);
+                this.setState({error :error.message})
             }
         }
         const handleSignInWithGoogle =  async () => {
@@ -88,6 +91,13 @@ class LoginForm extends Component {
                             onClick={handleSignInWithGoogle}>
                             Login with Google
                         </Button>
+                    </Col>
+                    <Col lg={12} md={12} sm={12}>
+                    {this.state.error &&
+                    <div className="alert alert-danger" role="alert">
+                        {this.state.error}
+                    </div>
+                    }
                     </Col>
                 </Row>
             </form>

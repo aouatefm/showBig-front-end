@@ -50,12 +50,15 @@ const Toggle = (props) => {
               value={checked}
               data-toggle="toggle"
           />
+
           <span className={`${displayStyle} switch`}>
             <span className="switch-handle"/>
           </span>
         </span>
                 <span className="switch-label">{text}</span>
+
             </label>
+
         </>
     );
 }

@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer';
 import NavOne from "./components/NavBar/NavOne";
 import NavTwo from "./components/NavBar/NavTwo";
 import {auth} from "./firebase/firebase";
-import {setCurrentUser, setRole} from "./redux/user/user-action";
+import {setCurrentUser, setRole, setUserProfile} from "./redux/user/user-action";
 import {setLoading} from "./redux/spinner/spinner-actions";
 import UserService from "./services/UserService";
 import {createStructuredSelector} from "reselect";
@@ -29,7 +29,7 @@ class App extends Component {
         this.state = {profile: null};
     }
     componentDidMount () {
-        const { setCurrentUser,setLoading ,setRole,setAllProducts,setSideBarFilters,setAllOrders,setCustomerOrders} = this.props;
+        const { setCurrentUser,setLoading ,setRole,setAllProducts,setSideBarFilters,setAllOrders,setCustomerOrders,setUserProfile} = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
             setLoading(true);
             setCurrentUser(userAuth);
@@ -37,6 +37,7 @@ class App extends Component {
             {
                 const userProfile =await UserService.getUser(userAuth.uid)
                 await setRole(userRole(userProfile));
+                await setUserProfile(userProfile);
                 await this.setState({profile : userProfile})
             }
             setLoading(false);
@@ -86,6 +87,7 @@ const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setLoading: loadingState => dispatch(setLoading(loadingState)),
     setRole: role => dispatch(setRole(role)),
+    setUserProfile: profile => dispatch(setUserProfile(profile)),
     setAllProducts : products => dispatch(setAllProducts(products)),
     setCustomerOrders : customer_orders => dispatch(setCustomerOrders(customer_orders)),
     setSideBarFilters: newValues => dispatch(setSideBarFilters(newValues)),

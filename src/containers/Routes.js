@@ -30,6 +30,9 @@ import AboutUs from "./AboutUs/AboutUs";
 import AdminDashboard from "./AdminDashboard/AdminDashboard";
 import StoreManagement from "../components/DashboardComponent/StoreManagement";
 import AdminKpIs from "../components/DashboardComponent/AdminKPIs";
+import ProfilePage from "./ProfilePage/ProfilePage";
+import AdminRoute from "../components/RouteComponents/AdminRoute";
+import VendorRoute from "../components/RouteComponents/VendorRoute";
 
 const Routes = () => (
     <Switch>
@@ -37,7 +40,7 @@ const Routes = () => (
         <Route exact path="/register" component={AuthenticationPage}/>
         <Route exact path="/cart" component={CartPage}/>
         <Route exact path="/shop" component={Shop}/>
-         <Route exact path="/admin" component={AdminDashboard}/>
+         <AdminRoute exact path="/admin" component={AdminDashboard}/>
          <Route exact path="/about" component={AboutUs}/>
         <PrivateRoute exact path="/vendor-products" component={VendorProductsPage}/>
         <PrivateRoute exact path="/vendor-orders" component={VendorOrders}/>
@@ -51,7 +54,7 @@ const Routes = () => (
         <Route exact path="/vendor-listing" component={VendorGrid}/>
         <Route exact path="/product-listing/:name" component={ProductPage}/>
         <Route exact path="/product-listing" component={ProductPage}/>
-        <ProtectedRoute exact path="/become-vendor" component={BecomeVendor}/>
+        <VendorRoute exact path="/become-vendor" component={BecomeVendor}/>
         <Route exact path="/vendors/:id" component={VendorDetail}/>
         <Route exact path="/products/:id" component={ProductDetail}/>
         <PrivateRoute exact path="/edit-coupon/:id" component={EditCoupon}/>
@@ -59,6 +62,7 @@ const Routes = () => (
         <PrivateRoute exact path="/kpis" component={AdminKpIs}/>
         <PrivateRoute exact path="/store-management" component={StoreManagement}/>
         <ProtectedRoute exact path="/customer-orders" component={CustomerOrders}/>
+        <ProtectedRoute exact path="/profile_page" component={ProfilePage}/>
         <PrivateRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
         <Route exact path="/unauthorized" component={Unauthorized}/>
         <Route component={NotFound}/>

@@ -7,7 +7,7 @@ const Flex = styled.div`
   display: flex;
 `;
 const BigNum = styled.div`
-  border: 1px solid #ff5100;
+  //border: 1px solid #ff5100;
   border-width: ${props => (props.active || props.complete ? 0 : "1px")};
   background-color: ${props => {
     if (props.active) return props.color;
