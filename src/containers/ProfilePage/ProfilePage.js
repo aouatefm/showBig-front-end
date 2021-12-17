@@ -83,6 +83,7 @@ const ProfilePage = ({ profile}) => {
 
         else
             {
+                setLoading(true)
         const response = await UserService.updateUser(email,firstName,lastName,phoneNumber,shippingAddress,billingAddress,image,uid)
         if (response.status === 200) {
             addToast("Info successfully updated",
