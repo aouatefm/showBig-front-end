@@ -9,7 +9,7 @@ import { setSearchBarFilters } from '../../redux/filters/filters-actions';
 
 import './SearchInput.css';
 
-const SearchInput = ({ keywords, setSearchBarFilters }) => {
+const SearchInput = ({ keywords, setSearchBarFilters,placeholder="Search ..." }) => {
     const [ currentKeywords, setCurrentKeywords ]= useState(keywords);
 
     const handleInput = (event) => {
@@ -20,7 +20,7 @@ const SearchInput = ({ keywords, setSearchBarFilters }) => {
     return (
         <InputGroup>
             <FormControl
-                placeholder="Search ..."
+                placeholder={placeholder}
                 aria-label="Search"
                 aria-describedby="basic-addon2"
                 value={ currentKeywords }

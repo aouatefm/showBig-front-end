@@ -82,7 +82,7 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                     {/*    console.log(currentUser)*/}
                     {/*}}>User</Button>*/}
                     <Form inline>
-                        <select onChange={(e) => setCat(e.target.value)}
+                        <select onChange={(e) => setCat(e.target.value.replace(/[^A-Za-z0-9]/g, ''))}
                                 style={{
                                     backgroundColor: "black",
                                     color: "white",

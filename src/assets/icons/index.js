@@ -35,11 +35,11 @@ export const HeartIcon = ({width}) => <svg aria-hidden="true" focusable="false" 
     <path fill="currentColor"
           d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/>
 </svg>
-export const PhoneIcon = () => <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-alt"
-                                    className="svg-inline--fa fa-phone-alt fa-w-16" role="img"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14">
+export const PhoneIcon = ({width}) => <svg aria-hidden="true" focusable="false" data-prefix="fas"
+                                           data-icon="phone-square" className="svg-inline--fa fa-phone-square fa-w-14"
+                                           role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width={width}>
     <path fill="currentColor"
-          d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z"/>
+          d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM94 416c-7.033 0-13.057-4.873-14.616-11.627l-14.998-65a15 15 0 0 1 8.707-17.16l69.998-29.999a15 15 0 0 1 17.518 4.289l30.997 37.885c48.944-22.963 88.297-62.858 110.781-110.78l-37.886-30.997a15.001 15.001 0 0 1-4.289-17.518l30-69.998a15 15 0 0 1 17.16-8.707l65 14.998A14.997 14.997 0 0 1 384 126c0 160.292-129.945 290-290 290z"/>
 </svg>
 export const FacebookIcon = () => <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square"
                                        className="svg-inline--fa fa-facebook-square fa-w-14" role="img"

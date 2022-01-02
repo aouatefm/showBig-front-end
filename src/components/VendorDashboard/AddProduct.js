@@ -5,6 +5,7 @@ import CategoriesService from "../../services/CategoriesService";
 import NavThree from "../NavBar/NavThree";
 import { useHistory } from "react-router";
 import {useToasts} from "react-toast-notifications";
+import ImageUploader from "react-images-upload";
 
 const  useCategories= () =>{
     const [categories, setCategories] = useState([]);
@@ -21,10 +22,15 @@ const AddProduct = () => {
     const { addToast } = useToasts();
 
     const file = useRef(null);
-    const [ fileAdded, setFileAdded ] = useState(file.current != null);
+    const file1 = useRef(null);
+    const file2 = useRef(null);
+    const file3 = useRef(null);
+    const file4 = useRef(null);
+
+    const [ fileAdded, setFileAdded ] = useState(false);
     const [ name, setName ] = useState("");
     const [ price, setPrice ]= useState(null);
-    const [ shipping, setShipping ]= useState("");
+    const [ shipping, setShipping ]= useState(null);
     const [ category, setCategory ]= useState("");
     const [ stock, setStock ]= useState(null);
     const [ ptype, setPtype ]= useState("");
@@ -32,9 +38,14 @@ const AddProduct = () => {
     const [ video, setVideo ]= useState("");
     const [ loading, setLoading ] = useState(false)
 
-    const handleFileChange = (event) => {
-        file.current = event.target.files[0];
-        setFileAdded(file.current != null);
+    const handleFileChange = async (event) => {
+        file.current = event[0];
+        file1.current = event[1];
+        file2.current = event[2];
+        file3.current = event[3];
+        file4.current = event[4];
+        if(event[0]){await setFileAdded(true)}
+
     }
     const onSubmit = async (event) =>
     {
@@ -57,7 +68,7 @@ const AddProduct = () => {
                     autoDismissTimeout: 2000,
                     TransitionState: "exiting",
                 });
-                history.push("/vendor-listing");
+                history.push("/vendor-products");
                 setLoading(false)
             }).catch(error => {
             console.log(error);
@@ -85,7 +96,7 @@ const AddProduct = () => {
                         <div className="form-group">
                             <label>Price</label>
                             <div className="input-group">
-                                <input type="number" min="0" className="form-control"
+                                <input type="number" min="0" step="0.01" className="form-control"
                                        aria-label="Dollar amount (with dot and two decimal places)"
                                        onChange={e => setPrice(e.currentTarget.value)}/>
                                     <span className="input-group-text">$</span>
@@ -104,7 +115,7 @@ const AddProduct = () => {
                                    min="0"
                                    name="shipping"
                                    required
-                                   onChange={e => setShipping(e.currentTarget.value)}/>
+                                   onChange={e => setShipping(parseInt(e.currentTarget.value))}/>
                         </div>
                         <div className="form-group">
                             <label>Category</label>
@@ -132,16 +143,17 @@ const AddProduct = () => {
                                    required
                                    onChange={e => setPtype(e.currentTarget.value)}/>
                         </div>
-
-                        <div className="form-group">
-                            <label>Image</label>
-                            <input type="file" className="form-control" placeholder="Image"
-                                   name="image"
-                                   id="myFile"
-                                   accept='image/*'
-                                   required
-                                   onChange={handleFileChange}/>
-                        </div>
+                        <ImageUploader
+                            withIcon={false}
+                            withPreview={true}
+                            label="Product Image"
+                            buttonText="Upload a Product Image"
+                            onChange={handleFileChange}
+                            imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
+                            maxFileSize={1048576}
+                            fileSizeError=" file size is too big"
+                            singleImage={false}
+                        />
                         <div className="form-group">
                             <label>Video</label>
                             <input type="text" className="form-control" placeholder="Video URL"
@@ -149,7 +161,6 @@ const AddProduct = () => {
                                    value={video}
                                    onChange={e => setVideo(e.currentTarget.value)}/>
                             <small className="form-text text-muted">Optional</small>
-
                         </div>
                         <button type="submit" className="btn btn-primary" disabled={loading}>Add Product</button>
                     </form>

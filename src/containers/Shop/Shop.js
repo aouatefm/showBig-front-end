@@ -313,8 +313,7 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
                         </div>
                     </div>
                     {payment === '' | payment === 'cash' &&
-                    <Button style={{width: "400px", margin: "50px"}} className="btn btn-dark" onClick={handleSubmit}
-                            disabled={spinner}>
+                    <Button style={{width: "400px", margin: "50px"}} className="btn btn-dark" onClick={handleSubmit} disabled={spinner}>
                         Submit Order
                     </Button>
                     }

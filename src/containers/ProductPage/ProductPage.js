@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Pagination} from 'react-bootstrap';
 import ProductGrid from '../../components/ProductGrid/ProductGrid';
 import "./ProductPage.css";
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {selectCollections} from "../../redux/product/product-selectors";
 import {select_v_products_filters, selectSearchBarKeywords, selectViewBar} from "../../redux/filters/filters-selectors";
-import {Pagination} from "@material-ui/lab";
 import ViewBar from "../../components/ViewBar/ViewBar";
 import SortBar from "../../components/SortBar/SortBar";
 import SearchInput from "../../components/SearchInput/SearchInput";
@@ -16,9 +15,8 @@ import {SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from "use-react-router";
 import SpinnerPage from "../Spinner/SpinnerPage";
 
-const ProductPage = ({products, viewbar, v_products_filters}) => {
+const ProductPage = ({products, viewbar}) => {
     let {name} = useParams();
-    const ff =0
     const {location} = useReactRouter();
     const params = new URLSearchParams(location.search);
     const SearchTerm = params.get('find_desc');
@@ -53,8 +51,8 @@ const applyFiltersCatsTerm = (items) => {
     let itemsToDisplay = items.filter
     (
         item =>
-             (categoryParam.includes(item.category) || categoryParam.length === 0)
-            && keywordsMatched(item)
+             (categoryParam.replace(/[^A-Za-z0-9]/g, '').includes(item.category.replace(/[^A-Za-z0-9]/g, '')) || categoryParam.length === 0) &&
+             keywordsMatched(item)
     )
     return itemsToDisplay;
 }
@@ -70,17 +68,17 @@ return (
                         </Col>
                         <Col lg={8} md={12} className="products">
                             <Row className="search-bar">
-                                <SearchInput/>
+                                <SearchInput placeholder="Search by product or name .."/>
                             </Row>
                             <Row className='select-bar'>
                                 <ViewBar collection={products}/>
                                 <SortBar/>
                             </Row>
                             <Row className="product-grid">
-                                {(categoryParam || SearchTerm) ?
-                                // <ProductGrid products={paginateItems(applyFiltersCatsTerm(products))}/> :
-                                <ProductGrid products={applyFiltersCatsTerm(products)}/> :
-                                    <ProductGrid products={paginateItems(products)}/>}
+                                { (categoryParam || SearchTerm) ?
+                               <ProductGrid products={paginateItems(applyFiltersCatsTerm(products))}/> :
+                               <ProductGrid products={paginateItems(products)}/> }
+
                             </Row>
                             <Row className='pagination-row'>
                                 <Pagination

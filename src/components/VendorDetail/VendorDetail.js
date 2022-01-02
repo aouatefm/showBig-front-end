@@ -16,21 +16,19 @@ import {
     selectViewBar
 } from "../../redux/filters/filters-selectors";
 import {connect} from "react-redux";
+import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 
 function useVendorId(id) {
     const [vendor, setVendor] = useState([]);
-    const [ratings, setRating] = useState([]);
     useEffect(async () => {
         const newVendor = await VendorService.getVendorById(id);
         setVendor(newVendor);
-        const newRating = await RatingService.getRatingsOfProduct(id);
-        setRating(newRating)
     }, [])
-    return [vendor,ratings]
+    return vendor
 }
 const VendorDetail = () => {
     let { id } = useParams();
-    const [vendor, ratings] = useVendorId(id);
+    const vendor = useVendorId(id);
         return (
             <div className="container">
                 <div className="row">
@@ -74,7 +72,10 @@ const VendorDetail = () => {
                     </div>
                     <div className="col-9" >
                         <SearchBar vendor={id}  />
-                        <VendorProducts vendor={id}/>
+                        {vendor ?
+                        <VendorProducts vendor={id}/> :
+                            <SpinnerPage/>
+                        }
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 import {selectOrders} from "../../redux/orders/order-selectors";
 import Spinner from "../Spinner/Spinner";
-
+import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 
 
 const VendorOrders = ({orders}) => {
@@ -24,7 +24,14 @@ const VendorOrders = ({orders}) => {
                 <div className="col">
                     <h1>Orders</h1>
                     <SearchFormOrders/>
-                    {orders ? <OrderPresentation orders={orders}/> : <div style={{marginLeft:"500px"}}><Spinner/></div>}
+                    {orders ?
+                        orders.length === 0 ?
+                            <h4 style={{color: 'red', textAlign: 'center', margin: '35px'}}> Sorry ! No Order Found</h4>
+                            :
+                            <OrderPresentation orders={orders}/>
+                            :
+                            <SpinnerPage/>
+                    }
                 </div>
             </div>
         </div>
@@ -36,7 +43,7 @@ const VendorOrders = ({orders}) => {
 const mapStateToProps = createStructuredSelector(
     {
         currentUser: selectCurrentUser,
-        orders : selectOrders
+        orders: selectOrders
     }
 );
 export default connect(mapStateToProps)(VendorOrders);

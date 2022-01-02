@@ -11,16 +11,30 @@ import PolarAreaCharts from "../DashboardComponent/PolarAreaCharts";
 const useStats = () => {
     const [stats, setStats] = useState([]);
     useEffect(async () => {
-        const newStats = await DashboardService.get_vendor_stats()
-        setStats(newStats);
+        const response = await DashboardService.get_vendor_stats()
+        setStats(response);
     }, [])
     return stats
 }
 
 const VendorDashboard = () => {
     const stats = useStats()
+    if (!stats )
+        return (
+        <div className="row">
+            <div className="col col-lg-2" >
+                <NavThree/>
+            </div>
+            <div className="container" >
+                <h1 className="kpi_title">Key performance indicators</h1>
+                <h4 style={{color :'red' , textAlign: 'center' ,margin :'35px'}}>
+                Sorry ! No Stats Found</h4>
 
-     return (
+            </div>
+        </div>
+    )
+    else
+      return (
             <div className="row">
                 <div className="col col-lg-2" >
                     <NavThree/>

@@ -33,7 +33,7 @@ export default {
     addProduct: async function (name,price,shipping,category,stock,ptype,imageUrl,description) {
         try {
             const response = await axios.post(BASE_URL + `/products`,
-                {name:name,price:price,images:imageUrl,description:description,shipping:shipping,category:category,stock:stock,ptype:ptype},
+                {name:name,price:price,images:imageUrl,description:description,shipping_price:shipping,category:category,stock:stock,product_type:ptype},
                 {headers: {'Authorization': await getTokenId()}});
             return response.data;
         } catch (error) {

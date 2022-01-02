@@ -19,10 +19,11 @@ export default {
         try {
             const response = await axiosInstance.get(`/dashboards/vendor_stats`,
                 {headers: {'Authorization': await getTokenId()}}
-            );
-            return response.data;
+                );
+            return response.data
+
         } catch (error) {
-            return error
+            return error.response
         }
     },
 

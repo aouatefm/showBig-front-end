@@ -22,6 +22,7 @@
     border-top: #e2dee1 solid 1px;
 }
 .store-btn{
+    height: 40px;
     align-items: center;
     background-color: rgb(240, 80, 37);
     border-color: rgb(255, 255, 255);
@@ -57,4 +58,12 @@
     cursor: move;
     position: relative;
     left: 158px; top: 0px;
+}
+.store-adr{
+    letter-spacing: 3px;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+.store-phone{
 }

@@ -12,6 +12,7 @@ import UserService from "../../services/UserService";
 
 const ProfilePage = ({ profile}) => {
     const uid = profile.uid
+    console.log(profile)
     const [email, setEmail] = useState(profile.email)
     const [firstName, setFirstName] = useState(profile.first_name)
     const [lastName, setLastName] = useState(profile.last_name)
@@ -110,8 +111,7 @@ const ProfilePage = ({ profile}) => {
 
     return (
         <div className='container'>
-            {/*<img src={profile.avatar} style={{width: '150px', borderRadius: '50%', marginLeft: '10px'}}/><br/>*/}
-            {/*<Button style={{margin: '10px'}}>Choose different picture</Button>*/}
+
             <img
                 src={preview}
                 alt="Uploaded Images"
@@ -133,6 +133,15 @@ const ProfilePage = ({ profile}) => {
                     <div className="input-group input-group-sm mb-3">
                         <div className="input-group-prepend">
                             <span className="input-group-text" id="inputGroup-sizing-sm">Email</span>
+                        </div>
+                        <input type="text" className="form-control" aria-label="Small"
+                               aria-describedby="inputGroup-sizing-sm" value={email} onChange={e => setEmail(e.currentTarget.value)}/>
+                    </div>
+                </li>
+                <li className="list-group-item">
+                    <div className="input-group input-group-sm mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="inputGroup-sizing-sm">User name</span>
                         </div>
                         <input type="text" className="form-control" aria-label="Small"
                                aria-describedby="inputGroup-sizing-sm" value={email} onChange={e => setEmail(e.currentTarget.value)}/>

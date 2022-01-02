@@ -33,6 +33,7 @@ import AdminKpIs from "../components/DashboardComponent/AdminKPIs";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import AdminRoute from "../components/RouteComponents/AdminRoute";
 import VendorRoute from "../components/RouteComponents/VendorRoute";
+import VendorPage from "./VendorPage/VendorPage";
 
 const Routes = () => (
     <Switch>
@@ -51,12 +52,16 @@ const Routes = () => (
         <PrivateRoute exact path="/vendor-settings" component={StoreSettings}/>
         <PrivateRoute exact path="/dashboard" component={VendorDashboard} />
         <PrivateRoute exact path="/sell-now" component={SellPage}/>
-        <Route exact path="/vendor-listing" component={VendorGrid}/>
+
         <Route exact path="/product-listing/:name" component={ProductPage}/>
-        <Route exact path="/product-listing" component={ProductPage}/>
         <VendorRoute exact path="/become-vendor" component={BecomeVendor}/>
-        <Route exact path="/vendors/:id" component={VendorDetail}/>
+
+        <Route exact path="/product-listing" component={ProductPage}/>
         <Route exact path="/products/:id" component={ProductDetail}/>
+
+        <Route exact path="/vendor-listing" component={VendorPage}/>
+        <Route exact path="/vendors/:id" component={VendorDetail}/>
+
         <PrivateRoute exact path="/edit-coupon/:id" component={EditCoupon}/>
         <PrivateRoute exact path="/add" component={AddProduct}/>
         <PrivateRoute exact path="/kpis" component={AdminKpIs}/>

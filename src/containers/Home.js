@@ -5,6 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CategoriesService from "../services/CategoriesService"; // requires a loader
 import './Home.css'
 import SpinnerPage from "./Spinner/SpinnerPage";
+import garden from '../assets/garden.png'
 const useCategories = () => {
     const [categories, setCategories] = useState([]);
     useEffect(async () => {
@@ -61,6 +62,50 @@ const Home = (props) => {
                 name="BEST SELLERS"
             />
             {/*<OurPartners />*/}
+
+            <div className="row">
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+                    <span>Garden & outdoor</span>
+                </div>
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+                <div className="col-sm">
+                    <img src={garden} alt="" className="icon"/>
+
+                </div>
+            </div>
+
         </div>
             : <SpinnerPage/>}
     </div>

@@ -3,7 +3,6 @@ import './NavThree.css'
 
 function NavThree() {
     return (
-        // <div className="App">
             <div className="wrapper">
                 <div className="sidebar">
                     <h2>Dashboard</h2>

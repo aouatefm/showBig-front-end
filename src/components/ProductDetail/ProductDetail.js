@@ -14,30 +14,34 @@ import 'react-toastify/dist/ReactToastify.css';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 import { useToasts } from "react-toast-notifications";
 import {SideBySideMagnifier} from "react-image-magnifiers";
+import VendorService from "../../services/VendorService";
+import VendorCard from "../VendorCard/VendorCard";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
     const [ratings, setRating] = useState([]);
+    const [store, setStore] = useState("");
     useEffect(async () => {
         const newProduct = await ProductService.getProductById(id);
         setProduct(newProduct);
         const newRating = await RatingService.getRatingsOfProduct(id);
         setRating(newRating)
+        const newStore= await VendorService.getVendorById(product.store_id);
+        setStore(newStore)
     }, [])
-    return [product, ratings]
+    return [product, ratings,store]
 }
 
 const ProductDetail = ({cartItems, addItem}) => {
     console.log(cartItems)
     const { addToast } = useToasts();
     let {id} = useParams();
-    const [product, product_ratings] = useProductId(id);
+    const [product, product_ratings,store] = useProductId(id);
     const ratingAVG = product_ratings.avg
-    const [show, setShow] = useState(false);
-
+    console.log('store')
+    console.log(store)
 
     const isInCart = product => {
-        console.log(product)
         return !!cartItems.find(item => item.product_id === product.product_id);
     }
 
@@ -134,14 +138,14 @@ const ProductDetail = ({cartItems, addItem}) => {
                         </Link>
                     </div>
                     <div className="">
-                        <span><strong>SKU :</strong>SF1133569600-1</span><br/>
+                        <span><strong>SKU :</strong>{product.product_id}</span><br/>
                         <span><strong>Category :</strong>{product.category}</span>
                     </div>
                 </div>
             </div>
             <div className="">
-                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-                    <Tab eventKey="Description" title="Description" >
+                <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
+                    <Tab eventKey="description" title="Description" >
                         <div style={{
                             backgroundColor: "#F1F1F1",
                             width: "1110px",
@@ -166,7 +170,7 @@ const ProductDetail = ({cartItems, addItem}) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                            <p> braid. sssssssssssssXOXO direct trade locavore hammock kogi cronut occupy 3 wolf</p>
+                            {store && <> <VendorCard vendor={store} /></>}
                         </div>
                     </Tab>
                     <Tab eventKey="Reviews" title={`Review (${product_ratings.count})`}>

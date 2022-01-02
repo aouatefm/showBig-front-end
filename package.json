@@ -25,6 +25,7 @@
     "react-dom": "^17.0.1",
     "react-google-autocomplete": "^2.4.0",
     "react-image-magnifiers": "^1.4.0",
+    "react-images-upload": "^1.2.8",
     "react-loader-spinner": "^4.0.0",
     "react-multi-select-component": "^4.1.13",
     "react-responsive-carousel": "^3.2.21",

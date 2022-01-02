@@ -2,3 +2,6 @@
     color: #eeee23;
     font-weight: bold;
 }
+.icon:hover{
+    transform: scale(1.3);
+}

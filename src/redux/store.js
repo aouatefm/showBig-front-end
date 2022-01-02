@@ -11,7 +11,7 @@ export const store = createStore(
     rootReducer, /* preloadedState, */
     //applyMiddleware(...middleWares)
     applyMiddleware(thunk)
-    +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 export const persistor = persistStore(store);
 export default { store, persistStore };

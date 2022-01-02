@@ -86,7 +86,6 @@ export default {
                 },
                 {headers: {'Authorization': await getTokenId()}});
         } catch (error) {
-            console.log(error.response)
             return error.response
         }
     },

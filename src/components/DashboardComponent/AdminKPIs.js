@@ -10,6 +10,7 @@ const useStats = () => {
     const [stats, setStats] = useState([]);
     useEffect(async () => {
         const newStats = await DashboardService.get_admin_stats()
+        console.log(newStats)
         await setStats(newStats);
     }, [])
     return stats
@@ -17,9 +18,8 @@ const useStats = () => {
 
 const AdminKpIs = () => {
     const stats = useStats()
-    return (
+       return (
         <div className="container">
-            <h1 className="kpi_title">Key performance indicators</h1>
             {stats.monthly_sales_products ? <>
 
             <div className="d-flex" style={{height: "70px"}}>
@@ -30,7 +30,6 @@ const AdminKpIs = () => {
                 <span className="border kpi_values">{stats.total_stores}  <br/><span className="kpi_labels">Count Of Stores </span></span>
                 <span className="border kpi_values" >{stats.total_users} <br/><span className="kpi_labels">Count Of Users</span></span>
             </div>
-
                 <ComboChart sales={stats.monthly_sales_products.sales} products={stats.monthly_sales_products.products} dates={stats.monthly_sales_products.dates} />
                 <Spline sales={stats.daily_sales_products.sales} products={stats.daily_sales_products.products} dates={stats.daily_sales_products.dates} />
                 <div className="row">
@@ -41,9 +40,11 @@ const AdminKpIs = () => {
                         <Line sales={stats.monthly_sales_products.sales} dates={stats.monthly_sales_products.dates} />
                     </div>
                 </div>
+            </>
+            :
+                <SpinnerPage/>
+            }
 
-            </> :
-                <SpinnerPage/>}
 
         </div>
     );

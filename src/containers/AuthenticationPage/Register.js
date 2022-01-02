@@ -18,7 +18,8 @@ class RegisterForm extends Component {
         password: "",
         confirmPassword: "",
         showAlert :"",
-        error :""
+        error :"",
+        loading : false
     }
 
     render() {
@@ -46,10 +47,12 @@ class RegisterForm extends Component {
 
             event.preventDefault();
             this.setState({error :''})
+
             if (this.state.password !== this.state.confirmPassword) {
                 //this.setState({error: "password does not match "})
             }
             setLoading(true);
+            this.setState({loading :true})
             const {isUserCreated, errorMsg} = await UserService.register(this.state)
             if (isUserCreated) {
                 await login(this.state.email,this.state.password)
@@ -59,7 +62,8 @@ class RegisterForm extends Component {
                 this.setState({error :errorMsg.message})
 
             }
-            setLoading(false);
+            this.setState({loading :false})
+
 
         }
 

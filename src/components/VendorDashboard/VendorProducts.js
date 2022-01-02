@@ -16,7 +16,6 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
         const formattedName = name.toLowerCase();
         return formattedName.includes(formattedKeywords)
     }
-
     const applyFilters = (items) => {
         let itemsToDisplay = items.filter(
             item =>
@@ -48,23 +47,24 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                             {
                                 prods ?
                                 <>
-                                    {applyFilters(prods).map((product,index) => (
-                                        <tr key={product.id}>
-                                            <th scope="row">{index+1}</th>
-                                            <td>
-                                                <img src={product.images}
-                                                     alt={product.name}
-                                                     className="avatar"
-                                                     width="50px" height="50px"/>
-                                            </td>
-                                            <td>{product.name}</td>
-                                            <td>{product.stock}</td>
-                                            <td>{product.price}</td>
-                                            <td>{product.category}</td>
-                                            <td>{Moment(product.created_at).format('MMMM DD YYYY')}</td>
-                                            <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                                        </tr>
-                                    ))}
+                                    {prods.length ===0 ? <td colSpan="8" style={{color :'red' , textAlign: 'center' ,margin :'35px'}}> Sorry ! No Product Found</td> :
+                                        applyFilters(prods).map((product,index) => (
+                                                <tr key={product.id}>
+                                                    <th scope="row">{index+1}</th>
+                                                    <td>
+                                                        <img src={product.images}
+                                                             alt={product.name}
+                                                             className="avatar"
+                                                             width="50px" height="50px"/>
+                                                    </td>
+                                                    <td>{product.name}</td>
+                                                    <td>{product.stock}</td>
+                                                    <td>{product.price}</td>
+                                                    <td>{product.category}</td>
+                                                    <td>{Moment(product.created_at).format('MMMM DD YYYY')}</td>
+                                                    <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                                </tr>
+                                            ))}
                                 </> :
                                     <div className="row">
                                         <div className="col col-lg-2">
