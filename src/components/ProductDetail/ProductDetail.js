@@ -12,13 +12,16 @@ import ReactStars from "react-rating-stars-component";
 import RatingService from "../../services/RatingService";
 import 'react-toastify/dist/ReactToastify.css';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
-import { useToasts } from "react-toast-notifications";
+import {useToasts} from "react-toast-notifications";
 import {SideBySideMagnifier} from "react-image-magnifiers";
 import VendorService from "../../services/VendorService";
 import VendorCard from "../VendorCard/VendorCard";
+import Recommendations from "../ProductCard/ProductRecommandations";
+import ProductRating from "../ProductRating/ProductRating";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
     const [ratings, setRating] = useState([]);
     const [store, setStore] = useState("");
     useEffect(async () => {
@@ -26,29 +29,25 @@ function useProductId(id) {
         setProduct(newProduct);
         const newRating = await RatingService.getRatingsOfProduct(id);
         setRating(newRating)
-        const newStore= await VendorService.getVendorById(product.store_id);
+        const newStore = await VendorService.getVendorById(product.store_id);
         setStore(newStore)
+        const rec = await ProductService.productRecommendations(id);
+        setRecommendations(rec)
     }, [])
-    return [product, ratings,store]
+    return [product, ratings, store, recommendations]
 }
 
 const ProductDetail = ({cartItems, addItem}) => {
-    console.log(cartItems)
-    const { addToast } = useToasts();
+    const {addToast} = useToasts();
     let {id} = useParams();
-    const [product, product_ratings,store] = useProductId(id);
+    const [product, product_ratings, store, recommendations] = useProductId(id);
+
     const ratingAVG = product_ratings.avg
-    console.log('store')
-    console.log(store)
 
     const isInCart = product => {
         return !!cartItems.find(item => item.product_id === product.product_id);
     }
 
-
-    // const ratingChanged = (newRating) => {
-    //     setEdit(false)
-    // };
 
     const handleAddItem = (productItem) => {
         addItem(productItem)
@@ -59,6 +58,7 @@ const ProductDetail = ({cartItems, addItem}) => {
             TransitionState: "exiting",
         });
     }
+
     return ratingAVG != undefined ?
 
         <div className="container">
@@ -143,9 +143,10 @@ const ProductDetail = ({cartItems, addItem}) => {
                     </div>
                 </div>
             </div>
+
             <div className="">
                 <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
-                    <Tab eventKey="description" title="Description" >
+                    <Tab eventKey="description" title="Description">
                         <div style={{
                             backgroundColor: "#F1F1F1",
                             width: "1110px",
@@ -170,10 +171,11 @@ const ProductDetail = ({cartItems, addItem}) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                            {store && <> <VendorCard vendor={store} /></>}
+                            {store && <> <VendorCard vendor={store}/></>}
                         </div>
                     </Tab>
                     <Tab eventKey="Reviews" title={`Review (${product_ratings.count})`}>
+
                         <p>
                             {product_ratings.count ?
                                 <div style={{
@@ -182,91 +184,114 @@ const ProductDetail = ({cartItems, addItem}) => {
                                     height: "400px",
                                     padding: "20px"
                                 }}>
-                                    <h1 style={{color: "#669900", justifyItems: "center"}}><span
-                                        style={{fontWeight: "bold"}}>{product_ratings.avg.toFixed(1)}</span> out of 5
-                                    </h1>
-                                    <h6>{product_ratings.count} global ratings</h6>
+                                    <Row>
+                                        <Col>
 
-                                    <ReactStars
-                                        count={5}
-                                        value={ratingAVG}
-                                        size={30}
-                                        isHalf={true}
-                                        activeColor="#ffd700"
-                                        edit={false}
-                                    />
+                                            <h1 style={{color: "#669900", justifyItems: "center"}}><span
+                                                style={{fontWeight: "bold"}}>{product_ratings.avg.toFixed(1)}</span> out
+                                                of 5
+                                            </h1>
+                                            <h6>{product_ratings.count} global ratings</h6>
 
-                                    <div style={{
-                                        width: "500px",
-                                        height: "200px",
-                                    }}>
-                                        <div>
-                                            <Row className="progress-r">
-                                                <h6> 5 star </h6>
-                                                <Col>
-                                                    <ProgressBar variant="warning" className="progress-b"
-                                                        // label={`${(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%`}
-                                                                 now={(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}/>
-                                                </Col>
-                                                <h6>{(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%</h6>
-                                            </Row>
-                                            <Row className="progress-r">
-                                                <h6>4 star </h6>
-                                                <Col>
-                                                    <ProgressBar variant="warning" className="progress-b"
-                                                        //label={`${(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%`}
-                                                                 now={(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}
-                                                    />
-                                                </Col>
-                                                <h6>{(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%</h6>
-                                            </Row>
-                                            <Row className="progress-r">
-                                                <h6>3 star </h6>
-                                                <Col>
-                                                    <ProgressBar variant="warning" className="progress-b"
-                                                        // label={`${(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%`}
-                                                                 now={(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}
-                                                    />
-                                                </Col>
-                                                <h6>{(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%</h6>
-                                            </Row>
-                                            <Row className="progress-r">
-                                                <h6>2 star </h6>
-                                                <Col>
-                                                    <ProgressBar variant="warning" className="progress-b"
-                                                        // label={`${(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}%`}
-                                                                 now={(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}
-                                                    />
-                                                </Col>
-                                                <h6>{(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}%</h6>
-                                            </Row>
-                                            <Row className="progress-r">
-                                                <h6>1 star </h6>
-                                                <Col>
-                                                    <ProgressBar variant="warning" className="progress-b"
-                                                        // label={`${(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}%`}
-                                                                 now={(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}
-                                                    />
-                                                </Col>
-                                                <h6>{(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}%</h6>
-                                            </Row>
-                                        </div>
-                                    </div>
-                                </div> : "No Review for this product right now "
+                                            <ReactStars
+                                                count={5}
+                                                value={ratingAVG}
+                                                size={30}
+                                                isHalf={true}
+                                                activeColor="#ffd700"
+                                                edit={false}
+                                            />
+
+                                            <div style={{width: "500px", height: "200px",}}>
+                                                <div>
+                                                    <Row className="progress-r">
+                                                        <h6> 5 star </h6>
+                                                        <Col>
+                                                            <ProgressBar variant="warning" className="progress-b"
+                                                                // label={`${(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%`}
+                                                                         now={(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}/>
+                                                        </Col>
+                                                        <h6>{(product_ratings.rating_stats[5] / product_ratings.count * 100).toFixed(0)}%</h6>
+                                                    </Row>
+                                                    <Row className="progress-r">
+                                                        <h6>4 star </h6>
+                                                        <Col>
+                                                            <ProgressBar variant="warning" className="progress-b"
+                                                                //label={`${(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%`}
+                                                                         now={(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}
+                                                            />
+                                                        </Col>
+                                                        <h6>{(product_ratings.rating_stats[4] / product_ratings.count * 100).toFixed(0)}%</h6>
+                                                    </Row>
+                                                    <Row className="progress-r">
+                                                        <h6>3 star </h6>
+                                                        <Col>
+                                                            <ProgressBar variant="warning" className="progress-b"
+                                                                // label={`${(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%`}
+                                                                         now={(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}
+                                                            />
+                                                        </Col>
+                                                        <h6>{(product_ratings.rating_stats[3] / product_ratings.count * 100).toFixed(0)}%</h6>
+                                                    </Row>
+                                                    <Row className="progress-r">
+                                                        <h6>2 star </h6>
+                                                        <Col>
+                                                            <ProgressBar variant="warning" className="progress-b"
+                                                                // label={`${(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}%`}
+                                                                         now={(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}
+                                                            />
+                                                        </Col>
+                                                        <h6>{(product_ratings.rating_stats[2] / product_ratings.count * 100).toFixed(0)}%</h6>
+                                                    </Row>
+                                                    <Row className="progress-r">
+                                                        <h6>1 star </h6>
+                                                        <Col>
+                                                            <ProgressBar variant="warning" className="progress-b"
+                                                                // label={`${(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}%`}
+                                                                         now={(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}
+                                                            />
+                                                        </Col>
+                                                        <h6>{(product_ratings.rating_stats[1] / product_ratings.count * 100).toFixed(0)}%</h6>
+                                                    </Row>
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col style={{borderLeft: 'solid 1px #D3D3D3', marginRight: '50px'}}>
+                                            <ProductRating product_id={id}/>
+                                        </Col>
+                                    </Row>
+                                </div>
+                                :
+                                <div style={{
+                                    backgroundColor: "#F1F1F1",
+                                    width: "1110px",
+                                    height: "400px",
+                                    padding: "20px"
+                                }}>
+                                    <Row>
+
+                                        <Col>
+                                            <div> "No Review for this product right now "</div>
+                                        </Col>
+                                        <Col style={{borderLeft: 'solid 1px #D3D3D3', marginRight: '50px'}}>
+                                            <ProductRating product_id={id} product={product}/>
+                                        </Col>
+                                    </Row>
+                                </div>
                             }
                         </p>
 
+
                     </Tab>
-                    <Tab eventKey="PProducts" title="More Products">
-                        <div style={{
-                            backgroundColor: "#F1F1F1",
-                            width: "1110px",
-                            height: "400px",
-                            padding: "20px"
-                        }}>
-                            <p> mpa,dc ezko dokzokdâ</p></div>
+
+
+                    <Tab eventKey="PProducts" title="More items from same seller">
+                        <div style={{backgroundColor: "#F1F1F1", width: "1110px", height: "400px", padding: "20px"}}>
+                        </div>
+
                     </Tab>
                 </Tabs>
+                <Recommendations id={id}/>
             </div>
 
         </div>

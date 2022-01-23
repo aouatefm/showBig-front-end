@@ -25,7 +25,6 @@ const useVendorProducts = (id) => {
 }
 const VendorProducts = ({vendor, Keywords, sortbar, filters, viewbargrid,toggleViewBarGridList}) => {
     const products = useVendorProducts(vendor)
-    console.log(viewbargrid)
     const keywordsMatched = (item) => {
         const formattedKeywords = Keywords.trim().replace(/\s/g, '').toLowerCase();
         if (formattedKeywords.length === 0) return true;

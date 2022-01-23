@@ -75,12 +75,12 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                     </Navbar.Brand>
                 </Col>
                 <Col xs={7}>
-                    {/*<Button onClick={() => {*/}
-                    {/*    console.log(getTokenId())*/}
-                    {/*}}>Token</Button>*/}
-                    {/*<Button onClick={() => {*/}
-                    {/*    console.log(currentUser)*/}
-                    {/*}}>User</Button>*/}
+                    <Button onClick={() => {
+                        console.log(getTokenId())
+                    }}>Token</Button>
+                    <Button onClick={() => {
+                        console.log(currentUser)
+                    }}>User</Button>
                     <Form inline>
                         <select onChange={(e) => setCat(e.target.value.replace(/[^A-Za-z0-9]/g, ''))}
                                 style={{

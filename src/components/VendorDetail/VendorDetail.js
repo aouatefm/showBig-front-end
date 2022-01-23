@@ -7,7 +7,6 @@ import VendorService from "../../services/VendorService";
 import {useParams} from "react-router-dom";
 import VendorProducts from "../VendorProducts/VendorProducts";
 import MapContainer from "./MapContainer";
-import RatingService from "../../services/RatingService";
 import {createStructuredSelector} from "reselect";
 import {
     selectSearchBarKeywords,
@@ -17,6 +16,7 @@ import {
 } from "../../redux/filters/filters-selectors";
 import {connect} from "react-redux";
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
+import {Col} from "react-bootstrap";
 
 function useVendorId(id) {
     const [vendor, setVendor] = useState([]);
@@ -29,8 +29,10 @@ function useVendorId(id) {
 const VendorDetail = () => {
     let { id } = useParams();
     const vendor = useVendorId(id);
-        return (
-            <div className="container">
+    const rating_avg = vendor.avg_rating;
+    console.log(vendor.avg_rating)
+    return rating_avg != undefined ?
+        <div className="container">
                 <div className="row">
                     <div className="col-3 left-side" style={{backgroundColor: "#F1F1F1"}}>
                         <div className="row">
@@ -42,7 +44,14 @@ const VendorDetail = () => {
                                     <div className="ps-block__header"><h4>{vendor.name}</h4>
                                         <span className="ps-rating">
                                     <div className="val-rating">
-                                    <ReactStars {...{size: 25, value: 3, edit: false}} />
+                                     <ReactStars
+                                         count={5}
+                                         value={rating_avg}
+                                         size={30}
+                                         isHalf={true}
+                                         activeColor="#ffd700"
+                                         edit={false}
+                                     />
                                     </div>
                                         </span>
                                         <p data-metatip="true"><strong>85% Positive</strong> (562 rating)</p></div>
@@ -79,7 +88,8 @@ const VendorDetail = () => {
                     </div>
                 </div>
             </div>
-        );
+        : <SpinnerPage/>
+
 }
 const mapStatetoProps = createStructuredSelector({
     Keywords:  selectSearchBarKeywords,

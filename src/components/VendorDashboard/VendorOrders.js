@@ -6,14 +6,10 @@ import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 import {selectOrders} from "../../redux/orders/order-selectors";
-import Spinner from "../Spinner/Spinner";
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 
 
 const VendorOrders = ({orders}) => {
-    //const orders = useOrders()
-    console.log(orders)
-
 
     return (
         <div>

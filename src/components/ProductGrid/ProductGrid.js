@@ -52,15 +52,14 @@ const Grid =  ({ Keywords,products ,filters,sortbar}) => {
     return (
 
         <>
-            { productsCollection &&
-    <div className="container">
-    <Row className="grid">
-
+        { productsCollection &&
+        <div className="container">
+        <Row className="grid">
         {
             applyFilters(productsCollection).map(product => (
-                <Link to={{ pathname: `/products/${product.id}`}} style={{textDecoration : "none"}}>
-                    <Row lg={3.5}><ProductCard key={product.id} product={product} /></Row>
-                </Link>
+               <Link to={{ pathname: `/products/${product.id}`}}>
+                  <Row lg={3.5}><ProductCard key={product.id} product={product} /></Row>
+               </Link>
             ))
         }
          </Row>

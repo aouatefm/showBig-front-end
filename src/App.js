@@ -49,10 +49,10 @@ class App extends Component {
             setAllOrders(orders)
             setCustomerOrders(customer_orders)
             setSideBarFilters({staticBrands: [...vendors]});
-            // alanBtn({
-            //     key:
-            //         "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
-            // });
+            alanBtn({
+                key:
+                    "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
+            });
         });
     }
     componentWillUnmount() {

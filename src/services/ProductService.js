@@ -30,6 +30,15 @@ export default {
         }
     },
 
+    productRecommendations: async function (id) {
+        try {
+            const response = await axios.get(BASE_URL + `/products/${id}/recommendations`,{headers: {'Authorization': await getTokenId()}});
+            return response.data;
+        } catch (error) {
+            return error.response
+        }
+    },
+
     addProduct: async function (name,price,shipping,category,stock,ptype,imageUrl,description) {
         try {
             const response = await axios.post(BASE_URL + `/products`,

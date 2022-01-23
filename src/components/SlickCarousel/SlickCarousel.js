@@ -2,13 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { Container } from 'react-bootstrap';
 import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import ArrowRight from "@material-ui/icons/ArrowRight";
-import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SlickCarousel.css";
-import ProductCard from "../ProductCard/ProductCard";
 import ProductService from "../../services/ProductService";
-
 
 const  useProducts = () =>{
     const [products, setProducts] = useState([]);

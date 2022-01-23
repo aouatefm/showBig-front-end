@@ -1,0 +1,837 @@
+import React from "react";
+import { render, screen, act, waitFor } from "@testing-library/react";
+import '@testing-library/jest-dom'
+
+import Grid from "./ProductGrid";
+import {store} from "../../redux/store";
+import {Provider} from "react-redux";
+
+describe.only("ProductGrid", () => {
+    beforeAll(() => {
+        jest.useFakeTimers();
+    })
+    afterAll(() => {
+        jest.useRealTimers()
+    })
+    it("shows Loading products", async () => {
+        render(<Provider store={store}><Grid /></Provider>);
+        jest.advanceTimersByTime(3000);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from "react";
+// import { render, screen } from "@testing-library/react"; // highlight-line
+// import "jest-dom/extend-expect";
+// import getProductList  from "../../services/ProductService";
+// import Grid from "./ProductGrid";
+//
+// jest.mock("../../services/ProductService");
+// test("We show a list of products", async () => {
+//     const products = [
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:38:28 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "0ZI95rnum8b5FMhVVRBt",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F159058687_4087748504582209_630755347210348071_n.jpg?alt=media&token=524c9b8a-c5f8-4006-99b6-78fc4be5e6af",
+//             "name": "Rose Dream Bedspread Double Pink",
+//             "price": "199.5",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "52",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Electronic",
+//             "created_at": "Sat, 25 Dec 2021 14:34:46 GMT",
+//             "creator_id": "B6c6nDNQGXVzU8TV4JM0LRHWbJv2",
+//             "description": "",
+//             "id": "13cMaSbzY9g9uh2z4g1Z",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F71A9daPY%2BDL._AC_SL1500_.jpg?alt=media&token=78fa240c-3f15-4e00-922f-6e8b393b52a0",
+//             "name": "Sony WH-1000XM4 Noise Cancelling Wireless Headphones - 30 hours battery",
+//             "price": "239.5",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "23",
+//             "store_id": "tech-scope",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Electronic",
+//             "created_at": "Sat, 25 Dec 2021 14:35:49 GMT",
+//             "creator_id": "B6c6nDNQGXVzU8TV4JM0LRHWbJv2",
+//             "description": "",
+//             "id": "1wOdkgJEGSj3xLjfYc5B",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F71TPda7cwUL._AC_SL1500_.jpg?alt=media&token=7d1f07fa-a854-4eb1-be7b-9121d3c042c6",
+//             "name": "2020 Apple MacBook Air Laptop: Apple M1 Chip, 13” Retina Display, 8GB RAM, 256GB SSD Storage,",
+//             "price": "889",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "600",
+//             "store_id": "tech-scope",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Electronic",
+//             "created_at": "Sat, 25 Dec 2021 14:31:58 GMT",
+//             "creator_id": "B6c6nDNQGXVzU8TV4JM0LRHWbJv2",
+//             "description": "",
+//             "id": "30WLxhQxWtSKRVcOtTh0",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F71zny7BTRlL._AC_SL1500_.jpg?alt=media&token=b085b108-e801-422e-b56d-c62ff039b6f7",
+//             "name": "Apple AirPods Pro with MagSafe charging case (2021)",
+//             "price": "187.00",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "32",
+//             "store_id": "tech-scope",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 21:43:00 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "4NAdvVCXkZad8ag1t4HN",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Fgfgfg.PNG?alt=media&token=ed1873ba-8047-4c8a-8129-77aac8d2306c",
+//             "name": "Weave Self-Watering Hanging Basket, 14\"",
+//             "price": "22.46",
+//             "product_type": null,
+//             "ratings_avg": 3.0,
+//             "shipping_price": null,
+//             "stock": "22",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:25:51 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "4bHAl6O1vkoY6sKbdR35",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F533581_1.jpg?alt=media&token=866ec688-a5d6-48b0-bd2b-62688ae45bdd",
+//             "name": "Biotique Bio Neem Margosa Anti Dandruff Shampoo & Conditioner 340ml",
+//             "price": "3.37",
+//             "product_type": "340ml",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 6,
+//             "stock": "20",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 17:58:35 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "6vcecnALvdLewG7XTrsK",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Fvff.PNG?alt=media&token=fee4ce2b-f983-4a93-8671-db551e071a77",
+//             "name": "3-Tier Vertical Wall Planter, 3'",
+//             "price": "69.95",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "23",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 18:02:19 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "8CEYV0ipNYdMv7NcQY1H",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Ffdgdsf.PNG?alt=media&token=92d7e519-ef05-4b0b-a50b-c2a642b7d284",
+//             "name": "Lechuza® Delta Premium Self-Watering Planters",
+//             "price": "239.99",
+//             "product_type": null,
+//             "ratings_avg": 1.0,
+//             "shipping_price": null,
+//             "stock": "11",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:14:58 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "8VHk7eX58UNpUtvhuMXG",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F159271258_3746719628748818_3885235301657276999_n.jpg?alt=media&token=7a046044-0b58-4efb-92c4-cb8045375ae8",
+//             "name": "Cesa Table Cloth",
+//             "price": "40.99",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "55",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 18:03:34 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "932nTHgVo34b2hjxRQUs",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Fgrege.PNG?alt=media&token=d09cdd13-622d-4344-9d44-e371d5b7b23c",
+//             "name": "Weave Self-Watering Round Tall Planter, 12-1/2\"",
+//             "price": "69.95",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "56",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Electronic",
+//             "created_at": "Sat, 25 Dec 2021 14:37:11 GMT",
+//             "creator_id": "B6c6nDNQGXVzU8TV4JM0LRHWbJv2",
+//             "description": "",
+//             "id": "9dSM0BJgLu8Bk8pKQhcn",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F71wxGNy6DyL._AC_SL1500_.jpg?alt=media&token=17038940-5376-45ca-b237-8fff3c05090d",
+//             "name": " Kindle Paperwhite Kids | Includes over a thousand books, ",
+//             "price": "139",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "20",
+//             "store_id": "tech-scope",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:16:05 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "C2XP8qWoG0rfoLggacpR",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F179950333_3822558994523250_7019681041622124559_n.jpg?alt=media&token=1d92dd9c-f144-45c2-9113-92cdbf34dc82",
+//             "name": "Chubby Cup Set of 6",
+//             "price": "27.49",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "23",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:54:35 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "CBQBxv4cp4cX1ufvOaM5",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F203063134_3391250454311707_9122143843869377839_n.jpg?alt=media&token=6c4a906c-861d-4a87-a6bb-d73b02927996",
+//             "name": "Double Service Gold ",
+//             "price": "49.92",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "6",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:14:30 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "Db4PB7eHc0bxAE4S5iV8",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F558350_1.jpg?alt=media&token=6b8a6a0d-1f8a-4a4c-a926-be6e59b4fcf8",
+//             "name": "Plum Bodylovin Vanila Vibes Body Butter 200gm",
+//             "price": "5.23",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "32",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 18:01:04 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "FVKxder5tV8XrTmIGJeE",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Fqdssq.PNG?alt=media&token=ff9c6313-c64d-4fb3-bd17-0156b8026cfc",
+//             "name": "Lechuza Cube Premium Planters",
+//             "price": "77.99",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "1",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 21:54:52 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "FVcS85M78Jo04ClzjgGg",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Fhdgfhfg.PNG?alt=media&token=8e320a65-e8e0-4662-8b7f-2b2b1d709176",
+//             "name": "Afterglow Potted Amaryllis",
+//             "price": "37.99",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "12",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:00:11 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "HEzlreJJekgg0DNUf1qx",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F153167180_3551452718309947_7236432389805683240_n.jpg?alt=media&token=03d27712-85e4-4d7e-ae97-677ae4ed6601",
+//             "name": "Art3 Carpet 204-999-j",
+//             "price": "10.01",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "8",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:29:02 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "HtbG8O5T7xxVTpjdncjY",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F553931_1.jpg?alt=media&token=df59c0f0-deb2-4744-b099-3af500074f13",
+//             "name": "Lotus Organics Precious Brightening Cream 50gm",
+//             "price": "8.45",
+//             "product_type": "50gm",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 2,
+//             "stock": "65",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:21:23 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "J7pt66gq1Iz8SgX9s2GL",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F242254288_4694016537276640_1562509509555932746_n.jpg?alt=media&token=e1a5b884-85be-4518-a7df-d104b7099059",
+//             "name": "New Marianna Table Cover Stone",
+//             "price": "207.02",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "36",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Other categories",
+//             "created_at": "Sun, 02 Jan 2022 21:32:35 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "MWOERMASu4Hfr8bxq33i",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F533262_1.jpg?alt=media&token=cf77e290-b9bc-4e39-ba33-489f6a4ffa2d",
+//             "name": "Afterglow flowers",
+//             "price": "0.01",
+//             "product_type": "eeee",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 0,
+//             "stock": "1",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:53:09 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "MWWgAlZBrev49Y1JSPJz",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F243837202_5013732058655715_1764176136680159298_n.jpg?alt=media&token=97231485-1fb7-4784-a05d-547f06b88d9b",
+//             "name": "Krv-92 Photo Frame Blue ",
+//             "price": "6.64",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "95",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:29:58 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "N9QDjVpTx9wp7DEozbfI",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F533262_1.jpg?alt=media&token=a2abde8b-4dc2-4a58-8239-2c4be2bee86d",
+//             "name": "Avene Very High Protection SPF50+ Spray 200ml",
+//             "price": "25.50",
+//             "product_type": "Spray 200ml",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 1,
+//             "stock": "11",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:19:31 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "OPFBqv5D0xdNiTCW1B1j",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F244416481_4436126419840295_7301810233988481512_n.jpg?alt=media&token=597d0ffe-8737-4645-b645-54da29ebb6c1",
+//             "name": "Brunella Blanket Beige",
+//             "price": "55.54",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "56",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:58:49 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "TTYXfwDmzNqjrbdYYQXw",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F245329967_3927868863981886_2346779912903781170_n.jpg?alt=media&token=090233c4-2317-4d85-83ef-31150f1742ee",
+//             "name": "Fuante Arrangement Purple",
+//             "price": "58.77",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "66",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Electronic",
+//             "created_at": "Sat, 25 Dec 2021 14:38:26 GMT",
+//             "creator_id": "B6c6nDNQGXVzU8TV4JM0LRHWbJv2",
+//             "description": "",
+//             "id": "XNy7NC0tfK0YZZaD61VK",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F61U9i2-V0HL._AC_SL1000_.jpg?alt=media&token=5fa2ca4a-8290-46e7-9180-d6d3c88e75c6",
+//             "name": "Samsung UE32T4300AKXXU 32 Inch HDR HD Ready Smart TV - Alexa",
+//             "price": "1799",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "23",
+//             "store_id": "tech-scope",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 17:59:52 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "Xg98Kjw4hYsgBTUMCw6P",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Fdvbfd.PNG?alt=media&token=485658f2-79c9-4ec7-af82-25643082c2b1",
+//             "name": "Triple Wall Planter",
+//             "price": "59.95",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "10",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:31:16 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "ZuPGptFymQ54neMjlisf",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F558921_1.jpg?alt=media&token=427cdeb5-b022-4598-85e9-38e9298d21c9",
+//             "name": "Olay Regenerist Micro - Sculpting Night Cream 50gm",
+//             "price": "95.5",
+//             "product_type": "50gm",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 2,
+//             "stock": "21",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:32:19 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "aZRRUiBmxCQgzzP59PHS",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F554034_1.jpg?alt=media&token=a407e5c9-b0b8-46b9-9dc9-abecd847b2ca",
+//             "name": "Lotus Herbals PROBRITE Illuminating Radiance Cream 50g",
+//             "price": "59.49",
+//             "product_type": "50g",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 5,
+//             "stock": "9",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:44:24 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "bgeHb096xFye8EUw0bOA",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F164912750_5270867939653806_4729909229438439938_n.jpg?alt=media&token=e33ecd10-9c08-41d4-9315-7eabfd08f1a0",
+//             "name": "Fx38428 Led Lighted Lantern Green",
+//             "price": "14.49",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "55",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sun, 02 Jan 2022 16:52:42 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "cXILeVwZdGw8NVv07k2Z",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Ftruphe-garden-tool-orange-black-set-of-5--500x500.jpg?alt=media&token=4e203da2-42bc-49aa-b287-6c220a601576",
+//             "name": "Metal Part Black Garden Tools Set Of 5 Pcs, Rs 150 /piece Truphe Traders LLP",
+//             "price": "75.23",
+//             "product_type": "The perfect tool set for all your gardening needs - contents: weeder, cultivator, big trowel, small",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 0,
+//             "stock": "12",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:24:39 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "hDzZsvgKr64Alr4RoLPr",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F540141_1.jpg?alt=media&token=5878272f-3ad0-4412-82b0-838db801e31e",
+//             "name": "Skinn By Titan Sheer Eau De Parfum For Women 100ml",
+//             "price": "25.87",
+//             "product_type": "100ml",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 3,
+//             "stock": "31",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:41:49 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "jJRS7vuPWhILSAefdgeL",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F243445503_6648840255140956_2027815943990655041_n.jpg?alt=media&token=26c84f5c-1268-4ad7-860d-51499817698c",
+//             "name": "Tea Set Leopard Gold",
+//             "price": "69.57",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "55",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:08:23 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "kHGkFjfeYCovjI7NQNSZ",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F166391616_3741399992645310_888812162387399758_n.jpg?alt=media&token=7e2dad32-734f-4f88-a969-8ea090aba87a",
+//             "name": "Mirrored Metal Tray ",
+//             "price": "49.93",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "1",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:19:16 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "qMDvGzANTXjpTQlWSBWE",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F562615_1.jpg?alt=media&token=5a61c61d-a04f-45c9-a276-ed324b3119f1",
+//             "name": "health & glow Haldi Shower Gel 200ml",
+//             "price": "1.31",
+//             "product_type": "200ml",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 5,
+//             "stock": "12",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 21:49:44 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "sCUA0Pk55VzZG4Wy0Lbo",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2Ffdfsdfsd.PNG?alt=media&token=7c896a6b-0cf7-4aca-86fe-ccde8e0d0d7b",
+//             "name": "Self-Watering Saddle Railing Planter, 16\"",
+//             "price": "39.95",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "12",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:28:03 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "sRVQxmw6IacB5Fmzn4hm",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F562790_1.jpg?alt=media&token=f8a8ffc5-9f76-4ece-9919-c834a86c18fa",
+//             "name": "Lakme Absolute Hydra Pro Serum 30ml",
+//             "price": "79.89",
+//             "product_type": "30ml",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 2,
+//             "stock": "21",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:11:52 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "tXhebRCsKVb4lTkGiKxO",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F201582478_4309787825744076_5546181948461408641_n.jpg?alt=media&token=da5cdd3f-4053-4d8c-bb24-ae44aa014c55",
+//             "name": "Candle Holder Silver",
+//             "price": "40.86",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "52",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 13:56:46 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "twJqdANSQutVLzycbvyK",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F257931933_6338186059586322_3084697898850421978_n.jpg?alt=media&token=d4c83df3-2723-4610-8558-b349b4f144de",
+//             "name": "Sequenced Rectangle Chandelier",
+//             "price": "149.14",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "8",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Garden & Outdoor",
+//             "created_at": "Sat, 25 Dec 2021 17:50:02 GMT",
+//             "creator_id": "0ZNbMi45REZE7yTUtQaoGdXhXdY2",
+//             "description": "",
+//             "id": "uUUiqq3rRFxSgu7lEHeP",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2FCapture.PNG?alt=media&token=2ecb42f6-a614-4c13-9557-df00348f6fe5",
+//             "name": "Titan Arch",
+//             "price": "149",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "1212",
+//             "store_id": "out-and-about",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Health & Beauty",
+//             "created_at": "Sat, 25 Dec 2021 22:27:03 GMT",
+//             "creator_id": "AUyovBqQVGYirlCKRfh6z4pTPbM2",
+//             "description": "",
+//             "id": "xYYLWkJUvYHVDk8u9MxU",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F562396_1.jpg?alt=media&token=b4b2b830-9e88-4c04-8fb8-96c7d8bbbddc",
+//             "name": "Lakme 9To5 Vitamin C+ Serum 30ml",
+//             "price": "59.9",
+//             "product_type": "30ml",
+//             "ratings_avg": 0.0,
+//             "shipping_price": 12,
+//             "stock": "11",
+//             "store_id": "health-and-glow",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:18:16 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "xrSloLW0bFAkL6IG8TXs",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F269674764_4577690728973872_3687000787795143186_n.jpg?alt=media&token=b403cce3-a206-4cc9-965c-ee05ea5efcef",
+//             "name": "Four Armchair Beige",
+//             "price": "1397.00",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "23",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         },
+//         {
+//             "category": "Home & Office",
+//             "created_at": "Sat, 25 Dec 2021 14:17:05 GMT",
+//             "creator_id": "wXIC0PBDMHV6EPglCFfrSS0e9qJ3",
+//             "description": "",
+//             "id": "y9ft3zcEjWJzWFse5HIa",
+//             "images": "https://firebasestorage.googleapis.com/v0/b/pfe2020-fba1d.appspot.com/o/products%2F243809901_4745816435481209_2933208062713939292_n.jpg?alt=media&token=b0897d03-fe24-42bc-b615-4e1ee4985d30",
+//             "name": "Flowerpot Brown",
+//             "price": "331.02",
+//             "product_type": null,
+//             "ratings_avg": 0.0,
+//             "shipping_price": null,
+//             "stock": "56",
+//             "store_id": "home-sweet-home",
+//             "sub_category": null,
+//             "updated_at": null,
+//             "video": null
+//         }
+//     ];
+//     getProductList.mockResolvedValueOnce(products);
+//     render(<Grid />);
+//     // expect(screen.getByText("Loading...")).toBeInTheDocument();
+//     expect(getProductList).toHaveBeenCalledTimes(1);
+//     expect(getProductList).toHaveBeenCalledWith();
+//     await (() => expect(screen.getByText("My Products")).toBeInTheDocument());
+//     products.forEach((product) =>
+//         expect(screen.getByText(product.name)).toBeInTheDocument()
+//     );
+// });

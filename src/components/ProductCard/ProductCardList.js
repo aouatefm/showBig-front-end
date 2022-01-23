@@ -19,7 +19,7 @@ const ProductCardList = ({ product }) => {
                         <span>{product.price}$</span>
                         <div className="download-card__category">{product.store_id}</div>
                         <h6 className="download-card__title">{product.name.toUpperCase()} {product.price}</h6>
-                        <p className="download-card__description"><ReactStars {...{size: 30, value: 3, edit: false}} /></p>
+                        <p className="download-card__description"><ReactStars {...{size: 30, value: product.ratings_avg, edit: false, isHalf: true}} /></p>
                     </header>
                     <footer>
                         {/*<i className="fa fa-cloud-download"/><span>Download</span></footer>*/}

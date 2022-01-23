@@ -34,6 +34,7 @@ import ProfilePage from "./ProfilePage/ProfilePage";
 import AdminRoute from "../components/RouteComponents/AdminRoute";
 import VendorRoute from "../components/RouteComponents/VendorRoute";
 import VendorPage from "./VendorPage/VendorPage";
+import {withRouter} from "react-router-dom";
 
 const Routes = () => (
     <Switch>

@@ -21,7 +21,7 @@ const AddProduct = () => {
     const history = useHistory();
     const { addToast } = useToasts();
 
-    const file = useRef(null);
+    const file0 = useRef(null);
     const file1 = useRef(null);
     const file2 = useRef(null);
     const file3 = useRef(null);
@@ -39,14 +39,10 @@ const AddProduct = () => {
     const [ loading, setLoading ] = useState(false)
 
     const handleFileChange = async (event) => {
-        file.current = event[0];
-        file1.current = event[1];
-        file2.current = event[2];
-        file3.current = event[3];
-        file4.current = event[4];
+        file0.current = event[0];
         if(event[0]){await setFileAdded(true)}
+     }
 
-    }
     const onSubmit = async (event) =>
     {
         event.preventDefault();
@@ -55,8 +51,8 @@ const AddProduct = () => {
             alert('You have to log in first!')
             return;
         }
-        const storageRef = storage.ref(`products/${file.current.name}`);
-        storageRef.put(file.current)
+        const storageRef = storage.ref(`products/${file0.current.name}`);
+        storageRef.put(file0.current)
             .then(async () => {
                 const imageUrl = await storageRef.getDownloadURL();
                 const jwtToken = await auth.currentUser.getIdToken();
