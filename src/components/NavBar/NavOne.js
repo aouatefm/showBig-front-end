@@ -18,7 +18,6 @@ import {
     ShopIcon,
     SignOutIcon
 } from "../../assets/icons";
-import profile from '../../assets/avatar6.png'
 import Logo from "../../assets/blck.png"
 import {auth} from "../../firebase/firebase";
 import {selectCurrentUser, selectRole, selectUserProfile} from "../../redux/user/user-selectors";
@@ -27,7 +26,6 @@ import {selectCartItems, selectCartItemsCount} from "../../redux/cart/cart-selec
 import CategoriesService from "../../services/CategoriesService";
 import {SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from 'use-react-router';
-import {getTokenId} from "../../firebase/auth";
 import {setRole} from "../../redux/user/user-action";
 
 
@@ -75,12 +73,12 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                     </Navbar.Brand>
                 </Col>
                 <Col xs={7}>
-                    <Button onClick={() => {
-                        console.log(getTokenId())
-                    }}>Token</Button>
-                    <Button onClick={() => {
-                        console.log(currentUser)
-                    }}>User</Button>
+                    {/*<Button onClick={() => {*/}
+                    {/*    console.log(getTokenId())*/}
+                    {/*}}>Token</Button>*/}
+                    {/*<Button onClick={() => {*/}
+                    {/*    console.log(currentUser)*/}
+                    {/*}}>User</Button>*/}
                     <Form inline>
                         <select onChange={(e) => setCat(e.target.value.replace(/[^A-Za-z0-9]/g, ''))}
                                 style={{
@@ -134,13 +132,11 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                             {currentUser && role ?
                                 <div className="dropdown">
                                     <span className="btn btn-default dropdown-toggle" id="menu1" data-toggle="dropdown">
-
                                          {
                                             role === 'user' ? <ConnectedProfileIcon width={40}/> :
                                                 role === 'vendor' ? <ShopIcon width={40}/> :
                                             <img src={Logo} alt="Avatar" style={{verticalAlign: "middle", width: "40px", height: "40px"}}/>
                                         }
-
                                     </span>
                                     <ul className="dropdown-menu" role="menu" aria-labelledby="menu1"
                                         style={{right: "0", left: "auto", padding: "13px"}}>
@@ -161,15 +157,18 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                                         <li role="presentation"><span role="menuitem" tabIndex="-1"
                                                                       href="#">{currentUser.email}</span></li>
                                         <div className="dropdown-divider lis"/>
-                                        <li role="presentation" className="li_pointer"><a role="menuitem"  tabIndex="-1" className="profile_page" href="/profile_page">
-                                            <ProfileIcon width="15"/>  Profile page</a></li>
+
+                                        <li role="presentation" className="li_pointer">
+                                            <a role="menuitem"  tabIndex="-1" className="profile_page" href="/profile_page">
+                                            <ProfileIcon width="15"/>Profile page</a>
+                                        </li>
                                         <li role="presentation" className="li_pointer">
                                             <a role="menuitem" tabIndex="-1" href='/customer-orders' className="customer-orders">
                                             <InvoicesIcon width="15"/>  Order invoices
                                             </a>
                                         </li>
                                         <li role="presentation" className="li_pointer "><a role="menuitem" tabIndex="-1"
-                                            //onClick={() => auth.signOut()}
+
                                                                                            onClick={signOut}
                                                                                            style={{}}><SignOutIcon
                                             width="15"/> Sign out</a></li>

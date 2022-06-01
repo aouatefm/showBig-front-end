@@ -20,7 +20,7 @@ import {setAllOrders, setCustomerOrders} from "./redux/orders/order-action";
 import OrderService from "./services/OrderService";
 import {UserProvider} from "./firebase/UserProvider";
 import alanBtn from "@alan-ai/alan-sdk-web";
-
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
     unsubscribeFromAuth = null;
@@ -28,7 +28,9 @@ class App extends Component {
         super(props);
         this.state = {profile: null};
     }
+
     componentDidMount () {
+        const { history } = this.props;
         const { setCurrentUser,setLoading ,setRole,setAllProducts,setSideBarFilters,setAllOrders,setCustomerOrders,setUserProfile} = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
             setLoading(true);
@@ -49,12 +51,33 @@ class App extends Component {
             setAllOrders(orders)
             setCustomerOrders(customer_orders)
             setSideBarFilters({staticBrands: [...vendors]});
-            alanBtn({
-                key:
-                    "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
-            });
+
+            // alanBtn({
+            //     key: "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
+            //     onCommand: ({ command }) => {
+            //         if (command === "cartPage") {
+            //            history.push("/cart");
+            //         }
+            //         if (command === "vendorListing") {
+            //             history.push("/vendor-listing");
+            //         }
+            //          if (command === "homePage") {
+            //             history.push("/");
+            //         }
+            //         if (command === "shopPage") {
+            //             history.push("/product-listing");
+            //         }
+            //         if (command === "dashboard") {
+            //             history.push("/dashboard");
+            //         }
+            //         if (command === "adminDashboard") {
+            //             history.push("/admin");
+            //         }
+            //     },
+            // });
         });
     }
+
     componentWillUnmount() {
         this.unsubscribeFromAuth();
     }
@@ -94,4 +117,4 @@ const mapDispatchToProps = dispatch => ({
     setAllOrders : orders => dispatch(setAllOrders(orders)),
 
 });
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

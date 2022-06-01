@@ -35,5 +35,15 @@ export default {
             return error
         }
     },
+    getUserList: async function () {
+        try {
+            const response = await axios.get(BASE_URL + '/users',
+            {headers: {'Authorization': await getTokenId()}}
+            );
+            return response.data;
+        } catch (error) {
+            return error
+        }
+    },
 
 }

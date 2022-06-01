@@ -9,7 +9,6 @@ const SortBar = ({ setSortBarValue }) => {
         <div className='sort-bar'>
             <label htmlFor='sort' style={{paddingRight : '0.5rem'}}>Sort by price:</label>{' '}
             <select id='sort' onChange={ (event) => {
-                console.log(event.target.value);
                 setSortBarValue(event.target.value);
             } }>
                 <option value='none' defaultChecked>None</option>

@@ -19,8 +19,6 @@ import {useSession} from "../../firebase/UserProvider";
 import {useToasts} from "react-toast-notifications";
 import StripeCheckout from "react-stripe-checkout";
 import {stripeKey} from "../../config";
-import axios from "axios";
-import Logo from "../../assets/blck.png"
 
 
 const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCart, updateItems}) => {

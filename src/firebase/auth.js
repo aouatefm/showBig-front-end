@@ -14,4 +14,3 @@ export const getTokenId =  async () => {
     const token = await auth.currentUser.getIdToken();
     return  token
 };
-

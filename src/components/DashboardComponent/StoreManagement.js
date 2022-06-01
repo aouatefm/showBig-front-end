@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
 import DashboardService from "../../services/DashboardService";
 import './StoreManagement.css'
-import VendorService from "../../services/VendorService";
 import Toggle from "../Toggle/Toggle.component";
 
 const useVendors = () => {

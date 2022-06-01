@@ -35,6 +35,7 @@ import AdminRoute from "../components/RouteComponents/AdminRoute";
 import VendorRoute from "../components/RouteComponents/VendorRoute";
 import VendorPage from "./VendorPage/VendorPage";
 import {withRouter} from "react-router-dom";
+import EditProfile from "./ProfilePage/EditProfile";
 
 const Routes = () => (
     <Switch>
@@ -69,6 +70,7 @@ const Routes = () => (
         <PrivateRoute exact path="/store-management" component={StoreManagement}/>
         <ProtectedRoute exact path="/customer-orders" component={CustomerOrders}/>
         <ProtectedRoute exact path="/profile_page" component={ProfilePage}/>
+        <ProtectedRoute exact path="/edit_profile" component={EditProfile}/>
         <PrivateRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
         <Route exact path="/unauthorized" component={Unauthorized}/>
         <Route component={NotFound}/>
