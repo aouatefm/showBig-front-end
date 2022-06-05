@@ -55,5 +55,13 @@ export default {
             return error.response
         }
     },
+    deleteUser: async function (uid) {
+        try {
+            return await axios.delete(BASE_URL + `/users/${uid}`,
+                {headers: {'Authorization': await getTokenId()}});
+        } catch (error) {
+            return error.response
+        }
+    },
 
 }
