@@ -138,20 +138,21 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                                             <img src={Logo} alt="Avatar" style={{verticalAlign: "middle", width: "40px", height: "40px"}}/>
                                         }
                                     </span>
+                                    {profile.avatar &&
                                     <ul className="dropdown-menu" role="menu" aria-labelledby="menu1"
                                         style={{right: "0", left: "auto", padding: "13px"}}>
-                                            <img
-                                                src={profile.avatar}
-                                                alt="Avatar"
-                                                style={{
-                                                    align: "middle",
-                                                    width: "30px",
-                                                    height: "30px",
-                                                    borderRadius: "50%",
-                                                    margin: "8px",
-                                                    display: " inline-block"
-                                                }}
-                                            />
+                                        <img
+                                            src={profile.avatar}
+                                            alt="Avatar"
+                                            style={{
+                                                align: "middle",
+                                                width: "30px",
+                                                height: "30px",
+                                                borderRadius: "50%",
+                                                margin: "8px",
+                                                display: " inline-block"
+                                            }}
+                                        />
 
                                         <p style={{display: " inline-block"}}>{currentUser.displayName}</p>
                                         <li role="presentation"><span role="menuitem" tabIndex="-1"
@@ -160,11 +161,11 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
 
                                         <li role="presentation" className="li_pointer">
                                             <a role="menuitem"  tabIndex="-1" className="profile_page" href="/profile_page">
-                                            <ProfileIcon width="15"/>Profile page</a>
+                                                <ProfileIcon width="15"/>Profile page</a>
                                         </li>
                                         <li role="presentation" className="li_pointer">
                                             <a role="menuitem" tabIndex="-1" href='/customer-orders' className="customer-orders">
-                                            <InvoicesIcon width="15"/>  Order invoices
+                                                <InvoicesIcon width="15"/>  Order invoices
                                             </a>
                                         </li>
                                         <li role="presentation" className="li_pointer "><a role="menuitem" tabIndex="-1"
@@ -173,6 +174,7 @@ const NavOne = ({currentUser, cartLength, setRole,role,profile}) => {
                                                                                            style={{}}><SignOutIcon
                                             width="15"/> Sign out</a></li>
                                     </ul>
+                                    }
                                 </div>
                                 :
 
