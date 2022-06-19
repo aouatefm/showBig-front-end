@@ -36,6 +36,7 @@ import VendorRoute from "../components/RouteComponents/VendorRoute";
 import VendorPage from "./VendorPage/VendorPage";
 import EditProfile from "./ProfilePage/EditProfile";
 import AddUser from "./AuthenticationPage/AddUser";
+import EditProduct from "../components/VendorDashboard/EditProduct";
 
 const Routes = () => (
     <Switch>
@@ -66,9 +67,10 @@ const Routes = () => (
 
         <PrivateRoute exact path="/edit-coupon/:id" component={EditCoupon}/>
         <PrivateRoute exact path="/add" component={AddProduct}/>
+        <PrivateRoute exact path="/edit_product/:uid" component={EditProduct}/>
         <PrivateRoute exact path="/kpis" component={AdminKpIs}/>
         <PrivateRoute exact path="/store-management" component={StoreManagement}/>
-        <PrivateRoute exact path="/add-user" component={AddUser}/>
+        <ProtectedRoute exact path="/add-user" component={AddUser}/>
         <ProtectedRoute exact path="/customer-orders" component={CustomerOrders}/>
         <ProtectedRoute exact path="/profile_page" component={ProfilePage}/>
         <ProtectedRoute exact path="/edit_profile/:uid" component={EditProfile}/>
