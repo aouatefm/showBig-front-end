@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './ProductDetail.css'
-import {Breadcrumb, Col, ProgressBar, Row, Tab, Tabs} from "react-bootstrap";
+import { Col, ProgressBar, Row, Tab, Tabs} from "react-bootstrap";
 import ProductService from "../../services/ProductService";
 import {Link, useParams} from 'react-router-dom';
 import {connect} from "react-redux";
@@ -18,6 +18,8 @@ import VendorService from "../../services/VendorService";
 import VendorCard from "../VendorCard/VendorCard";
 import Recommendations from "../ProductCard/ProductRecommandations";
 import ProductRating from "../ProductRating/ProductRating";
+import MoreProducts from "../ProductGrid/MoreProducts";
+import AboutTheVendor from "../VendorCard/AboutTheVendor";
 
 function useProductId(id) {
     const [product, setProduct] = useState([]);
@@ -90,7 +92,7 @@ const ProductDetail = ({cartItems, addItem}) => {
                     <h1>{product.name}</h1>
                     <div className="product-meta" style={{display: "flex"}}>
                         <div className="product-brand">
-                            <p><a href="#"> Visit the {product.store_id} Store</a></p>
+                            <p>Visit the <a href={`/vendors/${product.store_id}`}>{product.store_id} Store</a></p>
                         </div>
                         <div className="product-brand">
                             <span className="span-rating">{product_ratings.count} Rating(s)</span>
@@ -99,7 +101,7 @@ const ProductDetail = ({cartItems, addItem}) => {
                     <div className="product-meta">
                         <p className="product-price"><span>$</span>{product.price}</p>
                         <div className="product-brand">
-                            <p>Sold By : <a href="#">{product.store_id}</a></p>
+                            <p>Sold By : <a href={`/vendors/${product.store_id}`}>{product.store_id}</a></p>
                             {product_ratings.count !== 0 &&
                             <ReactStars
                                 count={5}
@@ -131,11 +133,13 @@ const ProductDetail = ({cartItems, addItem}) => {
                                 cart</button>
                         }
 
+                        { isInCart(product) &&
                         <Link to="/shop">
                             <button type="submit" className="btn btn-product" style={{backgroundColor: "#eeee23"}}>
                                 Buy Now
                             </button>
-                        </Link>
+
+                        </Link> }
                     </div>
                     <div className="">
                         <span><strong>SKU :</strong>{product.product_id}</span><br/>
@@ -162,7 +166,25 @@ const ProductDetail = ({cartItems, addItem}) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                            <p> belly. XOXO direct trade locavore hammock kogi cronut occupy 3 wolf</p></div>
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product Type</th>
+                                    <th scope="col">Shipping Price</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Updated at</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">{product.product_type ? product.product_type : "__"}</th>
+                                    <td>{product.shipping_price ? product.shipping_price : "__"}</td>
+                                    <td>{product.stock ? product.stock : "__"}</td>
+                                    <td>{product.updated_at ? product.updated_at : "__"}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </Tab>
                     <Tab eventKey="Vendor" title="Vendor">
                         <div style={{
@@ -171,7 +193,7 @@ const ProductDetail = ({cartItems, addItem}) => {
                             height: "400px",
                             padding: "20px"
                         }}>
-                            {store && <> <VendorCard vendor={store}/></>}
+                           <AboutTheVendor store={product.store_id}/>
                         </div>
                     </Tab>
                     <Tab eventKey="Reviews" title={`Review (${product_ratings.count})`}>
@@ -287,8 +309,8 @@ const ProductDetail = ({cartItems, addItem}) => {
 
                     <Tab eventKey="PProducts" title="More items from same seller">
                         <div style={{backgroundColor: "#F1F1F1", width: "1110px", height: "400px", padding: "20px"}}>
+                            <MoreProducts store={product.store_id}/>
                         </div>
-
                     </Tab>
                 </Tabs>
                 <Recommendations id={id}/>
