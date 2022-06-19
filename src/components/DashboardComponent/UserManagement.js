@@ -85,7 +85,7 @@ const UserManagement = () => {
                                                 {/*{userRole(user)}*/}
                                                 {
                                                     userRole(user) === 'user' ? <ProfileIcon width={25}/> :
-                                                        userRole(user) === 'vendor' ? <ShopIcon width={25}/> :
+                                                        userRole(user) === 'vendor' ? <><ShopIcon width={25}/> <br/><a href={`/vendors/${user.store_id}`}>{user.store_id}</a></> :
                                                             <img src={Logo} alt="Avatar" style={{
                                                                 verticalAlign: "middle",
                                                                 width: "25px",
