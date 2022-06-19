@@ -49,6 +49,24 @@ export default {
             return error
         }
     },
+    editProduct: async function (name,price,shipping,category,stock,ptype,imageProdUrl,description,video,uid) {
+        try {
+            return await axios.put(BASE_URL + `/products/${uid}`,
+                {name:name,
+                    price:price,
+                    shipping_price:shipping,
+                    category:category,
+                    stock:stock,
+                    product_type:ptype,
+                    images:imageProdUrl,
+                    description:description,
+                    video:video},
+                {headers: {'Authorization': await getTokenId()}});
+
+        } catch (error) {
+            return error.response
+        }
+    },
 
 
 
