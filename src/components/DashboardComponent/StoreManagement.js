@@ -31,6 +31,7 @@ const StoreManagement = () => {
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Phone Number</th>
+                    <th scope="col">Owner</th>
                     <th scope="col">Status</th>
                 </tr>
                 </thead>
@@ -43,9 +44,10 @@ const StoreManagement = () => {
                                 vendors.map((vendor, index) => (
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
-                                        <td>{vendor.name}</td>
+                                        <td><a href={`/vendors/${vendor.store_id}`}>{vendor.name}</a></td>
                                         <td>{vendor.description}</td>
                                         <td>{vendor.phone_number}</td>
+                                        <td><a href={`/edit_profile/${vendor.owner_id}`}>View owner profile</a></td>
                                         <th scope="col">
 
                                             <Toggle
