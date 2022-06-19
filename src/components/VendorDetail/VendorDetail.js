@@ -16,7 +16,6 @@ import {
 } from "../../redux/filters/filters-selectors";
 import {connect} from "react-redux";
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
-import {Col} from "react-bootstrap";
 
 function useVendorId(id) {
     const [vendor, setVendor] = useState([]);
@@ -80,9 +79,9 @@ const VendorDetail = () => {
                         </div>
                     </div>
                     <div className="col-9" >
-                        <SearchBar vendor={id}  />
+                        <SearchBar vendor={id}/>
                         {vendor ?
-                        <VendorProducts vendor={id}/> :
+                        <VendorProducts vendor={id}/>:
                             <SpinnerPage/>
                         }
                     </div>

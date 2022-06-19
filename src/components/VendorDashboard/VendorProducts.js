@@ -6,6 +6,8 @@ import {connect} from "react-redux";
 import {select_v_products_filters, selectSearchBarKeywords} from "../../redux/filters/filters-selectors";
 import NavThree from "../NavBar/NavThree";
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
+import {EditIcon} from "../../assets/icons";
+import {Link} from "react-router-dom";
 
 
 const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
@@ -57,12 +59,18 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                                                              className="avatar"
                                                              width="50px" height="50px"/>
                                                     </td>
-                                                    <td>{product.name}</td>
+                                                    <td><Link to={`/products/${product.id}`}>{product.name}</Link></td>
                                                     <td>{product.stock}</td>
                                                     <td>{product.price}</td>
                                                     <td>{product.category}</td>
                                                     <td>{Moment(product.created_at).format('MMMM DD YYYY')}</td>
-                                                    <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                                                    <td>
+                                                        <Link to={{pathname: `/edit_product/${product.id}`}}>
+                                                            Edit
+                                                        </Link>
+                                                        /
+                                                        <a href="#">Delete</a>
+                                                    </td>
                                                 </tr>
                                             ))}
                                 </> :

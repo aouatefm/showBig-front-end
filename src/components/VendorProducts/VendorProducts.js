@@ -23,7 +23,7 @@ const useVendorProducts = (id) => {
     }, [])
     return products
 }
-const VendorProducts = ({vendor, Keywords, sortbar, filters, viewbargrid,toggleViewBarGridList}) => {
+const VendorProducts = ({vendor, Keywords, sortbar, filters, viewbargrid}) => {
     const products = useVendorProducts(vendor)
     const keywordsMatched = (item) => {
         const formattedKeywords = Keywords.trim().replace(/\s/g, '').toLowerCase();

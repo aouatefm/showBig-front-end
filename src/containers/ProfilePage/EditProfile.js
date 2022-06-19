@@ -5,11 +5,8 @@ import { selectUserProfile} from "../../redux/user/user-selectors";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
 import UserService from "../../services/UserService";
-import ProfilePage from "./ProfilePage";
 import {useToasts} from "react-toast-notifications";
 import {storage} from "../../firebase/firebase";
-import CouponService from "../../services/CouponService";
-import ProductService from "../../services/ProductService";
 import SpinnerPage from "../Spinner/SpinnerPage";
 
 function useUser(id) {
@@ -147,7 +144,8 @@ const EditProfile = ({ props}) => {
     return (
 
         <div className='container'>
-            {profile ?
+            {
+                profile ?
             <div>
             <img
                 src={preview}
