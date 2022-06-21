@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Moment from 'moment';
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "../../redux/user/user-selectors";
@@ -6,11 +6,22 @@ import {connect} from "react-redux";
 import {select_v_products_filters, selectSearchBarKeywords} from "../../redux/filters/filters-selectors";
 import NavThree from "../NavBar/NavThree";
 import SpinnerPage from "../../containers/Spinner/SpinnerPage";
-import {EditIcon} from "../../assets/icons";
 import {Link} from "react-router-dom";
+import ProductService from "../../services/ProductService";
+import {useToasts} from "react-toast-notifications";
+import {EditIcon} from "../../assets/icons";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 
 const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState(null);
+    const [uid, setId] = useState(null);
+
+    const {addToast} = useToasts();
     const keywordsMatched = (item) => {
         const formattedKeywords = Keywords.trim().replace(/\s/g, '').toLowerCase();
         if (formattedKeywords.length === 0) return true;
@@ -26,7 +37,39 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                 keywordsMatched(item))
         return itemsToDisplay;
     }
+    // const handleDelete = async (id) => {
+    //     const rest = await ProductService.deleteProduct(id)
+    //     addToast("User successfully deleted", {
+    //         appearance: "success",
+    //         autoDismiss: true,
+    //         autoDismissTimeout: 2000,
+    //         TransitionState: "exiting",
+    //     });
+    //     window.location.reload(false);
+    //
+    // }
+    // Handle the displaying of the modal based on type and id
+    const showDeleteModal = ( id) => {
+        setId(id);
+            setDeleteMessage(`Are you sure you want to delete the product '${id}'?`);
+        setDisplayConfirmationModal(true);
+    };
 
+    // Hide the modal
+    const hideConfirmationModal = () => {
+        setDisplayConfirmationModal(false);
+    };
+    const submitDelete = async (id) => {
+        const rest = await ProductService.deleteProduct(id)
+        addToast("User successfully deleted", {
+            appearance: "success",
+            autoDismiss: true,
+            autoDismissTimeout: 2000,
+            TransitionState: "exiting",
+        });
+        setDisplayConfirmationModal(false);
+        window.location.reload(false);
+    };
     return (
                 <div>
                     <div style={{display: "flex"}}>
@@ -42,7 +85,7 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                                 <th scope="col">Price</th>
                                 <th scope="col">Categories</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">...</th>
+                                <th scope="col">Control</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -66,10 +109,21 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                                                     <td>{Moment(product.created_at).format('MMMM DD YYYY')}</td>
                                                     <td>
                                                         <Link to={{pathname: `/edit_product/${product.id}`}}>
-                                                            Edit
+                                                            <EditIcon width={18} color="orange"/>
                                                         </Link>
-                                                        /
-                                                        <a href="#">Delete</a>
+
+                                                        <span style={{margin: "3px", cursor: "pointer"}} className="action">
+                                                            <img
+                                                            src="https://icon-library.com/images/icon-delete/icon-delete-16.jpg"
+                                                            alt="delete" style={{
+                                                            verticalAlign: "middle",
+                                                            width: "18px",
+                                                            height: "18px"}}
+                                                            // onClick={() => {handleDelete(product.id)}}/>
+                                                            //onClick={() => {handleShow()}}
+                                                            onClick={() => showDeleteModal(product.id)}
+                                                            />
+                                                </span>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -87,6 +141,7 @@ const VendorProducts =  ({prods,Keywords,v_products_filters }) => {
                             </tbody>
                         </table>
                     </div>
+                    <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={submitDelete} hideModal={hideConfirmationModal}  id={uid} message={deleteMessage}  />
                 </div>
 
     );

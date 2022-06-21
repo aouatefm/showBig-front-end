@@ -20,6 +20,12 @@ import {
 import "./UserManagement.css"
 import UserService from "../../services/UserService";
 import Button from "react-bootstrap/Button";
+import {Modal} from "react-bootstrap";
+import Moment from "moment";
+import {MultiSelect} from "react-multi-select-component";
+import Form from "react-bootstrap/Form";
+import DeleteConfirmation from "../VendorDashboard/DeleteConfirmation";
+import ProductService from "../../services/ProductService";
 const useUsers = () => {
     const [users, setUsers] = useState([]);
     useEffect(async () => {
@@ -32,6 +38,10 @@ const useUsers = () => {
 const UserManagement = () => {
     const users = useUsers()
     const {addToast} = useToasts();
+    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState(null);
+    const [id, setId] = useState(null);
+
     const handleDelete = async (id) => {
         const rest = await UserService.deleteUser(id)
         addToast("User successfully deleted", {
@@ -43,6 +53,42 @@ const UserManagement = () => {
         window.location.reload(false);
 
     }
+
+    const showDeleteModal = ( id) => {
+        setId(id);
+        setDeleteMessage(`Are you sure you want to delete the user '${id}'?`);
+        setDisplayConfirmationModal(true);
+    };
+
+    // Hide the modal
+    const hideConfirmationModal = () => {
+        setDisplayConfirmationModal(false);
+    };
+    const submitDelete = async (id) => {
+        const rest = await UserService.deleteUser(id)
+        console.log(rest)
+        if (rest.status === 200)
+        {
+        addToast("User successfully deleted", {
+            appearance: "success",
+            autoDismiss: true,
+            autoDismissTimeout: 2000,
+            TransitionState: "exiting",
+        });
+           }
+        else
+        {
+            addToast("An error occurred ", {
+                appearance: "error",
+                autoDismiss: true,
+                autoDismissTimeout: 2000,
+                TransitionState: "exiting",
+            });
+          }
+        setDisplayConfirmationModal(false);
+        window.location.reload(false);
+        }
+
     return (
         <div>
             <h1>User Management </h1>
@@ -104,13 +150,16 @@ const UserManagement = () => {
                                                      </Link>
                                                     </span>
 
-                                                <span style={{margin: "3px", cursor: "pointer"}} className="action"><img
+                                                <span style={{margin: "3px", cursor: "pointer"}} className="action">
+                                                    <img
                                                     src="https://icon-library.com/images/icon-delete/icon-delete-16.jpg"
                                                     alt="delete" style={{
                                                     verticalAlign: "middle",
                                                     width: "18px",
                                                     height: "18px"}}
-                                                    onClick={() => {handleDelete(user.uid)}}/>
+                                                    onClick={() => {showDeleteModal(user.uid)}}
+                                                    //onClick={() => handleDelete(user.uid)}
+                                                />
                                                 </span>
                                                 <div className="modal fade" id="exampleModalCenter" tabIndex="-1"
                                                      role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -132,9 +181,7 @@ const UserManagement = () => {
                                                                 <button type="button" className="btn btn-secondary"
                                                                         data-dismiss="modal">Close
                                                                 </button>
-                                                                <button type="button" className="btn btn-primary">Save
-                                                                    changes
-                                                                </button>
+                                                                <button type="button" className="btn btn-primary">Save</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -153,7 +200,7 @@ const UserManagement = () => {
 
 
             </table>
-
+            <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={submitDelete} hideModal={hideConfirmationModal}  id={id} message={deleteMessage}  />
 
         </div>
     );

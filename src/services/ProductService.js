@@ -67,6 +67,15 @@ export default {
             return error.response
         }
     },
+    deleteProduct: async function (uid) {
+        try {
+            return await axios.delete(BASE_URL + `/products/${uid}`,
+                {headers: {'Authorization': await getTokenId()}});
+        } catch (error) {
+            return error.response
+        }
+    },
+
 
 
 
