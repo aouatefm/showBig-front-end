@@ -142,7 +142,7 @@ const SideBar = (props) => {
     );
 
     return (
-        <div className={dropped ? 'sidebar dropped' : 'sidebar'} style={{marginTop : "150px"}}>
+        <div className={dropped ? 'sidebar dropped' : 'sidebar'} style={{marginTop : "80px"}}>
             <div className='sidebar-cell'>
                 <div className='sidebar-header' onClick={toggleSideBarDropped}>
                     <span className='sidebar-header-title'>Stores</span>

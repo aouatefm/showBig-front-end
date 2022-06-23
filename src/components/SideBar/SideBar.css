@@ -2,9 +2,9 @@
     .sidebar {
         margin-top: 5cm;
         width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
+        /*margin-left: auto;*/
+        /*margin-right: auto;*/
+        /*position: relative;*/
         border-right: 1px solid rgb(155, 155, 155);
     }
 
@@ -17,16 +17,16 @@
 @media (max-width: 992px) {
     .sidebar {
         width: 70%;
-        margin-top: 2cm;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 1cm;
-        padding-bottom: 1cm;
+        /*margin-top: 2cm;*/
+        /*margin-left: auto;*/
+        /*margin-right: auto;*/
+        /*margin-bottom: 1cm;*/
+        /*padding-bottom: 1cm;*/
         border-bottom: 1px solid rgb(155, 155, 155);
     }
 
     .sidebar .sidebar-header {
-        margin-bottom: 0.5cm;
+        /*margin-bottom: 0.5cm;*/
         font-weight: 700;
     }
 }
@@ -45,8 +45,8 @@
 
 .sidebar-header {
     display: flex;
-    width: 100%;
-    align-items: flex-start;
+    /*width: 100%;*/
+    /*align-items: flex-start;*/
 }
 
 .sidebar-header .sidebar-header-title {
@@ -83,7 +83,7 @@
 }
 
 .sidebar-cell-2 .sidebar-button {
-    display: block;
+    /*display: block;*/
     right: 0;
     float: right;
 }

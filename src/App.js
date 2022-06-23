@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import './App.css';
 import Routes from './containers/Routes';
 import Footer from './components/Footer/Footer';
@@ -19,28 +19,36 @@ import VendorService from "./services/VendorService";
 import {setAllOrders, setCustomerOrders} from "./redux/orders/order-action";
 import OrderService from "./services/OrderService";
 import {UserProvider} from "./firebase/UserProvider";
-import alanBtn from "@alan-ai/alan-sdk-web";
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class App extends Component {
     unsubscribeFromAuth = null;
+
     constructor(props) {
         super(props);
         this.state = {profile: null};
     }
 
-    componentDidMount () {
-        const { history } = this.props;
-        const { setCurrentUser,setLoading ,setRole,setAllProducts,setSideBarFilters,setAllOrders,setCustomerOrders,setUserProfile} = this.props;
+    componentDidMount() {
+        const {history} = this.props;
+        const {
+            setCurrentUser,
+            setLoading,
+            setRole,
+            setAllProducts,
+            setSideBarFilters,
+            setAllOrders,
+            setCustomerOrders,
+            setUserProfile
+        } = this.props;
         this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
             setLoading(true);
             setCurrentUser(userAuth);
-            if (userAuth)
-            {
-                const userProfile =await UserService.getUser(userAuth.uid)
+            if (userAuth) {
+                const userProfile = await UserService.getUser(userAuth.uid)
                 await setRole(userRole(userProfile));
                 await setUserProfile(userProfile);
-                await this.setState({profile : userProfile})
+                await this.setState({profile: userProfile})
             }
             setLoading(false);
             const products = await ProductService.getProductList()
@@ -52,55 +60,35 @@ class App extends Component {
             setCustomerOrders(customer_orders)
             setSideBarFilters({staticBrands: [...vendors]});
 
-            // alanBtn({
-            //     key: "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
-            //     onCommand: ({ command }) => {
-            //         if (command === "cartPage") {
-            //            history.push("/cart");
-            //         }
-            //         if (command === "vendorListing") {
-            //             history.push("/vendor-listing");
-            //         }
-            //          if (command === "homePage") {
-            //             history.push("/");
-            //         }
-            //         if (command === "shopPage") {
-            //             history.push("/product-listing");
-            //         }
-            //         if (command === "dashboard") {
-            //             history.push("/dashboard");
-            //         }
-            //         if (command === "adminDashboard") {
-            //             history.push("/admin");
-            //         }
-            //     },
-            // });
+
         });
     }
 
     componentWillUnmount() {
         this.unsubscribeFromAuth();
     }
+
     render() {
         return (
             <div className="App">
                 <UserProvider>
                     <header>
-                    <NavOne />
-                    <NavTwo /> {/*{this.props.role==='vendor' && <NavThree/>}*/}
-                   {/*<NavThree/>*/}
-                </header>
-                <body style={{paddingBottom: "266px"}}>
-                <div style={{marginTop : "50px"}}> <Routes/></div>
-                </body>
-                <footer className="footer-distributed">
-                    <Footer/>
-                </footer>
+                        <NavOne/>
+                        <NavTwo/> {/*{this.props.role==='vendor' && <NavThree/>}*/}
+                        {/*<NavThree/>*/}
+                    </header>
+                    <body style={{paddingBottom: "266px"}}>
+                    <div style={{marginTop: "10px"}}><Routes/></div>
+                    </body>
+                    <footer className="footer-distributed">
+                        <Footer/>
+                    </footer>
                 </UserProvider>
             </div>
         );
     }
 }
+
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     role: selectRole,
@@ -111,10 +99,10 @@ const mapDispatchToProps = dispatch => ({
     setLoading: loadingState => dispatch(setLoading(loadingState)),
     setRole: role => dispatch(setRole(role)),
     setUserProfile: profile => dispatch(setUserProfile(profile)),
-    setAllProducts : products => dispatch(setAllProducts(products)),
-    setCustomerOrders : customer_orders => dispatch(setCustomerOrders(customer_orders)),
+    setAllProducts: products => dispatch(setAllProducts(products)),
+    setCustomerOrders: customer_orders => dispatch(setCustomerOrders(customer_orders)),
     setSideBarFilters: newValues => dispatch(setSideBarFilters(newValues)),
-    setAllOrders : orders => dispatch(setAllOrders(orders)),
+    setAllOrders: orders => dispatch(setAllOrders(orders)),
 
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

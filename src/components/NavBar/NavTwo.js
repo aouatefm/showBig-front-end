@@ -20,7 +20,7 @@ function NavTwo({role}) {
                     <NavLink href="/product-listing" className="nav">Shop</NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="vendor-listing" className="nav">Vendor Stores</Nav.Link>
+                    <Nav.Link href="vendor-listing" className="nav">Stores</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href="#" className="nav">Contact</Nav.Link>

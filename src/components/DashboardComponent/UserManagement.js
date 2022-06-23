@@ -8,24 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useToasts} from "react-toast-notifications";
 
 import {
-    AddressIcon,
-    ConnectedProfileIcon,
-    DeleteIcon,
     EditIcon,
-    PlusIcon,
     ProfileIcon,
     ShopIcon,
-    TrashIcon
 } from "../../assets/icons";
 import "./UserManagement.css"
 import UserService from "../../services/UserService";
-import Button from "react-bootstrap/Button";
-import {Modal} from "react-bootstrap";
-import Moment from "moment";
-import {MultiSelect} from "react-multi-select-component";
-import Form from "react-bootstrap/Form";
 import DeleteConfirmation from "../VendorDashboard/DeleteConfirmation";
-import ProductService from "../../services/ProductService";
 const useUsers = () => {
     const [users, setUsers] = useState([]);
     useEffect(async () => {

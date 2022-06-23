@@ -16,7 +16,7 @@ const ViewBar = ({ collection, setViewBarValue }) => {
             );
         }
         let content = [];
-        content.push(<option key={5} value={5} defaultChecked>5 of { items.length }</option>);
+        // content.push(<option key={5} value={5} defaultChecked>5 of { items.length }</option>);
         content.push(<option key={10} value={10}>10 of { items.length }</option>);
         if (items.length > 20) {
             content.push(<option key={20} value={20}>20 of { items.length }</option>);

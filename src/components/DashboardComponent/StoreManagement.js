@@ -27,28 +27,28 @@ const StoreManagement = () => {
             <table className="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Owner</th>
-                    <th scope="col">Status</th>
+                    <td scope="col">#</td>
+                    <td scope="col">Name</td>
+                    <td scope="col">Description</td>
+                    <td scope="col">Phone Number</td>
+                    <td scope="col">Owner</td>
+                    <td scope="col">Status</td>
                 </tr>
                 </thead>
                 {
                     vendors ?
-                        vendors.length === 0 ? <td colSpan="5" style={{color :'red' , textAlign: 'center' ,margin :'35px'}}> Sorry ! No Store Found</td> :
+                        vendors.lengtd === 0 ? <td colSpan="5" style={{color :'red' , textAlign: 'center' ,margin :'35px'}}> Sorry ! No Store Found</td> :
                         (
                             <tbody>
                             {
                                 vendors.map((vendor, index) => (
                                     <tr key={index}>
-                                        <th scope="row">{index + 1}</th>
+                                        <td scope="row">{index + 1}</td>
                                         <td><a href={`/vendors/${vendor.store_id}`}>{vendor.name}</a></td>
                                         <td>{vendor.description}</td>
                                         <td>{vendor.phone_number}</td>
                                         <td><a href={`/edit_profile/${vendor.owner_id}`}>View owner profile</a></td>
-                                        <th scope="col">
+                                        <td scope="col">
 
                                             <Toggle
                                                 store={vendor.store_id}
@@ -58,7 +58,7 @@ const StoreManagement = () => {
                                                 onstyle="btn-success"
                                             />
 
-                                        </th>
+                                        </td>
                                     </tr>
                                 ))
                             }

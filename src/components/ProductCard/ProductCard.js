@@ -7,6 +7,8 @@ import Button from "react-bootstrap/Button";
 import Moment from "moment";
 const card = ({ product }) => {
    let price = product.price
+    // let decimal = price - Math.floor(price)
+    let decimal = price.toString().split('.')[1] ? price.toString().split('.')[1] : 0
     let formattedPrice = formatPrice(price, "$");
     const now = Moment(new Date());
     const end = Moment(product.created_at);
@@ -27,14 +29,13 @@ return (
         <div className="shelf-item__price">
             <div className="val">
                 <small>$</small>
-                <b>{price}</b>
-                <span>{.05}</span>
+                <b>{Math.trunc(price)}</b>
+                <span>{`.${decimal}`}</span>
 
                 <div className="val-rating"><ReactStars {...{size: 30, value: product.ratings_avg, edit: false, isHalf: true}} /></div>
             </div>
         </div>
-        <Button className="shelf-item__buy-btn">Add to cart</Button>
-        {/*<div className="shelf-item__buy-btn">Add to cart</div>*/}
+        <Button className="shelf-item__buy-btn">BUY NOW</Button>
     </div>
 
 );

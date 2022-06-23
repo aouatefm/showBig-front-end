@@ -3,7 +3,7 @@ const INITIAL_STATE = {
     searchbar: {keywords: '',},
     sidebar: {filters: {brands: [], staticBrands: [], minPrice: 0, maxPrice: 1000, minRate: 0, maxRate: 5, conditions: [],}, dropped: false,},
     sortbar: 'none',
-    viewbar: 5,
+    viewbar: 10,
     viewbargrid : true,
     v_products_search : {date : "", category :"", status :""},
     vendor_search : {name : "", address :""},

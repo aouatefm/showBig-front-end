@@ -17,7 +17,8 @@ const  useProducts = (p) =>{
     }, [p])
     return products
 }
-const Grid =  ({ Keywords,products ,filters,sortbar}) => {
+const Grid =  ({ Keywords,products ,filters,sortbar,}) => {
+
     const productsCollection = useProducts(products)
     const keywordsMatched = (item) => {
         const formattedKeywords = Keywords.trim().replace(/\s/g, '').toLowerCase();
@@ -48,21 +49,29 @@ const Grid =  ({ Keywords,products ,filters,sortbar}) => {
 
         return itemsToDisplay;
     }
+    const arrayChunk = (arr, n) => {
+        const array = arr.slice();
+        const chunks = [];
+        while (array.length) chunks.push(array.splice(0, n));
+        return chunks;
+    };
 
     return (
 
         <>
         { productsCollection &&
-        <div className="container">
-        <Row className="grid">
-        {
-            applyFilters(productsCollection).map(product => (
-               <Link to={{ pathname: `/products/${product.id}`}}>
-                  <Row lg={3.5}><ProductCard key={product.id} product={product} /></Row>
-               </Link>
-            ))
-        }
-         </Row>
+        <div >
+
+            {arrayChunk(products, 4).map((row, i) => (
+                <div key={i} className="row mx-auto">
+                    {row.map((product, i) => (
+                        <Link to={{ pathname: `/products/${product.id}`}}>
+                   <ProductCard key={product.id} product={product} />
+                        </Link>
+                    ))}
+                </div>
+            ))}
+         {/*</Row>*/}
 
     </div> }</>
     )

@@ -14,7 +14,6 @@ import {useParams} from "react-router-dom";
 import {setSortBarValue, SetVProductsFilters} from "../../redux/filters/filters-actions";
 import useReactRouter from "use-react-router";
 import SpinnerPage from "../Spinner/SpinnerPage";
-import alanBtn from "@alan-ai/alan-sdk-web";
 
 const ProductPage = ({products, viewbar,setSortBarValue}) => {
     let {name} = useParams();
@@ -24,20 +23,6 @@ const ProductPage = ({products, viewbar,setSortBarValue}) => {
     const categoryParam = params.get('find_cat');
     SetVProductsFilters({category :name})
 const [pageValue, setPageValue] = useState(1);
-
-    // useEffect(() => {
-    //     alanBtn({
-    //         top: "15px",
-    //         left: "15px",
-    //         key: "7820d53dc502681fc8916b1525af1e782e956eca572e1d8b807a3e2338fdd0dc/stage",
-    //         onCommand: ({ command, product  }) => {
-    //             if (command === "garden") {
-    //                 setSortBarValue("garden")
-    //             }
-    //         },
-    //     });
-    //    //filter("");
-    // }, []);
 
 
     const keywordsMatched = (item) => {

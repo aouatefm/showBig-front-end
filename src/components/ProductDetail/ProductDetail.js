@@ -302,17 +302,15 @@ const ProductDetail = ({cartItems, addItem}) => {
                                 </div>
                             }
                         </p>
-
-
                     </Tab>
 
-
-                    <Tab eventKey="PProducts" title="More items from same seller">
-                        <div style={{backgroundColor: "#F1F1F1", width: "1110px", height: "400px", padding: "20px"}}>
-                            <MoreProducts store={product.store_id}/>
-                        </div>
-                    </Tab>
+                    {/*<Tab eventKey="PProducts" title="More items from same seller">*/}
+                    {/*    <div style={{backgroundColor: "#F1F1F1", width: "1110px", height: "400px", padding: "20px"}}>*/}
+                    {/*        /!*<MoreProducts store={product.store_id}/>*!/*/}
+                    {/*    </div>*/}
+                    {/*</Tab>*/}
                 </Tabs>
+                <MoreProducts store={product.store_id}/>
                 <Recommendations id={id}/>
             </div>
 

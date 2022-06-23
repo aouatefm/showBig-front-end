@@ -19,10 +19,10 @@ const AboutTheVendor =  ({store}) => {
 
         <div>
             {vendor && <>
-                <p>{store}</p>
-                <p>{vendor.address}</p>
-                <p>{vendor.description}</p>
-                <p>{vendor.is_active}</p>
+                {/*<p>{store}</p>*/}
+                {/*<p>{vendor.address}</p>*/}
+                {/*<p>{vendor.description}</p>*/}
+                {/*<p>{vendor.is_active}</p>*/}
 
                 <VendorCard vendor={vendor}/>
             </>}
