@@ -74,7 +74,7 @@ const Routes = () => (
         <ProtectedRoute exact path="/customer-orders" component={CustomerOrders}/>
         <ProtectedRoute exact path="/profile_page" component={ProfilePage}/>
         <ProtectedRoute exact path="/edit_profile/:uid" component={EditProfile}/>
-        <PrivateRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
+        <ProtectedRoute exact path="/customer-orders/:id" component={CustomerOrderDetail}/>
         <Route exact path="/unauthorized" component={Unauthorized}/>
         <Route component={NotFound}/>
     </Switch>
