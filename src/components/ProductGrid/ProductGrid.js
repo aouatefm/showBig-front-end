@@ -62,7 +62,7 @@ const Grid =  ({ Keywords,products ,filters,sortbar,}) => {
         { productsCollection &&
         <div >
 
-            {arrayChunk(products, 4).map((row, i) => (
+            {arrayChunk(applyFilters(products), 4).map((row, i) => (
                 <div key={i} className="row mx-auto">
                     {row.map((product, i) => (
                         <Link to={{ pathname: `/products/${product.id}`}}>
