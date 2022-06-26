@@ -58,7 +58,7 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
     }, [currentUser]);
 
     let totalPrice = delivery;
-    cartItems.map(item => totalPrice += (item.discounted_price ? item.discounted_price * item.quantity : item.price * item.quantity));
+    cartItems.map(item => totalPrice += (item.eligible ? item.discounted_price * item.quantity : item.price * item.quantity));
     const priceForStripe = totalPrice * 100;
 
     const handleCoupon = async () => {
@@ -362,7 +362,7 @@ const Shop = ({cartItems, cartLength, currentUser, spinner, setLoading, clearCar
                                                     </div>
                                                     <div className="col-8">
                                                         <h5 style={{fontWeight: 'bold'}}>{item.name}</h5>
-                                                        {item.discounted_price ?
+                                                        {item.eligible  ?
                                                             <>
                                                                 <span style={{
                                                                     fontWeight: 'bold',
