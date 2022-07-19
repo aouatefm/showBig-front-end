@@ -9,6 +9,8 @@ import './OrderDetail.css'
 import {orderStatus} from "../../utils";
 import VendorService from "../../services/VendorService";
 import {useToasts} from "react-toast-notifications";
+import ProductService from "../../services/ProductService";
+import RatingService from "../../services/RatingService";
 
 
 const OrderDetail = (props) => {
@@ -20,7 +22,11 @@ const OrderDetail = (props) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(async () => {
-        setOrder(props.location.state.order);
+        // await setOrder(props.location.state.order);
+        // const newUser = await UserService.getUser(order.customer_id);
+        // setCustomer(newUser)
+        const newOrder = await OrderService.getOrderById(id);
+        setOrder(newOrder);
         const newUser = await UserService.getUser(order.customer_id);
         setCustomer(newUser)
     }, [])
@@ -49,6 +55,8 @@ const OrderDetail = (props) => {
     }
 
     const products = order.products
+    console.log("customer")
+    console.log(customer)
     return (
         <div>
             <div className="row">

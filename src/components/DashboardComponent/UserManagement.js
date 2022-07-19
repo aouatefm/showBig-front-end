@@ -53,9 +53,16 @@ const UserManagement = () => {
     const hideConfirmationModal = () => {
         setDisplayConfirmationModal(false);
     };
+    const showDeleteStore = () => {
+        addToast("You need to delete the store before", {
+            appearance: "info",
+            autoDismiss: true,
+            autoDismissTimeout: 2000,
+            TransitionState: "exiting",
+        });
+    };
     const submitDelete = async (id) => {
         const rest = await UserService.deleteUser(id)
-        console.log(rest)
         if (rest.status === 200)
         {
         addToast("User successfully deleted", {
@@ -140,6 +147,16 @@ const UserManagement = () => {
                                                     </span>
 
                                                 <span style={{margin: "3px", cursor: "pointer"}} className="action">
+                                                    {userRole(user) === 'vendor' ?
+                                                        <img
+                                                            src="https://cdn-icons-png.flaticon.com/512/179/179592.png"
+                                                            alt="delete" style={{
+                                                            verticalAlign: "middle",
+                                                            width: "18px",
+                                                            height: "18px"}}
+                                                            onClick={() => {showDeleteStore()}}
+                                                        />
+                                                        :
                                                     <img
                                                     src="https://icon-library.com/images/icon-delete/icon-delete-16.jpg"
                                                     alt="delete" style={{
@@ -148,7 +165,7 @@ const UserManagement = () => {
                                                     height: "18px"}}
                                                     onClick={() => {showDeleteModal(user.uid)}}
                                                     //onClick={() => handleDelete(user.uid)}
-                                                />
+                                                />}
                                                 </span>
                                                 <div className="modal fade" id="exampleModalCenter" tabIndex="-1"
                                                      role="dialog" aria-labelledby="exampleModalCenterTitle"

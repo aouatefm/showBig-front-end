@@ -41,9 +41,7 @@ function NavTwo({role}) {
                 }
                 {/*TODO: `remove the comment to switch between vendor and user*/}
 
-                <Nav.Item>
-                    <Nav.Link href="#" className="nav">{role}</Nav.Link>
-                </Nav.Item>
+
 
             </Nav>
         </div>

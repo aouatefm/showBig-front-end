@@ -40,7 +40,7 @@ import EditProduct from "../components/VendorDashboard/EditProduct";
 
 const Routes = () => (
     <Switch>
-        <Route exact path="/" component={Home}/>
+        <Route exact path="/" component={ProductPage}/>
         <Route exact path="/register" component={AuthenticationPage}/>
         <Route exact path="/cart" component={CartPage}/>
         <Route exact path="/shop" component={Shop}/>

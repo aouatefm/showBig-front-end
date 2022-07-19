@@ -6,8 +6,11 @@ import CategoriesService from "../services/CategoriesService"; // requires a loa
 import './Home.css'
 import SpinnerPage from "./Spinner/SpinnerPage";
 import garden from '../assets/garden.png'
+import useReactRouter from 'use-react-router';
+
 const useCategories = () => {
     const [categories, setCategories] = useState([]);
+
     useEffect(async () => {
         CategoriesService.getCategoriesList().then(cat => {
             setCategories(cat.data);
@@ -17,18 +20,27 @@ const useCategories = () => {
 }
 const Home = (props) => {
     const categories = useCategories()
+    const {history} = useReactRouter();
+    const [category, setCategory] = useState(null);
+
+    const searchProductPerCat = async (cat) => {
+        await setCategory(cat)
+        const urlEncodedCategory = encodeURI(category);
+        history.push(`/product-listing?find_cat=Electronic`);
+    }
+
     return(
     <div role="main" style={{marginTop :"30px" }}>
         {categories ?
         <div className="container" >
             <div className="row" style={{backgroundColor :"#f5f5f5"}} >
                 <div className="col-sm-4" style={{marginTop :"20px"}}>
-                    <ul className="list-group" style={{width:"auto"}}>
+                    <ul className="list-group" style={{width:"auto"}} >
                         {
                             categories &&
                             <>
                                 {categories.map(category => (
-                                    <li className="list-group-item cat-name" key={category.id}>{category.name}</li>
+                                    <li className="list-group-item cat-name" key={category.id} style={{cursor :"pointer"}} >{category.name} </li>
                                 ))}
                             </>
                         }
@@ -49,62 +61,18 @@ const Home = (props) => {
                     </Carousel>
                 </div>
             </div>
-            <SlickCarousel
-                size="large"
-                name="BEST OFFERS"
-            />
-            <SlickCarousel
-                size="large"
-                name="NEW RELEASE"
-            />
-            <SlickCarousel
-                size="small"
-                name="BEST SELLERS"
-            />
-            {/*<OurPartners />*/}
-
-            <div className="row">
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-                    <span>Garden & outdoor</span>
-                </div>
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-                <div className="col-sm">
-                    <img src={garden} alt="" className="icon"/>
-
-                </div>
-            </div>
+            {/*<SlickCarousel*/}
+            {/*    size="large"*/}
+            {/*    name="BEST OFFERS"*/}
+            {/*/>*/}
+            {/*<SlickCarousel*/}
+            {/*    size="large"*/}
+            {/*    name="NEW RELEASE"*/}
+            {/*/>*/}
+            {/*<SlickCarousel*/}
+            {/*    size="small"*/}
+            {/*    name="BEST SELLERS"*/}
+            {/*/>*/}
 
         </div>
             : <SpinnerPage/>}

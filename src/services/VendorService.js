@@ -89,5 +89,12 @@ export default {
             return error.response
         }
     },
+    deleteVendor: async function (store_id) {
+        try {
+            return await axios.delete(BASE_URL + `/stores/${store_id}`, {headers: {'Authorization': await getTokenId()}});
+        } catch (error) {
+            return error.response
+        }
+    },
 
 }

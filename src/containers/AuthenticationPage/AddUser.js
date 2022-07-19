@@ -131,7 +131,7 @@ class AddUser extends Component {
                     bssize="large"
                     disabled={!validateForm()}
                 >
-                    Register
+                    Add User
                 </Button>
 
 

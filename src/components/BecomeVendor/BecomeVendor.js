@@ -5,8 +5,10 @@ import VendorService from "../../services/VendorService";
 import AutoComplete from "react-google-autocomplete";
 import ImageUploader from "react-images-upload";
 import { useToasts } from "react-toast-notifications";
+import useReactRouter from "use-react-router";
 
 const BecomeVendor = () => {
+    const {history} = useReactRouter();
     const logo = useRef(null);
     const cover = useRef(null);
     const [ name, setName ]= useState("");
@@ -63,6 +65,7 @@ const BecomeVendor = () => {
                        autoDismissTimeout: 2000,
                        TransitionState: "exiting",
                    });
+                   history.push(`/vendor-listing`);
 
            }).catch(error => {
                setLoading(false);

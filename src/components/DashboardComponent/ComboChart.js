@@ -8,11 +8,11 @@ class ComboChart extends Component {
         this.state =
             {
                 series: [{
-                    name: 'Website Blog',
+                    name: 'Sales',
                     type: 'column',
                     data: props.sales
                 }, {
-                    name: 'Social Media',
+                    name: 'Products',
                     type: 'line',
                     data: props.products
                     //data: []
@@ -26,7 +26,7 @@ class ComboChart extends Component {
                         width: [0, 4]
                     },
                     title: {
-                        text: 'Traffic Sources'
+                        text: 'Monthly Product Sales'
                     },
                     dataLabels: {
                         enabled: true,
@@ -38,13 +38,13 @@ class ComboChart extends Component {
                     },
                     yaxis: [{
                         title: {
-                            text: 'Website Blog',
+                            text: 'Sales ($)',
                         },
 
                     }, {
                         opposite: true,
                         title: {
-                            text: 'Social Media'
+                            text: 'Number of products'
                         }
                     }]
                 },

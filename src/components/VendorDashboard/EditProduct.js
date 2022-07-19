@@ -4,7 +4,7 @@ import {useToasts} from "react-toast-notifications";
 import {auth, storage} from "../../firebase/firebase";
 import ProductService from "../../services/ProductService";
 import NavThree from "../NavBar/NavThree";
-import ImageUploader from "react-images-upload";
+import { useNavigate } from "react-router-dom";
 import CategoriesService from "../../services/CategoriesService";
 import {useParams} from "react-router-dom";
 import UserService from "../../services/UserService";
@@ -91,47 +91,16 @@ const EditProduct = () => {
         if(event[0]){await setFileAdded(true)}
     }
 
-    // const onSubmit = async (event) =>
-    // {
-    //     event.preventDefault();
-    //     setLoading(true);
-    //     if (!auth.currentUser) {
-    //         alert('You have to log in first!')
-    //         return;
-    //     }
-    //     const storageRef = storage.ref(`products/${file0.current.name}`);
-    //     storageRef.put(file0.current)
-    //         .then(async () => {
-    //             const imageUrl = await storageRef.getDownloadURL();
-    //             const jwtToken = await auth.currentUser.getIdToken();
-    //             setLoading(true);
-    //             const res =  await ProductService.addProduct(name,price,shipping,category,stock,ptype,imageUrl,description)
-    //             addToast("Product successfully added to your store", {
-    //                 appearance: "success",
-    //                 autoDismiss: true,
-    //                 autoDismissTimeout: 2000,
-    //                 TransitionState: "exiting",
-    //             });
-    //             history.push("/vendor-products");
-    //             setLoading(false)
-    //         }).catch(error => {
-    //         console.log(error);
-    //         setLoading(false)
-    //         alert('An error happened!')
-    //     });
-    //     setLoading(false);
-    // }
+
 
     const uploadToFirebase = async () => {
         if (imageAdded) {
             setLoading(true)
             const storageRef = storage.ref(`products/${imageRef.current.name}`);
             storageRef.put(imageRef.current)
-                .then(async () => {
+                .then(async () =>
+                {
                     const imageProdUrl = await storageRef.getDownloadURL();
-                    console.log("imageProdUrl")
-                    console.log(imageProdUrl)
-
                     const response = await ProductService.editProduct(name,price,shipping,category,stock,ptype,imageProdUrl,description,video,uid)
                     if (response.status === 201) {
                         addToast("Product successfully updated",
@@ -143,8 +112,8 @@ const EditProduct = () => {
                             });
 
                         setLoading(false)
+                        history.push("/dashboard");
                     }
-
 
                     else {
 
@@ -275,7 +244,7 @@ const EditProduct = () => {
                         <br/>
 
                         <div className="button-wrap">
-                            <label className="new-button" htmlFor="upload">Choose image
+                            <label className="new-button" htmlFor="upload">Change image
                                 <input id="upload" accept='image/*' type="file" onChange={(e) => {
                                     onImageChange(e)
                                 }}/>

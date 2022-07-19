@@ -20,6 +20,9 @@ class Spline extends React.Component {
                     //height: 350,
                     type: 'area'
                 },
+            title: {
+                text: 'Daily Product Sales'
+            },
                 dataLabels: {
                     enabled: false
                 },
@@ -30,6 +33,17 @@ class Spline extends React.Component {
                     type: 'string',
                     categories: props.dates
                 },
+                yaxis: [{
+                    title: {
+                        text: 'Sales ($)',
+                    },
+
+                }, {
+                    opposite: true,
+                    title: {
+                        text: 'Number of products'
+                    }
+                }],
                 tooltip: {
                     x: {
                         format: 'dd/MM/yy HH:mm'

@@ -29,7 +29,11 @@ class DonutChart extends Component {
                             console.log(config.w.config.labels[config.dataPointIndex]);
                         }
                     }
-                },
+                }
+            ,
+            title: {
+                text: 'Sales Per Store'
+            },
 
                 // generate random color code for each store
                 colors: colors,

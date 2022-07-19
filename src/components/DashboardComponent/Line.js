@@ -9,7 +9,7 @@ class Line extends Component {
         this.state = {
 
             series: [{
-                name: "Desktops",
+                name: "Sales",
                 data: props.sales
             }],
             options: {
@@ -27,7 +27,7 @@ class Line extends Component {
                     curve: 'straight'
                 },
                 title: {
-                    text: 'Product Trends by Month',
+                    text: 'Sales Trends by Month',
                     align: 'left'
                 },
                 grid: {
